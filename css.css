@@ -18,6 +18,10 @@ label{
   display: inline;
 }
 
+nav {
+  margin-top:50px;
+}
+
 .form-group{
   margin-bottom:10px;
   padding: 7px;
@@ -147,6 +151,31 @@ label{
 .col input:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   border: 1px solid rgba(81, 203, 238, 1);
+}
+
+.autreg {
+  display: inline;
+  margin-left: 75%;
+
+}
+
+.autreg a {
+ -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  background: #d10740;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.autreg a:hover {
+  background: #eb657e;
+  text-decoration: none;
 }
 
 
