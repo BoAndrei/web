@@ -22,6 +22,17 @@ nav {
   margin-top:50px;
 }
 
+ul li {
+  list-style: none;
+}
+li{
+  text-decoration: none;
+}
+a{
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .form-group{
   margin-bottom:10px;
   padding: 7px;
@@ -153,6 +164,10 @@ nav {
   border: 1px solid rgba(81, 203, 238, 1);
 }
 
+/*##################################################*/
+/* CSS PENTRU PAGINA DE PROFIL */
+/*##################################################*/
+
 .autreg {
   display: inline;
   margin-left: 75%;
@@ -176,6 +191,224 @@ nav {
 .autreg a:hover {
   background: #eb657e;
   text-decoration: none;
+}
+
+.log {
+  margin-left: 10%;
+}
+.PanouControl {
+  margin-top:5%;
+  width: 25%;
+  margin-left: -40px;
+}
+
+
+.PanouControl  li  a {
+  position: relative;
+  display: block;
+  padding: 15px 20px;
+  text-decoration: none;
+}
+
+.PanouControl  ul li  a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  border-bottom: 1px solid #3A3A3A;
+  background: #C2C2C2;
+  text-decoration: none;
+  color: #3A3A3A;
+  font-size: 20px;
+  text-shadow: 0 1px 0 rgba(255,255,255,.75);
+}
+
+.PanouControl  ul li  a:hover{
+  background: #D6D6D6;
+
+
+}
+
+.separator {
+  border-right: 1px solid #3A3A3A !important;
+  height: 5px; 
+  margin: -15px 15px 0px 8px; ;
+  width: 7px;
+  color: #BEC4CC;
+}
+
+.icon {
+  position: relative;
+  top: 6px;
+  margin-left: 10px;
+}
+i {
+   position: relative;
+  top: 6px;
+}
+.PanouControl ul li  a span {
+  float: left;
+  height: 44px;
+  margin-right: 10px;
+  width: 15px;
+  margin-top: -10px;
+}
+
+
+
+.arrow-right,
+.arrow-right2,
+.arrow-right3,
+.arrow-right4 {
+  display: none;
+  position: fixed;
+  margin-left: 302px;
+  top: 136px;
+  width: 0; 
+  height: 0; 
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+  border-left: 22px solid #C2C2C2;
+}
+
+.arrow-right2 {
+  top:180px;
+}
+
+.arrow-right3 {
+  top:224px;
+}
+
+.arrow-right4 {
+  top:268px;
+}
+
+.arrow-right5 {
+  top:312px;
+}
+
+.SetarileContului {
+  
+  float: right;
+  margin-right: 35%;
+  margin-top:-130px;
+}
+#SchimbareEmail{
+  width: 185px; 
+}
+#SchimbareEmail,
+#SchimbareParola {
+  color:#F2F2F2;
+  background-color: #827F7F;
+  padding: 15px 110px 15px 110px; 
+
+}
+.SchimbareEmail,
+.SchimbareParola {
+
+
+
+  cursor: pointer;
+
+
+  padding: 0px 0px ;
+  border-bottom: 1px solid #3A3A3A;
+  background: #C2C2C2;
+  text-decoration: none;
+  color: #3A3A3A;
+  font-size: 20px;
+  text-shadow: 0 1px 0 rgba(255,255,255,.75);
+}
+
+
+
+.SchimbareEmailInputs,
+.SchimbareParolaInputs {
+
+
+  display: none;
+  margin-right: 40px;
+  text-align: center;
+}
+
+.SchimbareParola {
+
+  top:232px;
+}
+
+.MesajeWrapper {
+  margin:  -150px auto;
+  margin-right: 20px;
+  padding: 10px;
+  width: 1000px;
+  background: #fff;
+  border:solid 1px #000;
+  border-radius: 2px;
+}
+#EmailForm {
+  margin-right: 40px;
+  text-align: center;
+  display: none;
+}
+.Compune {
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+ 
+  cursor: pointer;
+}
+
+#MesajeForm {
+  display: none;
+}
+
+.DisplayMessages {
+
+}
+
+.upperIndex {
+  margin:  150px auto;
+  margin-right: 20px;
+  padding: 10px;
+  width: 1000px;
+  background: gray;
+  border:solid 1px #000;
+  border-radius: 2px;
+  border-bottom: 5px solid orange;
+
+}
+.lowerIndex {
+  margin:  -150px auto;
+  margin-right: 20px;
+  padding: 10px;
+  width: 1000px;
+  background: #fff;
+  border:solid 1px #000;
+  border-radius: 2px;
+ 
+}
+
+td {
+ display: inline-block;
+
+}
+
+#thumb{
+   -webkit-box-shadow: 0px 0px 3px 5px #9C9C9C;
+-moz-box-shadow: 0px 0px 3px 5px #9C9C9C;
+box-shadow: 0px 0px 3px 5px #9C9C9C; 
+cursor: pointer;
+}
+
+#thumb:hover{
+   -webkit-box-shadow: 0px 0px 3px 5px deepskyblue;
+-moz-box-shadow: 0px 0px 3px 5px deepskyblue;
+box-shadow: 0px 0px 3px 5px deepskyblue; 
+}
+
+.SchimbareImagine {
+  float: right;
+  margin-right: 40%;
+  margin-top:-100px;
 }
 
 
