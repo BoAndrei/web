@@ -340,6 +340,7 @@ $user = Auth::user();
 
 		
 		<input class = "btn" id= "LoginSubmit" type = "submit" value = "Autentificare"></input>
+	<a href="recuperareparola">Ti-ai uitat parola ?</a>
 	</form>
 
 
@@ -362,7 +363,9 @@ $user = Auth::user();
 
 
 
-<?php if(Request::segment(2) == Auth::user()->username){?>
+<?php if(Request::segment(2))
+{
+if(Request::segment(2) == Auth::user()->username){?>
 
 <!DOCTYPE HTML>
 <html>
@@ -648,8 +651,8 @@ $(document).ready(function() {
 if(Request::segment(5))
 	{ $segment = Request::segment(5);
 	 $mesaj = DB::table("mesaje")->where("mesaj_id",$segment)->first();
-	 $destinatar_id = $mesaj->destinatar_id;
-	 $user = DB::table("users")->where("user_id",$destinatar_id)->first();
+	 $expeditor_id = $mesaj->expeditor_id;
+	 $user = DB::table("users")->where("user_id",$expeditor_id)->first();
 	echo $user->username;}
 
 
@@ -693,6 +696,6 @@ if(Request::segment(5))
 
 </body>
 </html>
-<?php } ?>
+<?php } }?>
 </body>
 </html>

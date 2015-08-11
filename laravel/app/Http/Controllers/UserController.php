@@ -79,6 +79,11 @@ class UserController extends Controller {
 
 		}
 
+		public function RecuperareParola()
+		{
+			return view('RecuperareParola');
+		}
+
 
 
 	}

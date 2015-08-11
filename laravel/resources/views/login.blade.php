@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html>
 <body>
@@ -19,6 +18,7 @@
 	</div>
 
 		<input type = "submit" value = "LogIn"></input>
+		<a href="recuperareparola">Ti-ai uitat parola ?</a>
 	</form>
 
 

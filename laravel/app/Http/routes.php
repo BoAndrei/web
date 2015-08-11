@@ -49,6 +49,9 @@ Route::get('profil/{username}/mesaje/sterge-mesaje/{mesaj_id}','ProfilController
 
 Route::get('profil/{username}/modificareimagine','ProfilController@modificareimagine');
 
+Route::post('/EditImagine','ProfilController@EditImagine');
+
+Route::get('recuperareparola','UserController@RecuperareParola');
 
 
 Route::get('admin',function(){
