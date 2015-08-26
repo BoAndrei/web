@@ -9,6 +9,8 @@ use Session;
 use Illuminate\Contracts\Auth\Guard;
 use Validator;
 use App\Register;
+use DB;
+use Response;
 
 
 class SessionController extends Controller {
@@ -48,22 +50,22 @@ class SessionController extends Controller {
 	public function StoreLogin()
 	{
 		 
-        if(Auth::attempt(array('username'=>Input::get('username'), 'password'=>Input::get('password'))))
+      $lol = DB::table('users')->where('username','=',Input::get('username'))->first();
+        if($lol->user_status != 'banned')
 		{
+ 			 if(Auth::attempt(array('username'=>Input::get('username'), 'password'=>Input::get('password'))))
 
-			 $json = json_encode( array( "name"=>"John" ) );
-			 return $json;
-			
+			{return Response::json(['success' => 'request succeeded'], 200);}
+				else return Response::json(['status' => 'cacat'], 404);
 		}
 
-		else return Response::json(array('action'=>'reset')); 
+		else return Response::json(['status' => 'banned'], 403);
  
 	}
 
 	public function destroy()
 	{
 		 
-        //Auth::logout();
         Session::flush();
         return Redirect::to('/');
  

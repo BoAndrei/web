@@ -1,17 +1,25 @@
 @extends('layouts.PrimaPaginaLayout')
+<style type="text/css">
 
-<?php 
-
-if(count(DB::table('mesaje')->where('citit','=','1')->first())>0)
-{
-	//$mesaj = DB::table('mesaje')->where('citit','=','1')->first();
-
-if('56' == '56')
-{
-	//echo '<style>span{background-color:black;}</style>';
+.regular{
+	color:black;
+	font-weight: bold;
 }
+
+.marker {
+	
+	color:black;
 }
-?>
+
+.new {
+	font-weight: normal;
+}
+
+
+
+</style>
+
+
 @section('Mesaje')
 <div class = "Mesaje">
 <div class = "MesajeWrapper">
@@ -75,23 +83,36 @@ if('56' == '56')
 		
 
     @foreach ($mesaje as $mesaj)
-       @foreach ($users as $user)
 
-         @if ($user->user_id == $mesaj->expeditor_id && Auth::user()->user_id == $mesaj->destinatar_id && $mesaj->viz_exp != 1)
-              
-                
-                	<div >
-                		
-                	<a name = "{{$mesaj->mesaj_id}}" value = "{{$mesaj->mesaj_id}}"style = "line-height:30px;position:relative;padding:16px 18px 16px 120px;display: inline; height: 100%;"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}">{{$user->username}}</a>
-
-                	<a name = "{{$mesaj->mesaj_id}}"value = "{{$mesaj->mesaj_id}}"style = "padding:16px 18px 16px 220px;display: inline; height: 100%;"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}"> {{$mesaj->subiect}}</a>
-               
-                	<a name = "{{$mesaj->mesaj_id}}"value = "{{$mesaj->mesaj_id}}"style = "padding:16px 170px 16px 210px;display:inline; height: 100%;"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}">{{$mesaj->data_mesajului}}<a>
+@if($mesaj->viz_exp != 1)
+               @if($mesaj->citit == 1 && $mesaj->destinatar_id == Auth::user()->user_id )
+                	<div class = "chill">
                 	
-                	<a name = "{{$mesaj->mesaj_id}}"value = "{{$mesaj->mesaj_id}}"style = "padding:16px 170px 16px 210px;display:inline; height: 100%;"href = "/profil/{{Auth::user()->username}}/mesaje/sterge-mesajd/{{ $mesaj->mesaj_id }}">X<a>
+                	<a class = "new"id = "{{$mesaj->mesaj_id}}" name = "username" value = "{{$mesaj->mesaj_id}}"style = "line-height:30px;position:relative;padding:16px 18px 16px 120px;display: inline; height: 100%;"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}">{{$mesaj->username}}</a>
+
+                	<a class = "new" id = "{{$mesaj->mesaj_id}}" name = "subiect"value = "{{$mesaj->mesaj_id}}"style = "padding:16px 18px 16px 220px;display: inline; height: 100%;"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}"> {{$mesaj->subiect}}</a>
+               
+                	<a class = "new" id = "{{$mesaj->mesaj_id}}" name = "data_mesajului"value = "{{$mesaj->mesaj_id}}"style = "padding:16px 170px 16px 160px;display:inline; height: 100%;"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}">{{$mesaj->data_mesajului}}<a>
+                	
+                	<a name = "{{$mesaj->mesaj_id}}"value = "{{$mesaj->mesaj_id}}"style = "padding:10px 100px 10px -50px;display:inline; height: 100%;"href = "/profil/{{Auth::user()->username}}/mesaje/sterge-mesajd/{{ $mesaj->mesaj_id }}">X<a>
                   </div><hr>  
-         @endif
-      @endforeach
+               
+
+                @elseif($mesaj->citit != 1&& $mesaj->destinatar_id == Auth::user()->user_id )
+				<div class = "chill">
+                	<span class = "marker">*</span>	
+                	<a class = "regular" id = "{{$mesaj->mesaj_id}}" name = "username" value = "{{$mesaj->mesaj_id}}"style = "line-height:30px;position:relative;padding:16px 18px 16px 120px;display: inline; height: 100%;"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}">{{$mesaj->username}}</a>
+
+                	<a class = "regular" id = "{{$mesaj->mesaj_id}}" name = "subiect"value = "{{$mesaj->mesaj_id}}"style = "padding:16px 18px 16px 220px;display: inline; height: 100%;"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}"> {{$mesaj->subiect}}</a>
+               
+                	<a class = "regular" id = "{{$mesaj->mesaj_id}}" name = "data_mesajului"value = "{{$mesaj->mesaj_id}}"style = "padding:16px 170px 16px 160px;display:inline; height: 100%;"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}">{{$mesaj->data_mesajului}}<a>
+                	
+                	<a name = "{{$mesaj->mesaj_id}}"value = "{{$mesaj->mesaj_id}}"style = "padding:10px 100px 10px -50px;display:inline; height: 100%;"href = "/profil/{{Auth::user()->username}}/mesaje/sterge-mesajd/{{ $mesaj->mesaj_id }}">X<a>
+                  </div><hr>  
+
+
+                @endif
+@endif      
     @endforeach
 
 

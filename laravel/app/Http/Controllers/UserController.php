@@ -13,6 +13,10 @@ use App\User;
 use DB;
 use Response;
 use App\Mesaje;
+use Mail;
+use Swift_SmtpTransport;
+use Config;
+use Request;
 
 
 
@@ -79,9 +83,86 @@ class UserController extends Controller {
 
 		}
 
+		public function EditParola2()
+		{
+		
+
+			if (Input::get('NouaParola') == Input::get('NouaParola2') && Input::get('NouaParola') != '' && strlen(Input::get('NouaParola')) > 4)
+			{
+				$newPassword = Hash::make(Input::get('NouaParola'));
+				
+
+				DB::table('users')->where('email',Request::segment(2))->update(array('password' => $newPassword ));
+				
+				
+				return Redirect::to('/');
+			}
+
+			
+			
+
+			 
+
+		}
+
+
 		public function RecuperareParola()
 		{
+			// dd(Config::get('mail'))
 			return view('RecuperareParola');
+		}
+
+		public function ParolaNoua()
+		{
+
+			$length = 10;
+			$randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+			echo $randomString;
+			
+			if(count(DB::table('users')->where('email','=',Input::get('email'))->first()) == 0)
+			{
+				return Redirect::to('recuperareparola');
+			}
+
+				Mail::raw('Parola noua este:'.$randomString, function($message) {
+   				 $message->to(Input::get('email'), Input::get('email'))->subject('Parola Noua');
+				
+				});
+
+				DB::table('users')->where('email','=',Input::get('email'))->update(array('password' => Hash::make($randomString)));
+			
+			
+			return Redirect::to('/');
+		}
+
+		public function ParolaNoua2()
+		{
+
+			$length = 30;
+			$randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+
+			$user = DB::table('users')->where('email','=',Input::get('email'))->first();
+			if(count($user) == 0)
+			{
+				return Redirect::to('recuperareparola');
+			}
+
+			$link = '<a href = "localhost/'.$randomString.'">Link</a>';
+				
+			DB::table('passwordrecovery')->insert(array('hash' => $randomString, 'user_id' => $user->user_id));
+				Mail::raw('Pentru a reseta parola acceseaza acest link:http://localhost/'.Input::get('email').'/'.$randomString, function($message) {
+   				 $message->to(Input::get('email'), Input::get('email'))->subject('Parola Noua');
+				
+				});
+
+				//DB::table('users')->where('email','=',Input::get('email'))->update(array('password' => Hash::make($randomString)));
+			
+			
+			return Redirect::to('/');
+		}
+
+		public function resetparola() {
+			return view('ResetParola');
 		}
 
 

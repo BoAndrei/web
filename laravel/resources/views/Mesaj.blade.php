@@ -52,14 +52,17 @@
 	<div class = "lowerIndex">
 		<?php $sup = Request::segment(5)?>
 		@foreach($mesaje as $mesaj)
-		  @foreach ($users as $user)
+		  
 
-			@if($user->user_id == $mesaj->expeditor_id && $sup == $mesaj->mesaj_id)
-				<span>De la {{$user->username}} :</span><br><br>
+			@if($sup == $mesaj->mesaj_id )
+				<span>De la {{$mesaj->username}} :</span><br><br>
 				<span>Subiect : {{$mesaj->subiect}} </span><br><br>
 				<span>Continut : {{ $mesaj->mesaj }}</span>
 			@endif
-		@endforeach
+
+	
+			
+		
 	@endforeach
 	<br><br><input type = "submit" id = "Raspunde"value = "Raspunde"></input>
 	</div>

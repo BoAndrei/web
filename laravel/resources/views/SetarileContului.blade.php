@@ -73,7 +73,7 @@
 			<input type = "text" name = "NouaParola2" id="NouaParola2"></input>
 		<div id = "eNouaParola2"></div>
 		</div><br>
-	<input style = "margin-left:0px;"class = "btn" id= "ParolaSubmit" type = "submit" value = "Modifica"></input>
+	<input style = "margin-left:0px;"class = "btnNou" id= "ParolaSubmit" type = "submit" value = "Modifica"></input>
 	</div>
 
 </form>

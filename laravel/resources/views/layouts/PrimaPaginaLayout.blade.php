@@ -2,6 +2,23 @@
 <html>
 
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap styles -->
+<?php //<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> ?>
+<!-- Generic page styles -->
+
+<!-- blueimp Gallery styles -->
+<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+<link rel="stylesheet" href="/css/jquery.fileupload.css">
+<link rel="stylesheet" href="/css/jquery.fileupload-ui.css">
+<!-- CSS adjustments for browsers with JavaScript disabled -->
+<noscript><link rel="stylesheet" href="/css/jquery.fileupload-noscript.css"></noscript>
+<noscript><link rel="stylesheet" href="/css/jquery.fileupload-ui-noscript.css"></noscript>
+
+
+
+	<meta charset="UTF-8">
 @include ('js')
 <script type="text/javascript">
 $(document).ready(function(){
@@ -94,8 +111,15 @@ $(document).ready(function(){
 
 
 					}
-				}
-					
+
+
+				},
+				statusCode:{
+				403: function() {
+			      $('#formerror').html('<span style="color:red;">Acest user a fost banat!</span>');
+						
+			    }
+					}
 		});
 			
 	});
@@ -253,7 +277,12 @@ $(document).ready(function(){
 </head>
 <body>
 <nav>	
+	<div class = "stanga">
+
+ <a href = "/" value = "Acasa">Acasa</a>
+	</div>
 	<div class = "autreg">
+
 @if (Auth::check())
 <?php 
 $user = Auth::user();
@@ -263,7 +292,7 @@ $user = Auth::user();
   <a class = "log" href = "/logout" id = "logout" name = "logout">LogOut</a>
                         
 @else
- 
+  
   <a class = "aut" value = "Autentificare" id = "modal-open-button-a">Autentificare</a>
   <a class = "reg" value = "Inregistrare" id = "modal-open-button-i">Inregistrare</a>
  
@@ -361,10 +390,19 @@ $user = Auth::user();
 
 
 
-
-
 <?php if(Request::segment(2))
 {
+	$snail = DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->where('citit','0')->get();
+
+
+	if (count($snail)!= 0 )
+{
+	echo '<style>
+
+	.nav-link2 .icon{color:red;}
+	</style>';
+}
+
 if(Request::segment(2) == Auth::user()->username){?>
 
 <!DOCTYPE HTML>
@@ -675,10 +713,15 @@ if(Request::segment(5))
 
 <div class = "PanouControl">
 	<ul>
-		
+
+		<?php 
+		//$huser = DB::table('users')
+		$snail = DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->where('citit','0')->get();
+	?>
 		<li><a class = "nav-link" href = "/profil/{{Auth::user()->username}}/setarilecontului"><span class = "icon">&#128295;</span><span class = "separator"></span>Setarile contului</a></li>
-		<li><a class = "nav-link2" href = "/profil/{{Auth::user()->username}}/mesaje"><span class = "icon">&#128194;</span><span class = "separator"></span>Mesaje</a></li>
+		<li><a class = "nav-link2" href = "/profil/{{Auth::user()->username}}/mesaje"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Mesaje (<?php echo count($snail); ?> noi)</a></li>
 		<li><a class = "nav-link3" href = "/profil/{{Auth::user()->username}}/modificareimagine"><span class = "icon"><i class="fa fa-picture-o"></i></span><span class = "separator"></span>Modificare imagine</a></li>
+		<li><a class = "nav-link4" href = "/profil/{{Auth::user()->username}}/datepersonale"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Datele Personale</a></li>
 	<div class = "arrow-right"></div>
 		<div class = "arrow-right2"></div>
 		<div class = "arrow-right3"></div>
@@ -693,6 +736,8 @@ if(Request::segment(5))
 @yield('Mesaj')
 
 @yield('SchimbareImagine')
+
+@yield('DatePersonale')
 
 </body>
 </html>

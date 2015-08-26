@@ -33,6 +33,8 @@ Route::post('EditEmail','UserController@EditEmail');
 
 Route::post('EditParola','UserController@EditParola');
 
+Route::post('EditParola2/{email}','UserController@EditParola2');
+
 Route::post('TrimiteMesaj','MesajeController@TrimiteMesaj');
 
 Route::get('profil/{username}/setarilecontului','ProfilController@setarilecontului');
@@ -53,7 +55,20 @@ Route::post('/EditImagine','ProfilController@EditImagine');
 
 Route::get('recuperareparola','UserController@RecuperareParola');
 
+Route::post('parolanoua','UserController@ParolaNoua');
+
+Route::post('parolanoua2','UserController@ParolaNoua2');
+
+Route::get('/{email}/{hash}','UserController@resetparola');
+
+Route::get('/profil/{username}/datepersonale','ProfilController@datepersonale');
+
+Route::post('/EditDate','ProfilController@EditDate');
 
 Route::get('admin',function(){
 	return 'Admin page';
 });
+
+
+
+

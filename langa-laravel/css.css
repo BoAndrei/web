@@ -1,0 +1,462 @@
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  
+  cursor: pointer;
+}
+label{
+  display: inline;
+}
+
+nav {
+  margin-top:50px;
+}
+
+ul li {
+  list-style: none;
+}
+li{
+  text-decoration: none;
+}
+a{
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.form-group{
+  margin-bottom:10px;
+  padding: 7px;
+  border-color: #66afe9;
+  margin-left: 50px;
+  font-weight: bold;
+
+}
+
+.form-horizontal {
+  background-color: white;
+  z-index: 99999;
+  position: fixed;
+  display: none;
+  margin-top: 100px;
+  margin-left: 300px;
+  margin-right: 300px;
+  width: 650px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  padding: 25px 25px 25px 25px;
+}
+
+.haserror{
+
+  border-color:red;
+  border-style:solid;
+}
+
+.has-success {
+  border-color:green;
+  border-style:solid;
+}
+
+.col{
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+ 
+}
+
+#overlay-bg {
+  display: none;
+  height: 100%;
+  width: 100%;
+  z-index: 1001;
+  position: fixed;
+  top:0;
+  left: 0;
+  margin: auto;
+  background-color: #000;
+  opacity: 0.6;
+}
+
+.btn {
+  margin-left: 500px;
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 7px #666666;
+  -moz-box-shadow: 0px 0px 7px #666666;
+  box-shadow: 0px 0px 7px #666666;
+  border: solid #ffffff 0px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 19px;
+  background: #187ebd;
+  padding: 10px 20px 10px 22px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #48b7f7;
+  text-decoration: none;
+}
+
+.btn:focus {
+  outline: 0;
+}
+ 
+.btn-x {
+  z-index: 100000;
+  position: absolute;
+  margin-top: -40px;
+  margin-left: 630px;
+  border: solid #ffffff 0px;
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 35px;
+   padding: 4px 15px 8px 15px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-x:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+.btn-x:focus {
+  outline: 0;
+}
+
+.col input {
+  padding: 7px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+  width: 230px;
+}
+
+.col input:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+/*##################################################*/
+/* CSS PENTRU PAGINA DE PROFIL */
+/*##################################################*/
+
+.autreg {
+  display: inline;
+  margin-left: 70%;
+
+}
+
+.autreg a {
+ -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  background: #d10740;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.autreg a:hover {
+  background: #eb657e;
+  text-decoration: none;
+}
+
+
+.PanouControl {
+  margin-top:5%;
+  width: 25%;
+  margin-left: -40px;
+}
+
+
+.PanouControl  li  a {
+  position: relative;
+  display: block;
+  padding: 15px 20px;
+  text-decoration: none;
+}
+
+.PanouControl  ul li  a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  border-bottom: 1px solid #3A3A3A;
+  background: #C2C2C2;
+  text-decoration: none;
+  color: #3A3A3A;
+  font-size: 20px;
+  text-shadow: 0 1px 0 rgba(255,255,255,.75);
+}
+
+.PanouControl  ul li  a:hover{
+  background: #D6D6D6;
+
+
+}
+
+.separator {
+  border-right: 1px solid #3A3A3A !important;
+  height: 5px; 
+  margin: -15px 15px 0px 8px; ;
+  width: 7px;
+  color: #BEC4CC;
+}
+
+.icon {
+  position: relative;
+  top: 6px;
+  margin-left: 10px;
+  display: inline;
+}
+i {
+   position: relative;
+  top: 6px;
+}
+.PanouControl ul li  a span {
+  float: left;
+  height: 44px;
+  margin-right: 10px;
+  width: 15px;
+  margin-top: -10px;
+}
+
+
+
+.arrow-right,
+.arrow-right2,
+.arrow-right3,
+.arrow-right4 {
+  display: none;
+  position: fixed;
+  margin-left: 302px;
+  top: 136px;
+  width: 0; 
+  height: 0; 
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+  border-left: 22px solid #C2C2C2;
+}
+
+.arrow-right2 {
+  top:180px;
+}
+
+.arrow-right3 {
+  top:224px;
+}
+
+.arrow-right4 {
+  top:268px;
+}
+
+.arrow-right5 {
+  top:312px;
+}
+
+.SetarileContului {
+  
+  float: right;
+  margin-right: 35%;
+  margin-top:-130px;
+}
+#SchimbareEmail{
+  width: 185px; 
+}
+#SchimbareEmail,
+#SchimbareParola {
+  color:#F2F2F2;
+  background-color: #827F7F;
+  padding: 15px 110px 15px 110px; 
+
+}
+.SchimbareEmail,
+.SchimbareParola {
+
+
+
+  cursor: pointer;
+
+
+  padding: 0px 0px ;
+  border-bottom: 1px solid #3A3A3A;
+  background: #C2C2C2;
+  text-decoration: none;
+  color: #3A3A3A;
+  font-size: 20px;
+  text-shadow: 0 1px 0 rgba(255,255,255,.75);
+}
+
+
+
+.SchimbareEmailInputs,
+.SchimbareParolaInputs {
+
+
+  display: none;
+  margin-right: 40px;
+  text-align: center;
+}
+
+.SchimbareParola {
+
+  top:232px;
+}
+
+.MesajeWrapper {
+  margin:  -150px auto;
+  margin-right: 20px;
+  padding: 10px;
+  width: 1000px;
+  background: #fff;
+  border:solid 1px #000;
+  border-radius: 2px;
+}
+#EmailForm {
+  margin-right: 40px;
+  text-align: center;
+  display: none;
+}
+.Compune {
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+ 
+  cursor: pointer;
+}
+
+#MesajeForm {
+  display: none;
+}
+
+.DisplayMessages {
+
+}
+
+.upperIndex {
+  margin:  150px auto;
+  margin-right: 20px;
+  padding: 10px;
+  width: 1000px;
+  background: gray;
+  border:solid 1px #000;
+  border-radius: 2px;
+  border-bottom: 5px solid orange;
+
+}
+.lowerIndex {
+  margin:  -150px auto;
+  margin-right: 20px;
+  padding: 10px;
+  width: 1000px;
+  background: #fff;
+  border:solid 1px #000;
+  border-radius: 2px;
+ 
+}
+
+td {
+ display: inline-block;
+
+}
+
+#thumb{
+   -webkit-box-shadow: 0px 0px 3px 5px #9C9C9C;
+-moz-box-shadow: 0px 0px 3px 5px #9C9C9C;
+box-shadow: 0px 0px 3px 5px #9C9C9C; 
+cursor: pointer;
+}
+
+#thumb:hover{
+   -webkit-box-shadow: 0px 0px 3px 5px deepskyblue;
+-moz-box-shadow: 0px 0px 3px 5px deepskyblue;
+box-shadow: 0px 0px 3px 5px deepskyblue; 
+}
+
+.SchimbareImagine {
+  float: right;
+  margin-right: 10%;
+  margin-top:-90px;
+}
+
+.stanga {
+  display: inline;
+  margin-left: 5%;
+}
+
+.stanga a {
+ -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  background: #d10740;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.stanga a:hover {
+  background: #eb657e;
+  text-decoration: none;
+}
+
+#poster{
+ 
+  margin-left: 330px;
+  position: relative;
+  margin-top: -270px;
+}
+
+#posterbtn
+{
+  margin-top: 20px;
+  position: relative;
+  right: 170px;
+  
+}
+
+/*#thumb:hover{
+   -moz-transform: scale(2);
+   -webkit-transform: scale(2);
+   -o-transform: scale(2);
+   transform: scale(2);
+   -ms-transform: scale(2);
+filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand',
+   M11=2, M12=-0, M21=0, M22=2);
+z-index:  9999999999999999;
+}*/
+

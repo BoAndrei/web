@@ -13,7 +13,7 @@ class Register extends Model {
  
         public static function saveFormData()
         {
-            $data = date("Y-m-d H:i:s", strtotime('+3 hours'));
+            $data = date("d-m-Y H:i:s", strtotime('+3 hours'));
             DB::table('users')->insert(array('username'=>Input::get('username'), 'password'=>Hash::make(Input::get('password')),'email'=>Input::get('email'),'date_registered'=>$data));
 
         }

@@ -13,6 +13,10 @@ use DB;
 use Response;
 use App\User;
 use Request;
+use Imagick;
+use ImagickPixel;
+
+
 
 
 
@@ -25,10 +29,13 @@ class ProfilController extends Controller {
 
 		public function mesaje()
 		{
-			$mesaje = Mesaje::all();
+			//$mesaje = Mesaje::all();
 			if(Auth::check())
 			{
+				
+				$mesaje = DB::table('mesaje')->where('expeditor_id',Auth::user()->user_id)->orWhere('destinatar_id',Auth::user()->user_id)->join('users','user_id','=','mesaje.expeditor_id')->orderBy('data_mesajului', 'desc')->get();
 				return view('Mesaje')->with('mesaje',$mesaje)->withUsers(User::all());
+			
 			}
 			 else return Redirect::to('/');
 		}
@@ -37,7 +44,7 @@ class ProfilController extends Controller {
 		{
 			if(Auth::check())
 						{
-							DB::table('mesaje')->where('mesaj_id',Request::segment(5))->update(array('citit' => '1'  ));
+							DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->where('mesaj_id',Request::segment(5))->update(array('citit' => '1'  ));
 
 						$mesaj_id = Request::segment(5); $salut = DB::table('mesaje')->where('mesaj_id',$mesaj_id)->first();
 			$lol = Auth::user()->user_id;
@@ -49,9 +56,11 @@ class ProfilController extends Controller {
 					if( $salut->expeditor_id != $lol && $salut->destinatar_id != $lol){
 			return Redirect::to('/');
 			 die();}
-						$mesaje = Mesaje::all();
-						
-							return view('Mesaj')->with('mesaje',$mesaje)->withUsers(User::all());
+
+
+			 $mesaje = DB::table('mesaje')->where('expeditor_id',Auth::user()->user_id)->orWhere('destinatar_id',Auth::user()->user_id)->join('users','user_id','=','mesaje.expeditor_id')->orderBy('data_mesajului', 'desc')->get();
+				return view('Mesaj')->with('mesaje',$mesaje)->withUsers(User::all());
+			
 						}
 
 						else return Redirect::to('/');
@@ -89,15 +98,22 @@ class ProfilController extends Controller {
 			}else return Redirect::to('/');
 		}
 
+
+
 		public function modificareimagine()
 		{
-			//DB::table('users')->insert(array('image' => Input::get('image')));
 			return view('SchimbareImagine');
 		}
 
+		
+
+
+
 		public function EditImagine()
-		{
+		{$ok = 0;
 			if(isset($_FILES["image"])){
+				//die(var_dump());
+				//die(var_dump(call_user_func_array('mb_convert_encoding', array(basename($_FILES["image"]["name"]),'ISO-8859-2','UTF-8')) ));
 $target_dir = "images/";
     $target_file = $target_dir . basename($_FILES["image"]["name"]);
 
@@ -130,7 +146,7 @@ $target_dir = "images/";
       return Redirect::to('http://localhost/profil/'.Auth::user()->username.'/modificareimagine');
 
     } else {
-    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+    if (move_uploaded_file($_FILES["image"]["tmp_name"],$target_dir . mb_convert_encoding(basename($_FILES["image"]["name"]),'ISO-8859-2','UTF-8'))) {
         echo "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
    
     } else {
@@ -140,11 +156,64 @@ $target_dir = "images/";
     }
   }
 
-}
-			 DB::table('users')->where('user_id',Auth::user()->user_id)->update(array('image' => $target_file));
+}$ok = 0;
+			if( DB::table('users')->where('user_id',Auth::user()->user_id)->update(array('image' => $target_file)))
+			{$ok=1;}
 			
+if($ok == 1)
+{
+function convertImage($source,$dst,$width,$height,$quality)
+{
+	$imageSize = getimagesize($source);
+ if ($imageSize['mime'] == 'image/jpeg') 
+    {
+        $imageRessource = imagecreatefromjpeg($source);
+    }
+    else if ($imageSize['mime'] == 'image/gif') 
+    {
+        $imageRessource = imagecreatefromgif($source);
+    }
+    else if($imageSize['mime'] == 'image/png') 
+    
+        $imageRessource = imagecreatefrompng($source);
+    
+	//$imageRessource = imagecreatefromjpeg($source);
+
+	$imageFinal = imagecreatetruecolor($width, $height);
+
+	$final = imagecopyresampled($imageFinal, $imageRessource, 0, 0, 0, 0, $width, $height, $imageSize[0], $imageSize[1]);
+//header('Content-Type: image/png');
+	imagejpeg($imageFinal,$dst,$quality);
+}
+convertImage('images/'.mb_convert_encoding(basename($_FILES["image"]["name"]),'ISO-8859-2','UTF-8'),'images/'.mb_convert_encoding(basename($_FILES["image"]["name"]),'ISO-8859-2','UTF-8').'','300','300', 100);
+}
+
 			return Redirect::to('http://localhost/profil/'.Auth::user()->username.'/modificareimagine');
+	
+
 		}
+
+		public function datepersonale()
+		{
+			return view('DatePersonale');
+		}
+
+		public function EditDate()
+		{
+			$data_user_id = DB::table('users_data')->first();
+			if($data_user_id->users_data_id == Auth::user()->user_id)
+			
+			{
+				DB::table('users_data')->where('users_data_id',Auth::user()->user_id)->update( array('nume'=>Input::get('Nume'), 'prenume'=>Input::get('Prenume'), 'adresa'=>Input::get('Adresa'), 'ziua'=>Input::get('date_day'), 'luna'=>Input::get('date_month'), 'anul'=>Input::get('date_year'), 'localitate'=>Input::get('oras'), 'sexul'=>Input::get('sexul') ) );
+				return Redirect::to('http://localhost/profil/'.Auth::user()->username.'/datepersonale');
+			}
+			else
+			{
+				DB::table('users_data')->insert( array('users_data_id'=>Auth::user()->user_id, 'nume'=>Input::get('Nume'), 'prenume'=>Input::get('Prenume'), 'adresa'=>Input::get('Adresa'), 'data_nasterii'=>Input::get('date_day'). ' - '.Input::get('date_month').' - '.Input::get('date_year'), 'localitate'=>Input::get('oras'), 'sexul'=>Input::get('sexul') ) );
+				return Redirect::to('http://localhost/profil/'.Auth::user()->username.'/datepersonale');
+			}
+		}
+
 
 
 		

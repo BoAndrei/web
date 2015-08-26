@@ -59,7 +59,7 @@ return [
             'username'  => env('DB_USERNAME', 'root'),
             'password'  => env('DB_PASSWORD', ''),
             'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
+            'collation' => 'utf8_romanian_ci',
             'prefix'    => '',
             'strict'    => false,
         ],

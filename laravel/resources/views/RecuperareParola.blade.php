@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <body>
-	<?php
+	<?php/*
 $to = "handrei152@gmail.com";
 $subject = "My subject";
 $txt = "Hello world!";
@@ -12,10 +12,10 @@ $mail = mail($to,$subject,$txt,$headers);
 if($mail == true)
 {
 	echo 'mail sent';
-}
+}*/
 ?>
 <title></title>
-	<form action = "login_process" method = "POST">
+	<form action = "parolanoua2" method = "POST">
 		 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 	<div class="form-group">
@@ -27,8 +27,8 @@ if($mail == true)
 	 </div>
 	</div>
 
-		<input type = "submit" value = "Trimite-mi o parola noua"></input>
-		<a href="recuperareparola">Ti-ai uitat parola ?</a>
+		<input type = "submit" value = "Trimite-mi o parola noua">
+		
 	</form>
 
 
