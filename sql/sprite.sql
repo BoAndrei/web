@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 25 Aug 2015 la 18:15
+-- Generation Time: 26 Aug 2015 la 18:57
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `image`, `date_registered`, `user_type`, `user_status`) VALUES
-(24, 'admin', '$2y$10$qLKPZhJ0uWbLUfUsGEe9W.goVdUAB93bPAluRsvrNakQV.90vgSXG', 'bocsan_andrei@yahoo.com', 'images/descărcare.jpg', '2015-08-04 14:53:29', '', ''),
+(24, 'admin', '$2y$10$qLKPZhJ0uWbLUfUsGEe9W.goVdUAB93bPAluRsvrNakQV.90vgSXG', 'bocsan_andrei@yahoo.com', 'images/update.png', '2015-08-04 14:53:29', '', ''),
 (25, 'admin2', '$2y$10$YpUAsmHXndknt4ZjDhj84eo3DihXt70tb1mw/E9mRrLU1xzLaeOY2', 'admin2@yahoo.com', 'images/sad.jpg', '31-07-2015 14:42:40', '', ''),
 (26, 'buyaka', '$2y$10$HKup2R.UV0uQt1kjCddTuu/0CjeN72IhcNrg0zc1QYa.uHhgAqPKu', 'buyaka@yahoo.com', '', '2015-08-01 00:25:54', '', ''),
 (27, 'juya', '$2y$10$PnjMzoWTBoDrLSz9wbuyFuinObuJD1pHqQE5F1qx0OauY7W8/bfK2', 'juyaya@yahoo.com', '', '2015-08-01 16:51:37', '', ''),
