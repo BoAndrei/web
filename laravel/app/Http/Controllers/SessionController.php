@@ -11,6 +11,9 @@ use Validator;
 use App\Register;
 use DB;
 use Response;
+use Cookie;
+use App;
+
 
 
 class SessionController extends Controller {
@@ -19,13 +22,13 @@ class SessionController extends Controller {
 		return view('register');
 	}
 
-	public function login(){
+	public function admin(){
 
-		if (!Auth::guest()) 
+		if (Auth::user() && Auth::user()->user_type == 'admin') 
 		{
-			return Redirect::to('/admin');
-		}
-		return view('login');
+			return view('AdminPage');
+		} else return Redirect::to('/');
+		
 	}
 
 	public function StoreRegister()
@@ -49,14 +52,24 @@ class SessionController extends Controller {
 
 	public function StoreLogin()
 	{
-		 
+		
+  
+		 $remember = (Input::has('remember')) ? true : false;
+		 $date = array('username'=>Input::get('username'), 'password'=>Input::get('password') );
       $lol = DB::table('users')->where('username','=',Input::get('username'))->first();
-        if($lol->user_status != 'banned')
+        if($lol->user_type != 'banned')
 		{
- 			 if(Auth::attempt(array('username'=>Input::get('username'), 'password'=>Input::get('password'))))
+ 			 if(Auth::attempt($date,$remember))
 
-			{return Response::json(['success' => 'request succeeded'], 200);}
-				else return Response::json(['status' => 'cacat'], 404);
+			{
+
+				return Response::json(['success' => 'request succeeded'], 200);
+			}
+			
+			else 
+				return Response::json(['status' => 'satat'], 404);
+
+
 		}
 
 		else return Response::json(['status' => 'banned'], 403);
@@ -65,9 +78,25 @@ class SessionController extends Controller {
 
 	public function destroy()
 	{
-		 
+		   DB::table('users')->where('user_id',Auth::user()->user_id)->update(array('user_status'=>'0')); 
+ //if ((time() - Session::activity()) > (Config::get('session.lifetime') * 60))
+//{
+    //DB::table('users')->where('user_id',Auth::user()->user_id)->update(array('user_status'=>'0')); 
+
+//}
+
+		   
+DB::table('users')->where('user_id',Auth::user()->user_id)->update(array('remember_token'=>'')); 
+
+
+      $ckname=Auth::getRecallerName(); //Get the name of the cookie, where remember me expiration time is stored
+      $ckval=Cookie::get($ckname); //Get the value of the cookie
+       //change the expiration time
+  
+
         Session::flush();
-        return Redirect::to('/');
+        return Redirect::to('/')->withCookie(Cookie::make($ckname,$ckval,-10080));
+     
  
 	}
 }

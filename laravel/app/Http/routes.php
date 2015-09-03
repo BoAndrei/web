@@ -12,8 +12,8 @@
 */
 
 Route::get('/', function () {
+      
     return view('PrimaPagina');
-    
 
 });
 
@@ -59,16 +59,29 @@ Route::post('parolanoua','UserController@ParolaNoua');
 
 Route::post('parolanoua2','UserController@ParolaNoua2');
 
-Route::get('/{email}/{hash}','UserController@resetparola');
+Route::get('/resetparola/{email}/{hash}','UserController@resetparola');
 
 Route::get('/profil/{username}/datepersonale','ProfilController@datepersonale');
 
 Route::post('/EditDate','ProfilController@EditDate');
 
-Route::get('admin',function(){
-	return 'Admin page';
-});
+Route::get('admin','SessionController@admin');
 
+Route::get('/admin/totiuserii','AdminController@TotiUserii');
+
+Route::get('/admin/introducerecategorii','AdminController@introducerecategorii');
+
+Route::post('/EditCategorii','AdminController@EditCategorii');
+
+Route::get('/topicnou','UserController@TopicNou');
+
+Route::post('/EditTopic','UserController@EditTopic');
+
+Route::get('/toatetopicurile','UserController@ToateTopicurile');
+
+Route::get('/topic/{topic_urlslug}','UserController@Topic');
+
+Route::post('PostReply','UserController@PostReply');
 
 
 

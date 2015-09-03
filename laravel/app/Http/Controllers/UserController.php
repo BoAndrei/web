@@ -17,6 +17,7 @@ use Mail;
 use Swift_SmtpTransport;
 use Config;
 use Request;
+use Illuminate\Support\Str;
 
 
 
@@ -108,7 +109,6 @@ class UserController extends Controller {
 
 		public function RecuperareParola()
 		{
-			// dd(Config::get('mail'))
 			return view('RecuperareParola');
 		}
 
@@ -150,7 +150,7 @@ class UserController extends Controller {
 			$link = '<a href = "localhost/'.$randomString.'">Link</a>';
 				
 			DB::table('passwordrecovery')->insert(array('hash' => $randomString, 'user_id' => $user->user_id));
-				Mail::raw('Pentru a reseta parola acceseaza acest link:http://localhost/'.Input::get('email').'/'.$randomString, function($message) {
+				Mail::raw('Pentru a reseta parola acceseaza acest link:http://localhost/resetparola/'.Input::get('email').'/'.$randomString, function($message) {
    				 $message->to(Input::get('email'), Input::get('email'))->subject('Parola Noua');
 				
 				});
@@ -162,9 +162,75 @@ class UserController extends Controller {
 		}
 
 		public function resetparola() {
+			
 			return view('ResetParola');
+		
 		}
 
+		public function TopicNou() {
+			$categorii = DB::table('categories')->get();
+			return view('TopicNou')->with('categorii',$categorii);
+		
+		}
+
+		public function EditTopic() {
+			
+				
+
+			$slug = Str::slug(Input::get('Topic'));
+			
+			$var = DB::table('topics')->where('topic_urlslug',$slug)->select('occurances')->first();
+
+			$k = $var->occurances;
+
+			$data = date("Y-m-d H:i:s", strtotime('+3 hours'));
+			
+			$topics = DB::table('topics')->where('topic_urlslug',$slug)->get();
+
+			if($topics)
+			{
+				$k++;
+				DB::table('topics')->where('topic_urlslug',$slug)->update(array( 'occurances'=> $k ));				
+			}
+
+			
+			if($k > 0)
+			{
+				DB::table('topics')->insert(array( 'author_id'=>Auth::user()->user_id, 'contents'=>Input::get('Topic'), 'date_added'=>$data, 'categorie'=>Input::get('categorie'),'topic_urlslug'=>$slug.'-'.$k ));
+				return Redirect::to('/topicnou');
+			}
+else if($k == 0){
+	DB::table('topics')->insert(array( 'author_id'=>Auth::user()->user_id, 'contents'=>Input::get('Topic'), 'date_added'=>$data, 'categorie'=>Input::get('categorie'),'topic_urlslug'=>$slug ));
+			return Redirect::to('/topicnou');
+}
+		
+		}
+
+		public function ToateTopicurile()
+		{
+
+			$topics = DB::table('topics')->orderBy('date_added', 'DESC')->get();
+			return view('ToateTopicurile')->with('topics',$topics);
+		}
+
+		public function Topic() {
+
+			//$topic_id = DB::table('replies')->join('topics','topics','=','topic_id')->get();
+
+			$replies = DB::table('replies')->join('topics','topic','=','topic_urlslug')->join('users','replies.author_id','=','user_id')->where('topic',Request::segment(2))->orderBy('replies.date_added', 'DESC')->get();
+			//die(var_dump($replies));
+			$topic = DB::table('topics')->join('users','author_id','=','user_id')->where('topic_urlslug',Request::segment(2))->get();
+			
+			return view('Topic')->with('topic',$topic)->with('replies',$replies);
+		}
+
+		public function PostReply() {
+			
+			$data = date("Y-m-d H:i:s", strtotime('+3 hours'));
+			DB::table('replies')->insert(array( 'content'=>Input::get('reply'), 'date_added'=>$data, 'topic'=>Input::get('topic_id'),'author_id'=>Auth::user()->user_id ));
+			return Redirect::to('/topic/');
+
+		}
 
 
 	}

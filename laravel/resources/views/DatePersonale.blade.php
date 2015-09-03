@@ -136,7 +136,7 @@ if($ziua->sexul == 'Masculin')
 
 
 <br><br>
-<input style = "margin-left:250px;"class = "btn" id= "DateSubmit" type = "submit" value = "Modifica"></input>
+<input style = "margin-left:250px;"class = "btnNou" id= "DateSubmit" type = "submit" value = "Modifica"></input>
 		
 
 

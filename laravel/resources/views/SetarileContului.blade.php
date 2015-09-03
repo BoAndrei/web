@@ -32,7 +32,7 @@
 			<input style = "font-size:15px;"type = "text" name = "ParolaActuala" id="ParolalActuala"></input>
 		<div id = "eParolaActuala"></div>
 		</div><br>
-		<input style = "margin-left:0px;"class = "btn" id= "EmailSubmit" type = "submit" value = "Modifica"></input>
+		<input style = "margin-left:0px;"class = "btnNou" id= "EmailSubmit" type = "submit" value = "Modifica"></input>
 
 	</div>
 	</form>

@@ -1,4 +1,10 @@
 <!DOCTYPE HTML>
+<?php 
+
+
+
+
+?>
 <html>
 
 <head>
@@ -280,19 +286,24 @@ $(document).ready(function(){
 	<div class = "stanga">
 
  <a href = "/" value = "Acasa">Acasa</a>
+ <a href = "/topicnou/" value = "TopicNou">Topic nou</a>
+ <a href = "/toatetopicurile/" value = "ToateTopicurile">Toate Topicurile</a>
 	</div>
 	<div class = "autreg">
 
 @if (Auth::check())
-<?php 
-$user = Auth::user();
-  echo '<a href="/profil/'.$user->username.'">Profil</a>';
-?>
+
+<?php DB::table('users')->where('user_id',Auth::user()->user_id)->update(array('user_status'=>'1')); ?>
+
+
+@if(Auth::user()->user_type == 'admin')
+ <a  href = "/admin" id = "logout" name = "admin">Admin Page</a>
+@endif
+<?php echo '<a href="/profil/'.Auth::user()->username.'">Profil</a>'; ?>
 
   <a class = "log" href = "/logout" id = "logout" name = "logout">LogOut</a>
                         
 @else
-  
   <a class = "aut" value = "Autentificare" id = "modal-open-button-a">Autentificare</a>
   <a class = "reg" value = "Inregistrare" id = "modal-open-button-i">Inregistrare</a>
  
@@ -366,9 +377,10 @@ $user = Auth::user();
 	<div id="erpassword"></div>
 	 </div>
 	</div>
-
+<input name = "remember" id = "remember" type = "Checkbox">
+<label for = "remember">Remeber me</label>
 		
-		<input class = "btn" id= "LoginSubmit" type = "submit" value = "Autentificare"></input>
+		<input class = "btnNou" id= "LoginSubmit" type = "submit" value = "Autentificare"></input>
 	<a href="recuperareparola">Ti-ai uitat parola ?</a>
 	</form>
 
@@ -392,7 +404,8 @@ $user = Auth::user();
 
 <?php if(Request::segment(2))
 {
-	$snail = DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->where('citit','0')->get();
+	if(!Auth::check()){header('location:/');die();}
+$snail = DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->where('citit','0')->get();
 
 
 	if (count($snail)!= 0 )
@@ -402,8 +415,7 @@ $user = Auth::user();
 	.nav-link2 .icon{color:red;}
 	</style>';
 }
-
-if(Request::segment(2) == Auth::user()->username){?>
+if(Request::segment(2) == Auth::user()->username ){?>
 
 <!DOCTYPE HTML>
 <html>
@@ -739,8 +751,49 @@ if(Request::segment(5))
 
 @yield('DatePersonale')
 
-</body>
-</html>
+
 <?php } }?>
+
+
+@if(Auth::user() && Auth::user()->user_type == 'admin' && Request::segment(1) == 'admin')
+
+<div class = "PanouControl">
+	<ul>
+
+		<?php //else if( Request::segment(1) != 'admin') {header('location: /');die();}
+		//$huser = DB::table('users')
+		$snail = DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->where('citit','0')->get();
+	?>
+		<li><a class = "nav-link" href = "/admin/totiuserii"><span class = "icon">&#128295;</span><span class = "separator"></span>Toti userii</a></li>
+		<li><a class = "nav-link2" href = "/admin/introducerecategorii"><span style = "color:black;display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Introducere categorii</a></li>
+		<li><a class = "nav-link3" href = "/profil/{{Auth::user()->username}}/modificareimagine"><span class = "icon"><i class="fa fa-picture-o"></i></span><span class = "separator"></span>Modificare imagine</a></li>
+		<li><a class = "nav-link4" href = "/profil/{{Auth::user()->username}}/datepersonale"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Datele Personale</a></li>
+	<div class = "arrow-right"></div>
+		<div class = "arrow-right2"></div>
+		<div class = "arrow-right3"></div>
+		<div class = "arrow-right4"></div>
+	</ul>
+</div>
+
+@yield('IntroducereCategorii')
+@endif
+
+@if(Auth::user() && Request::segment(1) == 'topicnou')
+
+@yield('TopicNou')
+
+@endif
+
+@if(Auth::user() && Request::segment(1) == 'toatetopicurile')
+
+@yield('ToateTopicurile')
+
+@endif
+
+@if(Auth::user() && Request::segment(1) == 'topic')
+
+@yield('Topic')
+
+@endif
 </body>
 </html>

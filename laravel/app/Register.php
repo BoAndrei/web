@@ -8,7 +8,8 @@ use Hash;
 class Register extends Model {
         protected $guarded = array();
         protected $table = 'users'; 
-        public $timestamps = 'false' ; 
+        public $timestamps = 'false' ;
+        
  
  
         public static function saveFormData()
