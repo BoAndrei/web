@@ -348,7 +348,7 @@ else if($k == 0){
 
 			$topics = DB::table('topics')->join('categories','categorie','=','denumire')->join('users','user_id','=','author_id')->where('topic_urlslug','like',"%$search_term%")->get();
 
-			
+
 
 			return view('welcome')->with('topics',$topics);
 		}

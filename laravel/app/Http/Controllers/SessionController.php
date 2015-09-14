@@ -45,9 +45,21 @@ class SessionController extends Controller {
 	{
 		return Redirect::back()->withInput()->withErrors($validator);
 	}
-	
-    Register::saveFormData(Input::except(array('_token')));
-    return Redirect::to('/');
+	 $user = DB::table('users')->where('username',Input::get('username'))->first();
+	 $email = DB::table('users')->where('email',Input::get('email'))->first();
+
+	 if (count($user) == 0 && count($email) == 0)
+    	{
+    		$data = date("d-m-Y H:i:s", strtotime('+3 hours'));
+        	DB::table('users')->insert(array('username'=>Input::get('username'), 'password'=>Hash::make(Input::get('password')),'email'=>Input::get('email'),'date_registered'=>$data));
+   			return Redirect::to('/');
+   		}
+   	else if (count($user) != 0)
+   			 return Response::json(['success' => 'request succeeded'], 200);
+				
+   			else if (count($email) != 0)
+   					 return Response::json(['success' => 'request succeeded'], 201);
+   
 }
 
 	public function StoreLogin()

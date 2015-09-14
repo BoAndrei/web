@@ -33,7 +33,7 @@
 				<textarea id="mesaj" name = "mesaj" rows="10" cols="70"></textarea>
 			</div>
 			</div>
-<input style = "margin-left:0px;"class = "btn" id= "MesajSubmit" type = "submit" value = "Trimite mesaj"></input>
+<input style = "margin-left:0px;"class = "btnNou" id= "MesajSubmit" type = "submit" value = "Trimite mesaj"></input>
 		</form>
 
 </div>

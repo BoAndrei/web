@@ -209,13 +209,7 @@ $(document).ready(function(){
 				error:function() {
 					if(testt == 'John')
 					{
-						if(username != '' && username.length > 3)
-						{
-							$('#username').css('border-color','red','border-style','solid;');
-							$('#eusername').html('<span style="color:red;">Acest username este deja luat</span>');
-						}
-
-						else if(username == '')
+						 if(username == '')
 						{
 							$('#username').css('border-color','red','border-style','solid;');
 							$('#eusername').html('<span style="color:red;">Trebuie sa introduci un username</span>');
@@ -253,14 +247,9 @@ $(document).ready(function(){
 							$('#epassword').html('');
 						}
 
-						if(email != '' && email.indexOf('@') !=-1 && email.indexOf('.') !=-1)
-						{
-							$('#email').css('border-color','red','border-style','solid;');
-							$('#eemail').html('<span style="color:red;">Acest email este deja luat</span>');
 						
-						}
 
-						else if(email == '' || email.indexOf('@')==-1 || email.indexOf('.')==-1)
+						 if(email == '' || email.indexOf('@')==-1 || email.indexOf('.')==-1)
 						{
 							$('#email').css('border-color','red','border-style','solid;');
 							$('#eemail').html('<span style="color:red;">Trebuie sa introduci un email valid</span>');
@@ -268,23 +257,31 @@ $(document).ready(function(){
 
 						else
 						{
-							k++;
+							
 							$('#email').css('border-color','green','border-style','solid;');
 							$('#eemail').html('');
 						}
 					}
-				}
+				},
+				statusCode:{
+				200: function() {
+			      $('#username').css('border-color','red','border-style','solid;');
+							$('#eusername').html('<span style="color:red;">Acest username deja a fost luat</span>');	
+			    }
+					},
+				statusCode:{
+				201: function() {
+			      $('#username').css('border-color','red','border-style','solid;');
+							$('#eusername').html('<span style="color:red;">Acest username deja a fost luat</span>');	
+			    }
+					}
 				
 				
 			});
 			
 			
 
-			
-			if(k == 3)
-			{
-				$('html').load('/');
-			}
+		
 
 			//$('#RegisterForm')[0].reset();
 		
@@ -394,13 +391,14 @@ $(document).ready(function(){
 		<input id = "passwordl" class="{{ $errors->has('password') ? 'has-error' : '' }}" type = "password" name = "password"value="{{ Input::old('password') }}"></input><br>
 		
 	<div id="erpassword"></div>
-	 </div>
+	 </div><br>
+	 <input style = "cursor:pointer"name = "remember" id = "remember" type = "Checkbox">
+<label style = "cursor:pointer" for = "remember">Remeber me</label><br>
 	</div>
-<input name = "remember" id = "remember" type = "Checkbox">
-<label for = "remember">Remeber me</label>
-		
-		<input class = "btnNou" id= "LoginSubmit" type = "submit" value = "Autentificare"></input>
-	<a href="recuperareparola">Ti-ai uitat parola ?</a>
+
+		<br>
+		<input style = "margin-left:200px;"class = "btnNou" id= "LoginSubmit" type = "submit" value = "Autentificare"></input>
+	<a class = "btnNou" href="recuperareparola">Ti-ai uitat parola ?</a>
 	</form>
 
 
