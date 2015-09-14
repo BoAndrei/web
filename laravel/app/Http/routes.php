@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('/test','UserController@Search');
 
 Route::get('/', function () {
       
@@ -79,9 +80,18 @@ Route::post('/EditTopic','UserController@EditTopic');
 
 Route::get('/toatetopicurile','UserController@ToateTopicurile');
 
-Route::get('/topic/{topic_urlslug}','UserController@Topic');
+Route::get('/topic/{categ_urlslug}/{topic_urlslug}','UserController@Topic');
 
 Route::post('PostReply','UserController@PostReply');
 
+Route::post('/likeAdd','UserController@likeAdd');
+
+Route::post('/dislikeAdd','UserController@dislikeAdd');
+
+Route::get('/topicdelete/{topic_urlslug}','UserController@TopicDelete');
+
+Route::get('/replydelete/{reply_id}','UserController@ReplyDelete');
+
+Route::get('/search','UserController@Search');
 
 

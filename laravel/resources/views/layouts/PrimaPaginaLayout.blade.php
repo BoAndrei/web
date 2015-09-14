@@ -1,13 +1,14 @@
-<!DOCTYPE HTML>
-<?php 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
-
-
-?>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
+<?php require_once '/php/Parsedown.php';
+$parsedown = new Parsedown();
+
+//echo $parsedown->text($text);
+ ?>
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap styles -->
 <?php //<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> ?>
@@ -21,10 +22,28 @@
 <!-- CSS adjustments for browsers with JavaScript disabled -->
 <noscript><link rel="stylesheet" href="/css/jquery.fileupload-noscript.css"></noscript>
 <noscript><link rel="stylesheet" href="/css/jquery.fileupload-ui-noscript.css"></noscript>
+<!-- Progress bar  -->
+<script src='/js/nprogress.js'></script>
+<link href='/css/nprogress.css' rel='stylesheet' />
+<link rel="stylesheet" href="/css/jRating.jquery.css" type="text/css" />
 
+  
+
+
+<script type="text/javascript">
+ function progress(){
+NProgress.start();
+NProgress.done();
+ }
+ 
+window.onload  = progress;
+</script>
+
+<script>if(location.hostname.match(/ricostacruz\.com$/)){var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-20473929-1"]),_gaq.push(["_trackPageview"]),function(){var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=("https:"==document.location.protocol?"https://ssl":"http://www")+".google-analytics.com/ga.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)}()}</script>
 
 
 	<meta charset="UTF-8">
+
 @include ('js')
 <script type="text/javascript">
 $(document).ready(function(){
@@ -281,7 +300,7 @@ $(document).ready(function(){
 <link rel="stylesheet" type="text/css" href="/css.css">
 <title></title>
 </head>
-<body>
+<body >
 <nav>	
 	<div class = "stanga">
 
@@ -346,7 +365,7 @@ $(document).ready(function(){
 	 </div>
 	</div>
 		
-		<input class = "btn" id= "RegisterSubmit" type = "submit" value = "Inregistrare"></input>
+		<input class = "btnNou" id= "RegisterSubmit" type = "submit" value = "Inregistrare"></input>
 	</form>
 <div id = "overlay-bg"></div>
 
@@ -417,8 +436,6 @@ $snail = DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->wher
 }
 if(Request::segment(2) == Auth::user()->username ){?>
 
-<!DOCTYPE HTML>
-<html>
 
 <head>
 @include ('js')

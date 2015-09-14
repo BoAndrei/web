@@ -1,10 +1,10 @@
 <div class = "SchimbareParola">
 	<div id = "SchimbareParola">
-	<a>Schimbare Parola<i style = "top:1px;margin-left:15px;"class="fa fa-level-down"></i></a>
+	<a>Schimbare Parolaj<i style = "top:1px;margin-left:15px;"class="fa fa-level-down"></i></a>
 	</div>
 	<div class = "SchimbareParolaInputs">
 
-	<form id = "ParolaForm" method = "POST" action = "/EditParola2/<?php echo Request::segment(1) ?>">
+	<form id = "ParolaForm" method = "POST" action = "/EditParola2/<?php echo Request::segment(2) ?>">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 

@@ -178,10 +178,10 @@ class UserController extends Controller {
 				
 
 			$slug = Str::slug(Input::get('Topic'));
-			
-			$var = DB::table('topics')->where('topic_urlslug',$slug)->select('occurances')->first();
+			if( DB::table('topics')->where('topic_urlslug',$slug)->select('occurances')->first())
+			{$var = DB::table('topics')->where('topic_urlslug',$slug)->first();
 
-			$k = $var->occurances;
+			$k = $var->occurances;}else $k =0;
 
 			$data = date("Y-m-d H:i:s", strtotime('+3 hours'));
 			
@@ -209,7 +209,7 @@ else if($k == 0){
 		public function ToateTopicurile()
 		{
 
-			$topics = DB::table('topics')->orderBy('date_added', 'DESC')->get();
+			$topics = DB::table('topics')->join('categories','categorie','=','denumire')->join('users','user_id','=','author_id')->orderBy('date_added', 'DESC')->get();
 			return view('ToateTopicurile')->with('topics',$topics);
 		}
 
@@ -217,9 +217,9 @@ else if($k == 0){
 
 			//$topic_id = DB::table('replies')->join('topics','topics','=','topic_id')->get();
 
-			$replies = DB::table('replies')->join('topics','topic','=','topic_urlslug')->join('users','replies.author_id','=','user_id')->where('topic',Request::segment(2))->orderBy('replies.date_added', 'DESC')->get();
+			$replies = DB::table('replies')->join('topics','topic','=','topic_urlslug')->join('users','replies.author_id','=','user_id')->where('topic',Request::segment(3))->orderBy('replies.date_added', 'ASC')->get();
 			//die(var_dump($replies));
-			$topic = DB::table('topics')->join('users','author_id','=','user_id')->where('topic_urlslug',Request::segment(2))->get();
+			$topic = DB::table('topics')->join('users','author_id','=','user_id')->where('topic_urlslug',Request::segment(3))->get();
 			
 			return view('Topic')->with('topic',$topic)->with('replies',$replies);
 		}
@@ -228,9 +228,131 @@ else if($k == 0){
 			
 			$data = date("Y-m-d H:i:s", strtotime('+3 hours'));
 			DB::table('replies')->insert(array( 'content'=>Input::get('reply'), 'date_added'=>$data, 'topic'=>Input::get('topic_id'),'author_id'=>Auth::user()->user_id ));
-			return Redirect::to('/topic/');
+			
+			$topicz = DB::table('topics')->where('topic_urlslug',Input::get('topic_id'))->join('categories','denumire','=','categorie')->first();
+			return Redirect::to('/topic/'.$topicz->categ_urlslug.'/'.$topicz->topic_urlslug);
 
 		}
 
+		public function likeAdd() {
+			$likes = DB::table('likes')->where('user_id',Auth::user()->user_id)->where('topic_id',Input::get('topic_id'))->first();
+			
+			if(count($likes) == 0)
+			{
+
+				$dislikes = DB::table('dislikes')->where('user_id',Auth::user()->user_id)->where('topic_id',Input::get('topic_id'))->first();
+			
+				if(count($dislikes) != 0)
+				{
+					DB::table('dislikes')->where('user_id',Auth::user()->user_id)->where('topic_id',Input::get('topic_id'))->delete();
+					$k2 = DB::table('topics')->where('topic_id',Input::get('topic_id'))->first();
+					$k3 = $k2->dislikes;
+					DB::table('topics')->where('topic_id',Input::get('topic_id'))->update(array('dislikes'=>$k3-1));
+					
+
+				}
+
+				DB::table('likes')->insert(array( 'user_id' => Auth::user()->user_id, 'topic_id'=>Input::get('topic_id') ));
+				$k1 = DB::table('topics')->where('topic_id',Input::get('topic_id'))->first();
+				$k = $k1->likes;
+				DB::table('topics')->where('topic_id',Input::get('topic_id'))->update(array('likes'=>$k+1));
+				if(count($dislikes) != 0)
+				{
+					return Response::json(['status' => 'found'], 205);	
+				}
+				else return Response::json(['status' => 'found'], 200);	
+			}
+
+			else
+			{
+				DB::table('likes')->where('user_id',Auth::user()->user_id)->where('topic_id',Input::get('topic_id'))->delete();
+				$k1 = DB::table('topics')->where('topic_id',Input::get('topic_id'))->first();
+				$k = $k1->likes;
+				DB::table('topics')->where('topic_id',Input::get('topic_id'))->update(array('likes'=>$k-1));
+				return Response::json(['status' => 'huy'], 201);
+			}
+			
+			
+			  
+		}
+
+		public function dislikeAdd() {
+			$dislikes = DB::table('dislikes')->where('user_id',Auth::user()->user_id)->where('topic_id',Input::get('topic_id'))->first();
+			
+			if(count($dislikes) == 0)
+			{
+				$likes = DB::table('likes')->where('user_id',Auth::user()->user_id)->where('topic_id',Input::get('topic_id'))->first();
+				
+				if(count($likes) != 0)
+				{
+					DB::table('likes')->where('user_id',Auth::user()->user_id)->where('topic_id',Input::get('topic_id'))->delete();
+					$k1 = DB::table('topics')->where('topic_id',Input::get('topic_id'))->first();
+					$k = $k1->likes;
+					DB::table('topics')->where('topic_id',Input::get('topic_id'))->update(array('likes'=>$k-1));
+				}
+
+				DB::table('dislikes')->insert(array( 'user_id' => Auth::user()->user_id, 'topic_id'=>Input::get('topic_id') ));
+				$k2 = DB::table('topics')->where('topic_id',Input::get('topic_id'))->first();
+				$k3 = $k2->dislikes;
+				DB::table('topics')->where('topic_id',Input::get('topic_id'))->update(array('dislikes'=>$k3+1));
+				if(count($likes) != 0)
+				{
+					return Response::json(['status' => 'found'], 206);	
+				}
+				else return Response::json(['status' => 'io'], 203);
+					
+			}
+
+			else
+			{
+				DB::table('dislikes')->where('user_id',Auth::user()->user_id)->where('topic_id',Input::get('topic_id'))->delete();
+				$k2 = DB::table('topics')->where('topic_id',Input::get('topic_id'))->first();
+				$k3 = $k2->dislikes;
+				DB::table('topics')->where('topic_id',Input::get('topic_id'))->update(array('dislikes'=>$k3-1));
+				
+				return Response::json(['status' => 'po'], 204);
+			}
+
+
+		}
+
+		public function TopicDelete() {
+		
+			
+			if(Auth::user()->user_type == 'admin')
+			{
+				DB::table('topics')->where('topic_urlslug',Request::segment(2))->delete();
+				DB::table('replies')->where('topic',Request::segment(2))->delete();
+				return Redirect::to('/toatetopicurile');
+			}
+			else
+				return Redirect::to('/');
+			
+
+		}
+
+		public function ReplyDelete() {
+			if(Auth::user()->user_type == 'admin')
+			{
+				DB::table('replies')->where('reply_id',Request::segment(2))->delete();
+				return Redirect::to($_SERVER['HTTP_REFERER']);
+			}
+			else
+				return Redirect::to('/');
+			
+		}
+
+		public function Search() {
+
+			$search_term = Input::get('search');
+
+			$topics = DB::table('topics')->join('categories','categorie','=','denumire')->join('users','user_id','=','author_id')->where('topic_urlslug','like',"%$search_term%")->get();
+
+			
+
+			return view('welcome')->with('topics',$topics);
+		}
+
+		
 
 	}

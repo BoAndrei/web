@@ -33,6 +33,21 @@ a{
   cursor: pointer;
 }
 
+blockquote {
+  width: 100px;
+  background-color: pink;
+  
+}
+
+textarea {
+  max-height:350px; 
+  min-height:130px;
+}
+#resizable {
+  max-height:370px; 
+  min-height:150px;
+}
+
 .form-group{
   margin-bottom:10px;
   padding: 7px;
@@ -99,13 +114,12 @@ a{
   cursor:pointer;
   color:#333333;
   font-family:Arial;
-  font-size:18px;
+  font-size:16px;
   font-weight:bold;
-  padding:12px 33px;
+  padding:8px 17px;
   text-decoration:none;
   text-shadow:0px 1px 2px #ffee66;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-radius: 7px;
 }
 .btnNou:hover {
   background-color:#ffd500;
@@ -205,7 +219,7 @@ a{
 .PanouControl {
   margin-top:5%;
   width: 25%;
-  margin-left: -40px;
+  margin-left: 30px;
 }
 
 
@@ -518,32 +532,73 @@ z-index:  9999999999999999;
   left: -27px;
   top: 10px;
 }
-/*.arrow {
-  border-color: transparent transparent #ff7800 transparent;
-  border-color: rgba(255,255,255,0) rgba(255,255,255,0) #ff7800 rgba(255,255,255,0);
-  border-style: solid;
-  border-width: 15px;
-  height: 0;
-  width: 0 !important;
-  position: absolute;
-
-}*/
-
-#reply
-{ 
-
-}
 
 .content-box{
     padding: 10px 10px 10px; 0;
     display: block;
     height: auto;
-    width: 450px;
-    background: rgba(179, 139, 65, 0.2);
-   
+    width: 635px;
+    background: #FFE16C;
+    right: 54px;
+    top:-26px;
     font-weight: normal;
     line-height: 18px;
     color: black;
     font-size: 13px ;
-      resize: none;
+    opacity: 1;
+    position: relative;
+    border-top: none;
+    resize: none;
+    font-weight: bold;
 }
+
+
+textarea#styled {
+resize: none;
+border-radius: 15px;
+  border: 3px solid #cccccc;
+  padding: 5px;
+  font-family: Tahoma, sans-serif;
+  background-image: url(bg.gif);
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  outline: none;
+
+}
+.categorie {
+  margin-left: 373px;
+}
+
+.boxT3 {
+    margin-top: 200px;
+    right: 80px;
+    height: 400px;
+    width: 420px;
+    position: fixed;
+    background: #DDDDDD;
+    border: 1px solid #eaeaea;
+    padding: 20px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.ui-resizable-handle {
+    width: 655px;
+    border: 1px solid #ddd;
+    border-width: 0 1px 1px;
+    cursor: s-resize;
+    top:-26px;
+    height: 15px;
+    right:54px;
+    overflow: hidden;
+    background-color: #8F8F8F;
+    resize: none;
+    position: relative;
+
+    
+}
+
+
+
+
