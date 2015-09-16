@@ -92,7 +92,7 @@ Route::get('/topicdelete/{topic_urlslug}','UserController@TopicDelete');
 
 Route::get('/replydelete/{reply_id}','UserController@ReplyDelete');
 
-Route::POST('/search','UserController@Search');
+Route::post('/search','UserController@Search');
 
 Route::post('raspunsacceptat','UserController@RaspunsAcceptat');
 

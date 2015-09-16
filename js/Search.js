@@ -5,7 +5,7 @@
           
           
   var form = $('.SearchForm');
-         
+        
    		$.ajax({
 
 				type: 'POST',
@@ -13,15 +13,16 @@
 				data: form.serialize(),
 				dataType: 'json',
 				timeout: 9000,
-        succes:function(data) {
-          
-          $('.new').html(data);
-        }
+       success: function (data) {
+         var parsed_data =  JSON.stringify(data);
+         
+        $('.test').html(parsed_data);
+            }
           
           
     });
 
    });
 
-});
-    
+   });
+

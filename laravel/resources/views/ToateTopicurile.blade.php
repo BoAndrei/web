@@ -30,7 +30,7 @@ label { display: inline-block; width: 140px; text-align: right; }​
    	
         </div>
 </form>
-    
+    <div class = "test"></div>
 		<form id = "TopicForm" method = "POST" action = "/EditTopic">
 			 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<div class="form-group" style = " font-weight: normal;">

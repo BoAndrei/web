@@ -346,11 +346,9 @@ else if($k == 0){
 
 			$search_term = Input::get('search');
 
-			$topics = DB::table('topics')->where('topic_urlslug','like',"%$search_term%")->get();
-
-
-
-			return $topics;
+			$topics = DB::table('topics')->join('categories','categorie','=','denumire')->join('users','user_id','=','author_id')->where('topic_urlslug','like',"%$search_term%")->get();
+			
+			return response()->json($topics);
 		}
 
 		public function RaspunsAcceptat() {
