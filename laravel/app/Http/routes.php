@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/test','UserController@Search');
+
 
 Route::get('/', function () {
       
@@ -92,6 +92,8 @@ Route::get('/topicdelete/{topic_urlslug}','UserController@TopicDelete');
 
 Route::get('/replydelete/{reply_id}','UserController@ReplyDelete');
 
-Route::get('/search','UserController@Search');
+Route::POST('/search','UserController@Search');
+
+Route::post('raspunsacceptat','UserController@RaspunsAcceptat');
 
 

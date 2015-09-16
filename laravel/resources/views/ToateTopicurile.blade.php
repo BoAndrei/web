@@ -23,6 +23,7 @@ a:hover {
 label { display: inline-block; width: 140px; text-align: right; }​
 </style>
 <form id = "TopicForm" class = "SearchForm"action = "/search" role="search" method = "GET">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="search-group">
           
           <input style = "outline:none;border-radius:10px;width:600px;height:60px;font-size:30px;"name = "search" type="text" list = "datalist" class="form-control" id = "search"  autocomplete = "off" placeholder="Cautati topic">

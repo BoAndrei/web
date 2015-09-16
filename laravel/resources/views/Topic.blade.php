@@ -15,6 +15,8 @@
 <script type="text/javascript">
 var my_var = <?php echo json_encode($likes); ?>;
 var my_var2 = <?php echo json_encode($dislikes); ?>;
+var topic = <?php echo json_encode(Request::segment(3)); ?>;
+
 </script>
 
 <script type="text/javascript">
@@ -31,9 +33,15 @@ $(document).ready(function () {
 </script>
 
 <script src = "/js/LikeButton.js"></script>
-
+<script src = "/js/RaspunsAcceptat.js"></script>
 <style type="text/css">
+#check {
+	color:gray;
+}
+#check:hover {
+	color:green;
 
+}
 button {
 			background-color: Transparent;
             background-repeat:no-repeat;
@@ -184,17 +192,31 @@ if(count($dislikes) != 0)
 
 			<br>
 			<?php $topict = DB::table('replies')->where('topic',Request::segment(3))->get(); ?>
-		<div style = "width:625px;padding:20px;background-color:deepskyblue;border-radius:10px;"class = "raspunsuri">Raspunsuri:<?php echo count($topict); ?></div>
+		<div style = "width:625px;padding:20px;background-color:deepskyblue;border-radius:5px;"class = "raspunsuri">
+
+			<span> Raspunsuri:<?php echo count($topict); ?></span>
+
+
+
+		</div>
 				<br><br><br>
-				@foreach($replies as $reply)
 				
-				 
+				@foreach($replies as $reply)
+				<?php $vari = DB::table('replies')->where('topic',Request::segment(3))->where('acceptat','1')->first(); ?>
+		<?php if($reply->reply_id != $vari->reply_id): ?>
+
+				<a onClick="raspuns_acceptat({{$reply->reply_id}})"name = "check"href = "javascript:void(0);"id = "check" style = "cursor:pointer;"class="fa fa-check fa-3x"></a>
+		<?php else: ?>		
+<a onClick="raspuns_acceptat({{$reply->reply_id}})"name = "check"href = "javascript:void(0);"id = "check" style = "color:green;cursor:pointer;"class="fa fa-check fa-3x"></a>
+			<?php endif; ?>
 			<div class = "topic">
 				@if(Auth::check() && Auth::user()->user_type == 'admin')
 			
 <input class = "btn-x"  type="button" value = "&#10006;" onclick="location.href='/replydelete/{{ $reply->reply_id }}';">
 		@endif
+
 <div style = "position:relative;margin-left:-30px;margin-top:-25px;"class = "arrow_box_border"></div>
+		
 		<div style = "position:relative;margin-left:-30px;margin-top:-30px;"class = "arrow_box"></div>
 			
 					<span style = "font-size:16px;font-weight:normal;margin-right:450px;">{{ $reply->username }} raspunde:</span><br><br>

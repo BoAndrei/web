@@ -15,7 +15,7 @@
     <body>
         <div class="container">
             <div class="content">
-              <form id = "TopicForm" class = "SearchForm"action = "/test" role="search" method = "GET">
+              <form id = "TopicForm" class = "SearchForm"action = "/search" role="search" method = "POST">
         <div class="search-group">
           
           <input style = "outline:none;border-radius:10px;width:600px;height:60px;font-size:30px;"name = "search" type="text" list = "datalist" class="form-control" id = "search"  autocomplete = "off" placeholder="Cautati topic">

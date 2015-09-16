@@ -1,16 +1,22 @@
 
+
   $(document).ready(function(){
         $('#search').keyup(function(e){
           
           
   var form = $('.SearchForm');
-         var topic = $('#topicz').val();
+         
    		$.ajax({
-				type: 'GET',
+
+				type: 'POST',
 				url: '/search',
 				data: form.serialize(),
 				dataType: 'json',
-				timeout: 9000
+				timeout: 9000,
+        succes:function(data) {
+          
+          $('.new').html(data);
+        }
           
           
     });

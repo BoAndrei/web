@@ -346,11 +346,21 @@ else if($k == 0){
 
 			$search_term = Input::get('search');
 
-			$topics = DB::table('topics')->join('categories','categorie','=','denumire')->join('users','user_id','=','author_id')->where('topic_urlslug','like',"%$search_term%")->get();
+			$topics = DB::table('topics')->where('topic_urlslug','like',"%$search_term%")->get();
 
 
 
-			return view('welcome')->with('topics',$topics);
+			return $topics;
+		}
+
+		public function RaspunsAcceptat() {
+
+			$id = Input::get('reply_id');
+			$topic_urlslug = Input::get('topic');
+			DB::table('replies')->where('topic',$topic_urlslug)->update(array('acceptat'=> 0));
+			
+			DB::table('replies')->where('reply_id',$id)->update( array('acceptat' => 1  ) );
+			return Redirect::to('/');
 		}
 
 		
