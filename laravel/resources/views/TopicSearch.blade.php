@@ -1,6 +1,6 @@
 @extends('layouts.PrimaPaginaLayout')
 
-@section('ToateTopicurile')
+@section('TopicSearch')
 
 <script src = "/js/Search.js"></script>
 <style type="text/css">
@@ -27,7 +27,7 @@ label { display: inline-block; width: 140px; text-align: right; }​
         <div class="search-group">
           
           <input style = "outline:none;border-radius:5px;width:500px;height:35px;font-size:30px;"name = "search" type="text" list = "datalist" class="form-control" id = "search"  autocomplete = "off" placeholder="Cautati topic">
-   		<input onClick = "submitForm();"class = "btnNou" id= "DateSubmit" type = "submit" value = "Cauta topicul"></input>
+   		<input onClick = "submitForm();"class = "btnNou" id= "DateSubmit" type = "submit" value = "Trimite topicul"></input>
 
         </div>
 </form>
@@ -51,7 +51,7 @@ label { display: inline-block; width: 140px; text-align: right; }​
 			@endforeach
 
 		
-<div class = "pagination" style = "display:inline-block;">{!! $topics->render() !!}</div>
+
 	</div>
 
 

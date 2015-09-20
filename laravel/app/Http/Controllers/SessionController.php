@@ -33,18 +33,7 @@ class SessionController extends Controller {
 
 	public function StoreRegister()
 {
-	$messages = [
-		'unique' => 'Acest :attribute deja exista',
-		'min' => 'Câmpul :attribute trebuie sa conţina cel puţin :min caractere',
-		'required' => 'Campul :attribute trebuie completat',
-		'email' => 'Campul :attribute trebuie sa fie valid'
-	];
-
-	$validator = Validator::make(Input::all(),Register::$rules,$messages);
-	if($validator->fails())
-	{
-		return Redirect::back()->withInput()->withErrors($validator);
-	}
+	
 	 $user = DB::table('users')->where('username',Input::get('username'))->first();
 	 $email = DB::table('users')->where('email',Input::get('email'))->first();
 
@@ -52,13 +41,19 @@ class SessionController extends Controller {
     	{
     		$data = date("d-m-Y H:i:s", strtotime('+3 hours'));
         	DB::table('users')->insert(array('username'=>Input::get('username'), 'password'=>Hash::make(Input::get('password')),'email'=>Input::get('email'),'date_registered'=>$data));
-   			return Redirect::to('/');
+   			return Response::json(['success' => 'request succeeded'], 200);
    		}
-   	else if (count($user) != 0)
-   			 return Response::json(['success' => 'request succeeded'], 200);
+   			if(count($user) != 0 && count($email) != 0)
+   				return Response::json(['success' => 'request succeeded'], 406);
+   			
+   			if (count($user) != 0)
+   			 	return Response::json(['success' => 'request succeeded'], 404);
 				
-   			else if (count($email) != 0)
-   					 return Response::json(['success' => 'request succeeded'], 201);
+   			
+   			if (count($email) != 0)
+   				return Response::json(['success' => 'request succeeded'], 405);
+
+   			
    
 }
 

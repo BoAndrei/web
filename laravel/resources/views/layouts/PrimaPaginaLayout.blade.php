@@ -27,8 +27,6 @@ $parsedown = new Parsedown();
 <link href='/css/nprogress.css' rel='stylesheet' />
 <link rel="stylesheet" href="/css/jRating.jquery.css" type="text/css" />
 
-  
-
 
 <script type="text/javascript">
  function progress(){
@@ -206,6 +204,9 @@ $(document).ready(function(){
 				data: form.serialize(),
 				dataType: 'json',
 				timeout: 9000,
+				success:function(data) {
+						$('html').load('/');	
+				},
 				error:function() {
 					if(testt == 'John')
 					{
@@ -264,16 +265,21 @@ $(document).ready(function(){
 					}
 				},
 				statusCode:{
-				200: function() {
+				404: function() {
 			      $('#username').css('border-color','red','border-style','solid;');
 							$('#eusername').html('<span style="color:red;">Acest username deja a fost luat</span>');	
-			    }
-					},
-				statusCode:{
-				201: function() {
+			    },
+			    405: function() {
+			      $('#email').css('border-color','red','border-style','solid;');
+							$('#eemail').html('<span style="color:red;">Acest email deja a fost luat</span>');	
+			    },
+			    406: function() {
 			      $('#username').css('border-color','red','border-style','solid;');
 							$('#eusername').html('<span style="color:red;">Acest username deja a fost luat</span>');	
+			      $('#email').css('border-color','red','border-style','solid;');
+							$('#eemail').html('<span style="color:red;">Acest email deja a fost luat</span>');	
 			    }
+					
 					}
 				
 				
@@ -802,6 +808,12 @@ if(Request::segment(5))
 @if(Auth::user() && Request::segment(1) == 'toatetopicurile')
 
 @yield('ToateTopicurile')
+
+@endif
+
+@if(Auth::user() && Request::segment(1) == 'cauta')
+
+@yield('TopicSearch')
 
 @endif
 

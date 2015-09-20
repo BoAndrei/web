@@ -24,23 +24,8 @@ label { display: inline-block; width: 140px; text-align: right; }​
 		</div>
 
 	</div>
-
-	
-	
-	
-	
-
-
-
-
-
-
 <br><br>
-<input style = "margin-left:250px;"class = "btnNou" id= "DateSubmit" type = "submit" value = "Modifica"></input>
-		
-
-
-
+<input style = "margin-left:250px;"class = "btnNou" id= "DateSubmit" type = "submit" value = "Introduce categorie"></input>
 
 </form>
 </div>

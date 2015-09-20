@@ -84,6 +84,8 @@ Route::get('/topic/{categ_urlslug}/{topic_urlslug}','UserController@Topic');
 
 Route::post('PostReply','UserController@PostReply');
 
+Route::post('PostReplyReply','UserController@PostReplyReply');
+
 Route::post('/likeAdd','UserController@likeAdd');
 
 Route::post('/dislikeAdd','UserController@dislikeAdd');
@@ -92,7 +94,7 @@ Route::get('/topicdelete/{topic_urlslug}','UserController@TopicDelete');
 
 Route::get('/replydelete/{reply_id}','UserController@ReplyDelete');
 
-Route::post('/search','UserController@Search');
+Route::get('/cauta/{ceva}','UserController@Search');
 
 Route::post('raspunsacceptat','UserController@RaspunsAcceptat');
 

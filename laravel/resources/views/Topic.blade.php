@@ -19,19 +19,8 @@ var topic = <?php echo json_encode(Request::segment(3)); ?>;
 
 </script>
 
-<script type="text/javascript">
-$(document).ready(function () {
-	
-	$('#resizable').resizable({
-    	handles: {
-        	 s: $('.ui-resizable-s')
-    	},
 
-    	alsoResize: $('textarea')
-	});
-});
-</script>
-
+<script src = "/js/TopicJs.js"></script>
 <script src = "/js/LikeButton.js"></script>
 <script src = "/js/RaspunsAcceptat.js"></script>
 <style type="text/css">
@@ -123,7 +112,7 @@ if(count($dislikes) != 0)
 
 
 				@foreach($topic as $topics)
-<img  style = "float:left;width:100px;height:100xp;margin-left:-150px;margin-top:-30px;position:relative;" src="/<?php echo $topics->image; ?>">
+<img  style = "border:5px groove gray;float:left;width:100px;height:100xp;margin-left:-157px;margin-top:-30px;position:relative;" src="/<?php echo $topics->image; ?>">
 
 @if(Auth::check() && Auth::user()->user_type == 'admin')
 			
@@ -202,27 +191,67 @@ if(count($dislikes) != 0)
 				<br><br><br>
 				
 				@foreach($replies as $reply)
-				<?php $vari = DB::table('replies')->where('topic',Request::segment(3))->where('acceptat','1')->first(); ?>
-		<?php if($reply->reply_id != $vari->reply_id): ?>
+			
+			<style type="text/css">
 
-				<a onClick="raspuns_acceptat({{$reply->reply_id}})"name = "check"href = "javascript:void(0);"id = "check" style = "cursor:pointer;"class="fa fa-check fa-3x"></a>
+#check_{{$reply->reply_id}} {
+	color:gray;
+}
+#check_{{$reply->reply_id}}:hover {
+	color:green;
+
+}
+
+			</style>
+				
+				<?php $vari = 0; if (DB::table('replies')->where('topic',Request::segment(3))->where('acceptat','1')->first()) $vari = DB::table('replies')->where('topic',Request::segment(3))->where('acceptat','1')->first();?>
+		@if(Auth::check() && Auth::user()->user_type == 'admin' || $reply->reply_id == $vari->reply_id)
+		<?php if($vari && $reply->reply_id == $vari->reply_id): ?>
+			
+			<a onClick="raspuns_acceptat({{$reply->reply_id}})"name = "check"href = "javascript:void(0);"id = "check_{{$reply->reply_id}}" style = "color:green;cursor:pointer;"class="fa fa-check fa-3x acceptat"></a>
 		<?php else: ?>		
-<a onClick="raspuns_acceptat({{$reply->reply_id}})"name = "check"href = "javascript:void(0);"id = "check" style = "color:green;cursor:pointer;"class="fa fa-check fa-3x"></a>
-			<?php endif; ?>
+			<a onClick="raspuns_acceptat({{$reply->reply_id}})"name = "check"href = "javascript:void(0);"id = "check_{{$reply->reply_id}}" style = "cursor:pointer;"class="fa fa-check fa-3x acceptat"></a>
+		<?php endif; ?>
+@endif
 			<div class = "topic">
+				<div>
 				@if(Auth::check() && Auth::user()->user_type == 'admin')
 			
-<input class = "btn-x"  type="button" value = "&#10006;" onclick="location.href='/replydelete/{{ $reply->reply_id }}';">
-		@endif
+					<input class = "btn-x"  type="button" value = "&#10006;" onclick="location.href='/replydelete/{{ $reply->reply_id }}';">
+				@endif
 
-<div style = "position:relative;margin-left:-30px;margin-top:-25px;"class = "arrow_box_border"></div>
+					<div style = "position:relative;margin-left:-30px;margin-top:-25px;"class = "arrow_box_border"></div>
 		
-		<div style = "position:relative;margin-left:-30px;margin-top:-30px;"class = "arrow_box"></div>
+				<div style = "position:relative;margin-left:-30px;margin-top:-30px;"class = "arrow_box"></div>
 			
 					<span style = "font-size:16px;font-weight:normal;margin-right:450px;">{{ $reply->username }} raspunde:</span><br><br>
-						<img  style = "width:100px;height:100px;float:left;margin-left:-150px;margin-top:-67px;position:relative;" src="/<?php echo $reply->image; ?>">
+						<img  style = "border:5px groove gray;width:100px;height:100px;float:left;margin-left:-156px;margin-top:-67px;position:relative;" src="/<?php echo $reply->image; ?>">
 						<span >{{ $reply->content }}</span>
-			</div>	<br><br>
+				</div><br>
+						<a href = "javascript:void(0)"onClick = "replyReply({{ $reply->reply_id }});" class = "reply->reply_id"style = "color:blue">Raspunde</a><br><br>
+						
+						<form id = "{{ $reply->reply_id }}" style = "display:none;"action = "/PostReplyReply" method = "POST">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<input name = "topic_id" type = "hidden" value = "<?php echo Request::segment(3); ?>">
+								
+							<textarea class = "content-boxR" name = "reply" cols = "10" rows = "2" placeholder = "Raspunde la aceast comentariu"></textarea>
+							<input style = "margin-left:500px;position:relative;font-size:15px;padding:6px 13px;"type = "submit" class = "btnNou" value = "Raspunde">
+							<input name = "reply_id" type = "hidden" value = "{{ $reply->reply_id }}">
+								
+						</form>
+			
+			</div>	<br>
+@foreach($repliesReply as $replyReply)
+				@if($reply->reply_id == $replyReply->replies_id )
+					<div class = "topic">
+
+							{{$replyReply->repliesReply_content}}
+					
+					</div><br>
+				@endif
+@endforeach
+			<br>
+				
 				@endforeach
 			
 
