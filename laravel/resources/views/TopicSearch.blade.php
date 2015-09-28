@@ -1,7 +1,21 @@
 @extends('layouts.PrimaPaginaLayout')
 
 @section('TopicSearch')
+<?php 
+function schimba_data_format($data){
+  $luni=array("ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie",
+  "noiembrie","decembrie");
+  $an=''; $luna=''; $zi=''; $ora='';
+  for($i=0;$i<=3;$i++) $an.=$data[$i];
+  for($i=5; $i<=6;$i++) $luna.=$data[$i];
+  $luna=$luni[intval($luna)-1];
+  for($i=8; $i<=9; $i++) $zi.=$data[$i]; $zi=intval($zi);
+  for($i=11;$i<strlen($data);$i++) $ora.=$data[$i];
+  return $data=$zi.' '.$luna.' '.$an.' '.$ora;
+}
 
+
+?>
 <script src = "/js/Search.js"></script>
 <style type="text/css">
 #TopicForm{
@@ -22,36 +36,50 @@ a:hover {
 }
 label { display: inline-block; width: 140px; text-align: right; }​
 </style>
-<form name = "searchform"id = "TopicForm" class = "SearchForm"action = "/cauta/" role="search" method = "GET">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <div class="search-group">
-          
-          <input style = "outline:none;border-radius:5px;width:500px;height:35px;font-size:30px;"name = "search" type="text" list = "datalist" class="form-control" id = "search"  autocomplete = "off" placeholder="Cautati topic">
-   		<input onClick = "submitForm();"class = "btnNou" id= "DateSubmit" type = "submit" value = "Trimite topicul"></input>
+<form class="SearchForm form-wrapper cf"name = "searchform"id = "TopicForm" action = "/cauta/" role="search" method = "GET">
+	   <input type="hidden" name="_token" value="{{ csrf_token() }}">
+	
+	<input name = "search" type="text" list = "datalist" class="form-control" id = "search"  autocomplete = "off" placeholder="Cautati topic" required>
+	
+	<button onClick = "submitForm();" id= "DateSubmit" type = "submit" value = "&#128269;">Search</button>
+ 
 
-        </div>
+
 </form>
     
+		
 		<form id = "TopicForm" method = "POST" action = "/EditTopic">
 			 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<div class="form-group" style = " font-weight: normal;">
 		
-
+	
 			@foreach($topics as $topic)
 
-			<hr style='background-color:#778489;border-width:0;color:#000000;height:5px;line-height:0;text-align:left;width:100%;'/>
+		
+			<?php 
+$string = strip_tags($topic->contents);
+if (strlen($string) > 250) {
 
-			
-<div style = "width: 600px;padding:25px;">
-	<img  style = "float:left;width:60px;height:60xp;margin-top:-13px;margin-left:-20px;position:relative;" src="/{{ $topic->image }}">
-				<span style = "margin-left:20px;margin-top:-20px;position:absolute;"><b>{{ $topic->username }}</b> intreaba:</span><br>
-				<a style = "padding:25px;width: 600px;class = "new"id = "" name = "topic" value = ""style = "line-height:30px;position:relative;padding:16px 18px 16px 120px;display: inline; height: 100%;"href = "/topic/{{ $topic->categ_urlslug }}/{{ $topic->topic_urlslug }}"><?php echo wordwrap($topic->contents, 75, "<br />", true); ?></a>
+    $stringCut = substr($string, 0, 250);
+
+    $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'...(mai mult)'; 
+}
+			?>
+<div class = "Topicss">
+	<div >
+	<img  style = "float:left;width:50px;height:50px;margin-top:0px;margin-left:0px;position:relative;" src="/{{ $topic->image }}">
+				<span style = "margin-left:5px;margin-top:0px;"><b>{{ $topic->username }}</b> intreaba:</span><br>
+				<span style = "margin-left:5px;margin-top:0px;"><b><?php $date = new DateTime($topic->date_added);$dataa = $date->format('Y-m-d H:i');?>{{ schimba_data_format($dataa) }}</b></span><br>
 				
-			</div>
+				</div><br>
+				
+				
+					<a style = "color:black;display: inline; height: 100%;width: 600px;" class = "new"id = "" name = "topic"href = "/topic/{{ $topic->categ_urlslug }}/{{ $topic->topic_urlslug }}"><?php echo $string; ?></a>
+				
+			</div><br>
 			@endforeach
 
 		
-
 	</div>
 
 

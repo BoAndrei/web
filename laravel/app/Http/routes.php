@@ -98,4 +98,8 @@ Route::get('/cauta/{ceva}','UserController@Search');
 
 Route::post('raspunsacceptat','UserController@RaspunsAcceptat');
 
+Route::get('/profil/{username}/topicuriproprii','UserController@topicuriproprii');
+
+Route::get('/profil/{username}/raspunsuriproprii','UserController@raspunsuriproprii');
+
 

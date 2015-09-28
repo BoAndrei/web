@@ -25,7 +25,8 @@ $parsedown = new Parsedown();
 <!-- Progress bar  -->
 <script src='/js/nprogress.js'></script>
 <link href='/css/nprogress.css' rel='stylesheet' />
-<link rel="stylesheet" href="/css/jRating.jquery.css" type="text/css" />
+<!-- QTIP -->
+
 
 
 <script type="text/javascript">
@@ -304,6 +305,8 @@ $(document).ready(function(){
 <title></title>
 </head>
 <body >
+	<script type="text/javascript" src="/js/jqueryqtip.js"></script>
+	<link href='/css/jqueryqtip.css' rel='stylesheet' />
 <nav>	
 	<div class = "stanga">
 
@@ -487,6 +490,27 @@ $(document).ready(function (){
 	});
 		$('.nav-link4').mouseleave(function () {
 		$('.arrow-right4').hide(1);
+	});
+		$('.nav-link5').hover(function () {
+		$('.arrow-right5').fadeIn(50);
+
+	});
+		$('.nav-link5').mouseleave(function () {
+		$('.arrow-right5').hide(1);
+	});
+		$('.nav-link6').hover(function () {
+		$('.arrow-right6').fadeIn(50);
+
+	});
+		$('.nav-link6').mouseleave(function () {
+		$('.arrow-right6').hide(1);
+	});
+		$('.nav-link7').hover(function () {
+		$('.arrow-right7').fadeIn(50);
+
+	});
+		$('.nav-link7').mouseleave(function () {
+		$('.arrow-right7').hide(1);
 	});
 
 	
@@ -755,10 +779,16 @@ if(Request::segment(5))
 		<li><a class = "nav-link2" href = "/profil/{{Auth::user()->username}}/mesaje"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Mesaje (<?php echo count($snail); ?> noi)</a></li>
 		<li><a class = "nav-link3" href = "/profil/{{Auth::user()->username}}/modificareimagine"><span class = "icon"><i class="fa fa-picture-o"></i></span><span class = "separator"></span>Modificare imagine</a></li>
 		<li><a class = "nav-link4" href = "/profil/{{Auth::user()->username}}/datepersonale"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Datele Personale</a></li>
+		<li><a class = "nav-link5" href = "/profil/{{Auth::user()->username}}/topicuriproprii"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Topicurile Mele</a></li>
+		<li><a class = "nav-link6" href = "/profil/{{Auth::user()->username}}/raspunsuriproprii"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Raspunsurile Mele</a></li>
+	
 	<div class = "arrow-right"></div>
 		<div class = "arrow-right2"></div>
 		<div class = "arrow-right3"></div>
 		<div class = "arrow-right4"></div>
+		<div class = "arrow-right5"></div>
+		<div class = "arrow-right6"></div>
+		<div class = "arrow-right7"></div>
 	</ul>
 </div>
 
@@ -820,6 +850,18 @@ if(Request::segment(5))
 @if(Auth::user() && Request::segment(1) == 'topic')
 
 @yield('Topic')
+
+@endif
+
+@if(Auth::check() && Request::segment(3) == 'topicuriproprii')
+
+@yield('TopicurileMele')
+
+@endif
+
+@if(Auth::check() && Request::segment(3) == 'raspunsuriproprii')
+
+@yield('RaspunsurileMele')
 
 @endif
 </body>

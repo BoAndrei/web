@@ -1,22 +1,15 @@
-/*
-  setInterval("my_function();",1000); 
+/*setInterval("my_function();",1000); 
     function my_function(){
       $('#likes').load(location.href + ' #likes');
     }
-
     setInterval("my_function2();",1000); 
     function my_function2(){
       $('style').load(location.href + ' style');
     }
-
     setInterval("my_function3();",1000); 
     function my_function3(){
       $('#dislikes').load(location.href + ' #dislikes');
-    }
-
-   
-   
-*/
+    }*/
 $(document).ready(function(){
 	$('#likeButton').click(function(d){
 		d.preventDefault();
@@ -47,7 +40,6 @@ $(document).ready(function(){
 			      $('#dislikeButton').css('color','gray');
 						
 			   		 }
-			   
 
 				
 			
@@ -82,18 +74,18 @@ $(document).ready(function(){
 			      $('#dislikes').html(my_var2+' dislikes');
 			      $('#dislikeButton').css('color','gray');
 						
-			   		 }
-				},
+			   		 },
+				
 
 			   	206: function() {
 			      $('#dislikes').html(my_var2+1+' dislikes');
 			      $('#dislikeButton').css('color','red');
-			      $('#likes').html(my_var+' likes');
+			      $('#likes').html(my_var-1+' likes');
 			      $('#likeButton').css('color','gray');
 						
 			   		 }
 				
-
+}
 			});
 
 

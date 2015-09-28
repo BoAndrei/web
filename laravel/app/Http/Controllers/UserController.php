@@ -196,11 +196,11 @@ class UserController extends Controller {
 			
 			if($k > 0)
 			{
-				DB::table('topics')->insert(array( 'author_id'=>Auth::user()->user_id, 'contents'=>Input::get('Topic'), 'date_added'=>$data, 'categorie'=>Input::get('categorie'),'topic_urlslug'=>$slug.'-'.$k ));
+				DB::table('topics')->insert(array( 'topic_author_id'=>Auth::user()->user_id, 'contents'=>Input::get('Topic'), 'date_added'=>$data, 'categorie'=>Input::get('categorie'),'topic_urlslug'=>$slug.'-'.$k ));
 				return Redirect::to('/topicnou');
 			}
 else if($k == 0){
-	DB::table('topics')->insert(array( 'author_id'=>Auth::user()->user_id, 'contents'=>Input::get('Topic'), 'date_added'=>$data, 'categorie'=>Input::get('categorie'),'topic_urlslug'=>$slug ));
+	DB::table('topics')->insert(array( 'topic_author_id'=>Auth::user()->user_id, 'contents'=>Input::get('Topic'), 'date_added'=>$data, 'categorie'=>Input::get('categorie'),'topic_urlslug'=>$slug ));
 			return Redirect::to('/topicnou');
 }
 		
@@ -209,7 +209,7 @@ else if($k == 0){
 		public function ToateTopicurile()
 		{
 
-			$topics = DB::table('topics')->join('categories','categorie','=','denumire')->join('users','user_id','=','author_id')->orderBy('date_added', 'DESC')->paginate(5);
+			$topics = DB::table('topics')->join('categories','categorie','=','denumire')->join('users','user_id','=','topic_author_id')->orderBy('date_added', 'DESC')->paginate(5);
 			return view('ToateTopicurile')->with('topics',$topics);
 		}
 
@@ -217,11 +217,11 @@ else if($k == 0){
 
 			//$topic_id = DB::table('replies')->join('topics','topics','=','topic_id')->get();
 
-			$replies = DB::table('replies')->join('topics','topic','=','topic_urlslug')->join('users','replies.author_id','=','user_id')->where('topic',Request::segment(3))->orderBy('replies.date_added', 'ASC')->get();
+			$replies = DB::table('replies')->join('topics','topic','=','topic_urlslug')->join('users','author_id','=','user_id')->where('topic',Request::segment(3))->orderBy('acceptat', 'DESC')->orderBy('reply_date_added', 'ASC')->get();
 			//die(var_dump($replies));
-			$topic = DB::table('topics')->join('users','author_id','=','user_id')->where('topic_urlslug',Request::segment(3))->get();
+			$topic = DB::table('topics')->join('users','topic_author_id','=','user_id')->where('topic_urlslug',Request::segment(3))->get();
 			
-			$repliesReply = DB::table('repliesreply')->get();
+			$repliesReply = DB::table('repliesreply')->join('users','reply_author_id','=','user_id')->get();
 
 			return view('Topic')->with('topic',$topic)->with('replies',$replies)->with('repliesReply',$repliesReply);
 		}
@@ -229,7 +229,7 @@ else if($k == 0){
 		public function PostReply() {
 			
 			$data = date("Y-m-d H:i:s", strtotime('+3 hours'));
-			DB::table('replies')->insert(array( 'content'=>Input::get('reply'), 'date_added'=>$data, 'topic'=>Input::get('topic_id'),'author_id'=>Auth::user()->user_id ));
+			DB::table('replies')->insert(array( 'content'=>Input::get('reply'), 'reply_date_added'=>$data, 'topic'=>Input::get('topic_id'),'author_id'=>Auth::user()->user_id ));
 			
 			$topicz = DB::table('topics')->where('topic_urlslug',Input::get('topic_id'))->join('categories','denumire','=','categorie')->first();
 			return Redirect::to('/topic/'.$topicz->categ_urlslug.'/'.$topicz->topic_urlslug);
@@ -345,9 +345,11 @@ else if($k == 0){
 		}
 
 		public function ReplyDelete() {
-			if(Auth::user()->user_type == 'admin')
+			$author = DB::table('replies')->where('reply_id',Request::segment(2))->first();
+			if(Auth::user()->user_type == 'admin' || Auth::user()->user_id == $author->author_id)
 			{
 				DB::table('replies')->where('reply_id',Request::segment(2))->delete();
+				DB::table('repliesreply')->where('replies_id',Request::segment(2))->delete();
 				return Redirect::to($_SERVER['HTTP_REFERER']);
 			}
 			else
@@ -359,7 +361,7 @@ else if($k == 0){
 
 			$search_term = Request::segment(2);
 
-			$topics = DB::table('topics')->join('categories','categorie','=','denumire')->join('users','user_id','=','author_id')->where('topic_urlslug','like',"%$search_term%")->get();
+			$topics = DB::table('topics')->join('categories','categorie','=','denumire')->join('users','user_id','=','topic_author_id')->where('topic_urlslug','like',"%$search_term%")->get();
 			
 			return view('TopicSearch')->with('topics',$topics);
 		}
@@ -379,6 +381,19 @@ else if($k == 0){
 
 			return Response::json(['status' => 'found'], 404);	
 		}
+
+		public function topicuriproprii() {
+
+			$topics = DB::table('topics')->join('categories','categorie','=','denumire')->join('users','user_id','=','topic_author_id')->where('topic_author_id',Auth::user()->user_id)->orderBy('date_added', 'DESC')->paginate(5);
+			return view('TopicuriProprii')->with('topics',$topics);
+		}
+
+		public function raspunsuriproprii() {
+
+			$replies = DB::table('replies')->join('topics','topic','=','topic_urlslug')->join('users','author_id','=','user_id')->where('author_id',Auth::user()->user_id)->orderBy('reply_date_added', 'ASC')->get();
+				return view('RaspunsuriProprii')->with('replies',$replies);
+		}
+
 
 
 
