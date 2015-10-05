@@ -46,7 +46,7 @@ Route::get('profil/{username}/mesaje/citeste-mesaj/{mesaj_id}','ProfilController
 
 Route::get('profil/{username}/mesaje/mesaje-trimise','ProfilController@mesajetrimise');
 
-Route::get('profil/{username}/mesaje/sterge-mesajd/{mesaj_id}','ProfilController@stergemesajd');
+Route::post('/stergemesajd','ProfilController@stergemesajd');
 
 Route::get('profil/{username}/mesaje/sterge-mesaje/{mesaj_id}','ProfilController@stergemesaje');
 

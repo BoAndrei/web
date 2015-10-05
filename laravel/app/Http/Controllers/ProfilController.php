@@ -82,7 +82,15 @@ class ProfilController extends Controller {
 		{
 			if(Auth::check())
 			{
-				DB::table('mesaje')->where('mesaj_id',Request::segment(5))->update(array('viz_exp' => '1'  ));
+				$id = Input::get('check');
+				foreach ($id as $ids ) 
+				{
+        			 DB::table('mesaje')->where('mesaj_id',$ids)->update(array('viz_exp' => '1'  ));
+	
+    			}
+
+				  
+
 			    return Redirect::to('/profil/'.Auth::user()->username.'/mesaje');
 			}
 

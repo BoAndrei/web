@@ -5,3 +5,9 @@ $(document).ready(function() {
           return false;  
      });
 });
+
+$(document).ready(function() {
+     $('.cauta').click( function() {
+     	$('.cautadown').slideToggle(100);
+     });
+});

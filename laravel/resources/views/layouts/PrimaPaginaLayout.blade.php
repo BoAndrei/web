@@ -769,6 +769,25 @@ if(Request::segment(5))
 
 
 <div class = "PanouControl">
+	
+	
+<?php if(Auth::user()){?>
+<?php if(Auth::user()->image ){?>
+
+	<a href = "/<?php echo Auth::user()->image; ?>" data-gallery><img  style = "padding:8px;
+border:solid;
+border-color: #dddddd #aaaaaa #aaaaaa #dddddd;
+border-width: 1px 2px 2px 1px;
+background-color:white;position:relative;left:40px;"width= "278" height = "230" src="/<?php echo Auth::user()->image; ?>"></a>
+
+
+<?php } else {?>
+
+
+<img width = "300px" height = "300px" id = "thumb" src="/images/noimage.jpg">
+
+<?php }?>
+<?php } else {header('location:/');die();}?>
 	<ul>
 
 		<?php 
@@ -776,7 +795,7 @@ if(Request::segment(5))
 		$snail = DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->where('citit','0')->get();
 	?>
 		<li><a class = "nav-link" href = "/profil/{{Auth::user()->username}}/setarilecontului"><span class = "icon">&#128295;</span><span class = "separator"></span>Setarile contului</a></li>
-		<li><a class = "nav-link2" href = "/profil/{{Auth::user()->username}}/mesaje"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Mesaje (<?php echo count($snail); ?> noi)</a></li>
+		<li><a class = "nav-link2" href = "/profil/{{Auth::user()->username}}/mesaje"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Mesaje <?php if(count($snail) != 0)echo '('.count($snail).' noi)'; ?></a></li>
 		<li><a class = "nav-link3" href = "/profil/{{Auth::user()->username}}/modificareimagine"><span class = "icon"><i class="fa fa-picture-o"></i></span><span class = "separator"></span>Modificare imagine</a></li>
 		<li><a class = "nav-link4" href = "/profil/{{Auth::user()->username}}/datepersonale"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Datele Personale</a></li>
 		<li><a class = "nav-link5" href = "/profil/{{Auth::user()->username}}/topicuriproprii"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Topicurile Mele</a></li>

@@ -168,6 +168,7 @@ class UserController extends Controller {
 		}
 
 		public function TopicNou() {
+			
 			$categorii = DB::table('categories')->get();
 			return view('TopicNou')->with('categorii',$categorii);
 		
@@ -389,9 +390,10 @@ else if($k == 0){
 		}
 
 		public function raspunsuriproprii() {
-
-			$replies = DB::table('replies')->join('topics','topic','=','topic_urlslug')->join('users','author_id','=','user_id')->where('author_id',Auth::user()->user_id)->orderBy('reply_date_added', 'ASC')->get();
-				return view('RaspunsuriProprii')->with('replies',$replies);
+$topics = DB::table('topics')->join('replies','topic','=','topic_urlslug')->join('categories','categorie','=','denumire')->join('users','user_id','=','topic_author_id')->where('topic_author_id',Auth::user()->user_id)->orderBy('date_added', 'DESC')->get();
+		
+			$replies = DB::table('replies')->join('users','author_id','=','user_id')->where('author_id',Auth::user()->user_id)->orderBy('reply_date_added', 'ASC')->get();
+				return view('RaspunsuriProprii')->with('topics',$topics);
 		}
 
 

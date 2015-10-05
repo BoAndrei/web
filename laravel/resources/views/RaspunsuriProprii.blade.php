@@ -22,8 +22,8 @@ function schimba_data_format($data){
 	<div class="form-group" style = " font-weight: normal;">
 		
 	
-			@foreach($replies as $topic)
-
+			@foreach($topics as $topic )
+			
 		
 			<?php 
 $string = strip_tags($topic->contents);
@@ -34,20 +34,25 @@ if (strlen($string) > 250) {
     $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'...(mai mult)'; 
 }
 			?>
-<div class = "Topicss">
+<div style = "background-color:#FFFEED;"class = "Topicss">
 	<div >
-	<span style = "margin-left:5px;margin-top:0px;"><b><?php $date = new DateTime($topic->date_added);$dataa = $date->format('Y-m-d H:i');?>{{ schimba_data_format($dataa) }}</b></span><br>
 				
 				</div><br>
 				
-				
+					<span style = "font-size:16px;font-weight:bold;margin-left:7px;"><?php $date = new DateTime($topic->reply_date_added);$dataa = $date->format('Y-m-d H:i');?>{{ schimba_data_format($dataa) }}</span><br><br>
+					<br>
+			
+			<?php $input = $topic->content;$output = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $input);; ?>
+						<span style = "word-break: break-all;font-weight:normal;"><b>{!! nl2br($output) !!}</b></span>
+				<br><br><b>Raspuns la intrebarea:</b><br>
+					
 					<a style = "color:black;display: inline; height: 100%;width: 600px;" class = "new"id = "" name = "topic"href = "/topic/{{ $topic->categ_urlslug }}/{{ $topic->topic_urlslug }}"><?php echo $string; ?></a>
 				
 			</div><br>
+			
 			@endforeach
 
-		<div class = "pagination" style = "display:inline-block;">{!! $topics->render() !!}</div>
-
+		
 	</div>
 
 

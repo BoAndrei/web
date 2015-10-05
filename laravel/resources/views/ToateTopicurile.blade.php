@@ -51,7 +51,7 @@ label { display: inline-block; width: 140px; text-align: right; }​
 <nav class = "drop">
 	<ul>
 		<li class = "cauta"><a href="#"><div id="down-triangle"></div></a>
-			<ul>
+			<ul class = "cautadown">
 				<li><a href="#">Cauta topicuri<div class="circle"></div></a></li>
 				<li><a href="#">Cauta raspunsuri<div class="circle"></div></a></li>
 				

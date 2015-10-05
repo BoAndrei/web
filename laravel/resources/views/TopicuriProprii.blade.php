@@ -34,7 +34,7 @@ if (strlen($string) > 250) {
     $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'...(mai mult)'; 
 }
 			?>
-<div class = "Topicss">
+<div style = "background-color:#FFFEE8;"class = "Topicss">
 	<div >
 	<span style = "margin-left:5px;margin-top:0px;"><b><?php $date = new DateTime($topic->date_added);$dataa = $date->format('Y-m-d H:i');?>{{ schimba_data_format($dataa) }}</b></span><br>
 				

@@ -2,7 +2,7 @@
 
 
 @section('Mesaj')
-<div class = "Mesaje">
+<div  style = "margin-top:-550px" class = "Mesaje">
 <div class = "MesajeWrapper">
 <div class = "Compune">Compune un mesaj</div>
 		<form id = "MesajeForm" action = "/TrimiteMesaj" method = "post">
@@ -46,7 +46,7 @@
   <option value="/profil/{{Auth::user()->username}}/mesaje/mesaje-trimise">Mesaje Trimise</option>
 <option value="/profil/{{Auth::user()->username}}/mesaje">Mesaje Primite</option>
 </select>
-		<input style = "margin-left:470px;"type = "text" value = "Cautare"></input>
+		
 	</div>
 
 	<div class = "lowerIndex">

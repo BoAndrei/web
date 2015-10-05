@@ -2,19 +2,23 @@
 
 
 
-<div class = "TabelUsers">
+<div class="CSSTableGenerator" >
 <table class="table">
-<thead><tr><th>Username</th><th>Data inregistrarii</th></tr></thead>
-<tbody>
 
+<tbody>
+<td>Username</td>
+	<td>Data inregistrarii</td>
+	<td>User Type</td>
 @foreach($Users as $users)
 	<tr style = "position:relative;">
 		@if($users->user_status == '1')
-	<td style = "color:red">{{$users->username}}</td>
+	<td style = "color:blue">{{$users->username}}</td>
 	<td>{{$users->date_registered}}</td>
+	<td>{{$users->user_type}}</td>
 	@else
 <td>{{$users->username}}</td>
 	<td>{{$users->date_registered}}</td>
+	<td>{{$users->user_type}}</td>
 	</tr>
 	@endif
 	

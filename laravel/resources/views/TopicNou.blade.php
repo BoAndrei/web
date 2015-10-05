@@ -1,19 +1,35 @@
 @extends('layouts.PrimaPaginaLayout')
 @section('TopicNou')
+<?php 
+function schimba_data_format($data){
+  $luni=array("ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie",
+  "noiembrie","decembrie");
+  $an=''; $luna=''; $zi=''; $ora='';
+  for($i=0;$i<=3;$i++) $an.=$data[$i];
+  for($i=5; $i<=6;$i++) $luna.=$data[$i];
+  $luna=$luni[intval($luna)-1];
+  for($i=8; $i<=9; $i++) $zi.=$data[$i]; $zi=intval($zi);
+  for($i=11;$i<strlen($data);$i++) $ora.=$data[$i];
+  return $data=$zi.' '.$luna.' '.$an.' '.$ora;
+}
+
+
+?>
 
 <style type="text/css">
 #TopicForm{
   display: inline-block;
-  margin-top: 200px;
-  right: 550px;
+  margin-top: 600px;
+  right: 250px;
   position: absolute;
-  background-color: #009900;
+
   padding: 10px;
-  border-radius: 15px;
+  
 }
 label { display: inline-block; width: 140px; text-align: right; }​
 </style>
-
+<script src = "/js/jquery.livepreview.js"></script>
+<script src = "/js/TopicNou.js"></script>
 <?php 
 
 if(isset($_POST['name']) && $_POST['name'] != ""){
@@ -40,14 +56,26 @@ if(isset($_POST['name']) && $_POST['name'] != ""){
 	<div class="form-group">
 		<div class = "col">
 			
-			
-		<textarea onInput="checkWords()" maxlength = "1500"cols="66" rows="16"name="Topic" id="styled" placeholder = "Introdu topicul aici..."></textarea>
-		<div style = "vertical-align: top;"id = "eDenumireC"> </div>
-		</div>
+				<div  style="display: inline-block; position: relative;" id = "resizable">						
+					<textarea id = "styled" class = "content-box"name = "Topic" WRAP=HARD cols = "72" rows = "10" placeholder = "Raspunde la aceasta intrebare"></textarea>
+				</div>
+        
+<input id="a" type="text" value="Hello world" /><br/>
+<input id="finalcount" value="0" disabled />
+               <div style = "color:orange" id = "countWords"></div>  
+  <br>
+  	<div class = "prev">
+			<img  style = "float:left;width:60px;height:60xp;" src="/<?php echo Auth::user()->image; ?>">
+			<span style = "margin-left:5px;">{{ Auth::user()->username }} intreaba:</span><br>
+			<span style = "margin-left:5px;"><?php $dataa = date('Y-m-d');?>{{ schimba_data_format($dataa) }}</span>
+					
+		<div class="preview"></div>
+	
 
- <div style = "color:orange" id = "countWords"></div>
+	</div>
+</div>
+
 		
-
 	</div>
 
 
@@ -56,12 +84,7 @@ if(isset($_POST['name']) && $_POST['name'] != ""){
 <input style = "margin-left:250px;"class = "btnNou" id= "DateSubmit" type = "submit" value = "Trimite topicul"></input>
 		
 </form>
-<div class = "boxT3">
-Reguli pentru postarea unui topic:
-<br><br>
-<span>1.</span>
 
-</div>
 </div>
 <script type="text/javascript">
   
