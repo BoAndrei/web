@@ -41,6 +41,10 @@ class SessionController extends Controller {
     	{
     		$data = date("d-m-Y H:i:s", strtotime('+3 hours'));
         	DB::table('users')->insert(array('username'=>Input::get('username'), 'password'=>Hash::make(Input::get('password')),'email'=>Input::get('email'),'date_registered'=>$data));
+   			
+   			$last_id = DB::table('users')->orderBy('user_id', 'desc')->first();
+   			//die(var_dump($last_id->user_id));
+   			DB::table('users_data')->insert(array('users_data_id'=>$last_id->user_id));
    			return Response::json(['success' => 'request succeeded'], 200);
    		}
    			if(count($user) != 0 && count($email) != 0)

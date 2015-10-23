@@ -30,13 +30,8 @@ label { display: inline-block; width: 140px; text-align: right; }​
 </style>
 <script src = "/js/jquery.livepreview.js"></script>
 <script src = "/js/TopicNou.js"></script>
-<?php 
 
-if(isset($_POST['name']) && $_POST['name'] != ""){
-
-   die(var_dump($_POST['name'])); }
-
-?>
+<script src="/js/bootstrap-tagsinput.js" type="text/javascript" charset="utf-8"></script>
 
 
 
@@ -44,6 +39,36 @@ if(isset($_POST['name']) && $_POST['name'] != ""){
 		
 		<form id = "TopicForm" method = "POST" action = "/EditTopic">
 			 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+
+
+
+<select name = "tags[]" multiple data-role="tagsinput"></select>
+<script>
+
+$(document).ready(function(){
+
+
+
+
+  $('#select').tagsinput({
+    maxTags: 5,
+    maxChars: 8,
+    confirmKeys: [13, 44, 8],
+    allowSpaces: false,
+    placeholderText: 'add new tag here...',
+    fieldName: 'tags[]'
+
+  });
+
+  
+
+});
+</script>
+
+
+
+
 	<select class = "categorie"name = "categorie">
 
 			@foreach($categorii as $categori)
@@ -59,8 +84,8 @@ if(isset($_POST['name']) && $_POST['name'] != ""){
 				<div  style="display: inline-block; position: relative;" id = "resizable">						
 					<textarea id = "styled" class = "content-box"name = "Topic" WRAP=HARD cols = "72" rows = "10" placeholder = "Raspunde la aceasta intrebare"></textarea>
 				</div>
-        
-<input id="a" type="text" value="Hello world" /><br/>
+
+
 <input id="finalcount" value="0" disabled />
                <div style = "color:orange" id = "countWords"></div>  
   <br>

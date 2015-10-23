@@ -9,7 +9,7 @@
 <?php if(Auth::user()){?>
 <?php if(Auth::user()->image ){?>
 
-	<a href = "/<?php echo Auth::user()->image; ?>" data-gallery><img  id = "thumb" src="/<?php echo Auth::user()->image; ?>"></a>
+	<a href = "/<?php echo Auth::user()->image; ?>"data-lightbox="image-2"><img  id = "thumb" src="/<?php echo Auth::user()->image; ?>"></a>
 
 
 <?php } else {?>

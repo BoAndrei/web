@@ -27,6 +27,15 @@ $parsedown = new Parsedown();
 <link href='/css/nprogress.css' rel='stylesheet' />
 <!-- QTIP -->
 
+<link href='/css/lightbox.css' rel='stylesheet' />
+
+<link href='/css/chosen.css' rel='stylesheet' />
+
+<link href="/css/bootstrap-tagsinput.css" rel="stylesheet" type="text/css">
+
+
+
+
 
 
 <script type="text/javascript">
@@ -313,6 +322,7 @@ $(document).ready(function(){
  <a href = "/" value = "Acasa">Acasa</a>
  <a href = "/topicnou/" value = "TopicNou">Topic nou</a>
  <a href = "/toatetopicurile/" value = "ToateTopicurile">Toate Topicurile</a>
+  <a href = "/cautaresite/" value = "ToateTopicurile">Cauta User</a>
 	</div>
 	<div class = "autreg">
 
@@ -773,8 +783,8 @@ if(Request::segment(5))
 	
 <?php if(Auth::user()){?>
 <?php if(Auth::user()->image ){?>
-
-	<a href = "/<?php echo Auth::user()->image; ?>" data-gallery><img  style = "padding:8px;
+<script src='/js/lightbox.js'></script>
+	<a  data-lightbox="image-1" href = "/<?php echo Auth::user()->image; ?>"><img  style = "padding:8px;
 border:solid;
 border-color: #dddddd #aaaaaa #aaaaaa #dddddd;
 border-width: 1px 2px 2px 1px;
@@ -820,6 +830,8 @@ background-color:white;position:relative;left:40px;"width= "278" height = "230" 
 @yield('SchimbareImagine')
 
 @yield('DatePersonale')
+
+
 
 
 <?php } }?>
@@ -881,6 +893,18 @@ background-color:white;position:relative;left:40px;"width= "278" height = "230" 
 @if(Auth::check() && Request::segment(3) == 'raspunsuriproprii')
 
 @yield('RaspunsurileMele')
+
+@endif
+
+@if(Auth::check() && Request::segment(1) == 'cautaresite')
+
+@yield('CautareSite')
+
+@endif
+
+@if(Auth::user() && Request::segment(1) == 'cautare')
+
+@yield('RezultateCautare')
 
 @endif
 </body>

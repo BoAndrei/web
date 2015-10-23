@@ -21,7 +21,7 @@ $(document).ready(function() {
         $('#finalcount').val(finalCount)
 
 
-  if(finalCount <= 10 )
+/*  if(finalCount <= 10 )
   {
 console.log(finalCount);
     $('textarea.content-box').qtip({ 
@@ -45,7 +45,7 @@ console.log(finalCount);
   {
     var api = $('textarea').qtip();
    api.toggle(false); //hide
-  }
+  }*/
 
     }).keyup();
 

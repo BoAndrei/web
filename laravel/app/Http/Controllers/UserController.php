@@ -177,14 +177,39 @@ class UserController extends Controller {
 		public function EditTopic() {
 			
 				
-
-			$slug = Str::slug(Input::get('Topic'));
-			if( DB::table('topics')->where('topic_urlslug',$slug)->select('occurances')->first())
-			{$var = DB::table('topics')->where('topic_urlslug',$slug)->first();
-
-			$k = $var->occurances;}else $k =0;
-
 			$data = date("Y-m-d H:i:s", strtotime('+3 hours'));
+			$slug = Str::slug(Input::get('Topic'));
+			
+			$tag = Input::get('tags');
+			$last_id = DB::table('topics')->orderBy('topic_id', 'desc')->first();
+				foreach ($tag as $tags ) 
+				{
+					
+					if(DB::table('tags')->where('nume_tag',$tags)->exists())
+					{
+						$occ = DB::table('tags')->where('nume_tag',$tags)->first();
+						$k = $occ->tag_occurances;
+
+						DB::table('tags')->where('nume_tag',$tags)->update(array('tag_occurances' => $k+1));
+					}
+					else
+        			 DB::table('tags')->insert(array('nume_tag' => $tags  ));
+
+        			$tag_id = DB::table('tags')->where('nume_tag',$tags)->first();
+					DB::table('tags_topics')->insert(array('tags_id' => $tag_id->tag_id, 'topics_id'=>$last_id->topic_id+1));
+
+	    			
+	    		}
+
+
+			if( DB::table('topics')->where('topic_urlslug',$slug)->select('occurances')->first())
+			{
+				$var = DB::table('topics')->where('topic_urlslug',$slug)->first();
+				$k = $var->occurances;
+			}
+			else 
+				$k =0;
+
 			
 			$topics = DB::table('topics')->where('topic_urlslug',$slug)->get();
 
@@ -200,10 +225,12 @@ class UserController extends Controller {
 				DB::table('topics')->insert(array( 'topic_author_id'=>Auth::user()->user_id, 'contents'=>Input::get('Topic'), 'date_added'=>$data, 'categorie'=>Input::get('categorie'),'topic_urlslug'=>$slug.'-'.$k ));
 				return Redirect::to('/topicnou');
 			}
-else if($k == 0){
-	DB::table('topics')->insert(array( 'topic_author_id'=>Auth::user()->user_id, 'contents'=>Input::get('Topic'), 'date_added'=>$data, 'categorie'=>Input::get('categorie'),'topic_urlslug'=>$slug ));
-			return Redirect::to('/topicnou');
-}
+
+			else if($k == 0)
+			{
+				DB::table('topics')->insert(array( 'topic_author_id'=>Auth::user()->user_id, 'contents'=>Input::get('Topic'), 'date_added'=>$data, 'categorie'=>Input::get('categorie'),'topic_urlslug'=>$slug ));
+				return Redirect::to('/topicnou');
+			}
 		
 		}
 
@@ -358,13 +385,24 @@ else if($k == 0){
 			
 		}
 
-		public function Search() {
+		public function SearchTopicuri() {
 
-			$search_term = Request::segment(2);
+			$search_term = Request::segment(3);
 
-			$topics = DB::table('topics')->join('categories','categorie','=','denumire')->join('users','user_id','=','topic_author_id')->where('topic_urlslug','like',"%$search_term%")->get();
+			$topics = DB::table('topics')->join('categories','categorie','=','denumire')->join('users','user_id','=','topic_author_id')->where('contents','like',"%$search_term%")->get();
 			
 			return view('TopicSearch')->with('topics',$topics);
+		}
+
+		public function SearchRaspunsuri() {
+
+			$search_term = Request::segment(3);
+
+		
+
+			$topics = DB::table('topics')->join('replies','topic','=','topic_urlslug')->join('categories','categorie','=','denumire')->join('users','user_id','=','topic_author_id')->where('content','like',"%$search_term%")->orderBy('date_added', 'DESC')->get();
+		
+				return view('TopicSearchRaspunsuri')->with('topics',$topics);
 		}
 
 		public function RaspunsAcceptat() {
@@ -394,6 +432,23 @@ $topics = DB::table('topics')->join('replies','topic','=','topic_urlslug')->join
 		
 			$replies = DB::table('replies')->join('users','author_id','=','user_id')->where('author_id',Auth::user()->user_id)->orderBy('reply_date_added', 'ASC')->get();
 				return view('RaspunsuriProprii')->with('topics',$topics);
+		}
+
+		public function CautareSite() {
+			return view('CautareSite');
+		}
+
+		public function CautareSiteForm() {
+			
+			$term = Request::segment(2);
+			$search_term = Request::segment(3);
+$rezultate = DB::table('users')->join('users_data','users_data_id','=','user_id')->where($term,'LIKE',"%$search_term%")->get();
+
+
+
+			
+//die(var_dump($rezultate));
+			return view('RezultateCautare')->with('rezultate',$rezultate);
 		}
 
 

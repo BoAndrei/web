@@ -10,11 +10,21 @@ body {
 button,
 html input[type="button"],
 input[type="reset"],
-input[type="submit"] {
-  
+input[type="submit"],
+input[type="radio"] {
+  box-shadow: none;
+-moz-box-shadow: none;
+-webkit-box-shadow: none;
+  outline: none;
   cursor: pointer;
 }
+
+
 label{
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  outline: none;
   display: inline;
 }
 
@@ -210,7 +220,7 @@ blockquote {
 
 .autreg {
   display: inline;
-  margin-left: 40%;
+  margin-left: 30%;
 
 }
 
@@ -775,7 +785,7 @@ resize: none;
     /*-------------------------------------*/ 
     
     .form-wrapper {
-        width: 600px;
+        width: 700px;
         position: relative;
         padding: 15px;
         left: 60px;
@@ -802,7 +812,7 @@ resize: none;
         -moz-border-radius: 3px 0 0 3px;
         -webkit-border-radius: 3px 0 0 3px;
         border-radius: 3px 0 0 3px; 
-        margin-left:80px;
+        margin-left:180px;
 
     }
     
@@ -927,10 +937,10 @@ margin-top: -80px;
 }
 
 
-.drop ul .cauta {
+.drop ul .option {
 
   float: left;
-  width: 80px;
+  width: 130px;
   text-align: left;
   
 }
@@ -995,13 +1005,13 @@ margin-top: -80px;
   display: inline;
   width: 10px;
   height: 10px; 
-  
+ 
   border: 3px solid #8ce5b2;
   -moz-border-radius: 100%; 
   -webkit-border-radius: 100%; 
   border-radius: 100%;
 }
-
+.tokenize-sample { width: 300px }
 
 
 
@@ -1024,15 +1034,17 @@ margin-top: -80px;
   margin-left: 30%;
   margin-top:150px;
   font-size: 20px;
- 
+
+
   
   
 }.CSSTableGenerator table{
     border-collapse: collapse;
-        border-spacing: 0;
+        border-spacing: 0px;
   width:100%;
   height:100%;
-  margin:0px;padding:0px;
+  margin:0px;
+  padding:0px;
 
 }.CSSTableGenerator tr:last-child td:last-child {
   -moz-border-radius-bottomright:0px;
@@ -1083,6 +1095,7 @@ margin-top: -80px;
 .CSSTableGenerator tr td {
    text-align: center;
 
+
 }
 
 .CSSTableGenerator tr:first-child td{
@@ -1107,7 +1120,6 @@ margin-top: -80px;
 .CSSTableGenerator tr:first-child td:first-child{
   border-width:0px 0px 1px 0px;
   width: 10px;
-
 }
 
 
@@ -1190,3 +1202,46 @@ padding: 5px 5px;
    padding: 10px 0;
    width:510px;
 }
+
+.option {
+  position: absolute;
+  left: -70px;
+  top: 60px;
+  outline: none;
+     border: 1px solid #111;
+   background: transparent;
+   padding: 5px 10px 5px 5px;
+   font-size: 16px;
+   border: 1px solid #ccc;
+
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+    background: 96% / 15% no-repeat #eee;
+
+} 
+
+.arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid gray;
+  z-index: 9999;
+  position: absolute;
+  left:140px;
+  top:30px;
+}
+/*target Internet Explorer 9 and Internet Explorer 10:*/
+@media screen and (min-width:0\0) { 
+    .option {
+        background:none;
+        padding: 5px;
+    }
+}
+
+.search-choice-close {
+ 
+}
+
+

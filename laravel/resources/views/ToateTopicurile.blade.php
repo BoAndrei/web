@@ -37,28 +37,42 @@ a:hover {
 label { display: inline-block; width: 140px; text-align: right; }​
 </style>
 
-     
+     <script type="text/javascript" src="/js/chosen.jquery.js"></script>
+<script type="text/javascript" src="/js/prism.js"></script>
 
 <form class="SearchForm form-wrapper cf"name = "searchform"id = "TopicForm" action = "/cauta/" role="search" method = "GET">
 	   <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	
 	<input name = "search" type="text" list = "datalist" class="form-control" id = "search"  autocomplete = "off" placeholder="Cautati topic" required>
 	
-	<button onClick = "submitForm();" id= "DateSubmit" type = "submit" value = "&#128269;">Search</button>
+	<button  id= "DateSubmit" type = "submit" value = "&#128269;">Search</button>
  
 
+ <select  data-placeholder="Cauta..." style="width:170px;" class="chosen-select">
+    <option value=""></option>
+    <option value="topicuri">Cauta Topicuri</option>
+    <option value="raspunsuri">Cauta Raspunsuri</option>
+</select>
+
+
+
+
+<script type="text/javascript">
+    var config = {
+      '.chosen-select'           : {search_contains:true},
+      '.chosen-select-deselect'  : {allow_single_deselect:true},
+      '.chosen-select-no-single' : {disable_search_threshold:10},
+      '.chosen-select-no-results': {no_results_text:'Nu s-a gasit nici un rezultat'},
+      '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {
+      $(selector).chosen(config[selector]);
+    }
+  </script>
+
+
 </form>
-<nav class = "drop">
-	<ul>
-		<li class = "cauta"><a href="#"><div id="down-triangle"></div></a>
-			<ul class = "cautadown">
-				<li><a href="#">Cauta topicuri<div class="circle"></div></a></li>
-				<li><a href="#">Cauta raspunsuri<div class="circle"></div></a></li>
-				
-			</ul>
-		</li>
-	</ul>
-</nav>
+
 
     
 		<form id = "TopicForm" method = "POST" action = "/EditTopic">

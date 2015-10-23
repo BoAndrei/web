@@ -32,9 +32,9 @@ class ProfilController extends Controller {
 			//$mesaje = Mesaje::all();
 			if(Auth::check())
 			{
-				
+				$users = DB::table('users')->where('user_id','!=',Auth::user()->user_id)->get();
 				$mesaje = DB::table('mesaje')->where('expeditor_id',Auth::user()->user_id)->orWhere('destinatar_id',Auth::user()->user_id)->join('users','user_id','=','mesaje.expeditor_id')->orderBy('data_mesajului', 'desc')->get();
-				return view('Mesaje')->with('mesaje',$mesaje)->withUsers(User::all());
+				return view('Mesaje')->with('mesaje',$mesaje)->with('users',$users);
 			
 			}
 			 else return Redirect::to('/');
@@ -203,7 +203,10 @@ convertImage('images/'.mb_convert_encoding(basename($_FILES["image"]["name"]),'I
 
 		public function datepersonale()
 		{
-			return view('DatePersonale');
+
+			$conf = DB::table('users_data')->where('users_data_id',Auth::user()->user_id)->first();
+
+			return view('DatePersonale')->with('conf',$conf);
 		}
 
 		public function EditDate()
@@ -212,12 +215,12 @@ convertImage('images/'.mb_convert_encoding(basename($_FILES["image"]["name"]),'I
 			if($data_user_id->users_data_id == Auth::user()->user_id)
 			
 			{
-				DB::table('users_data')->where('users_data_id',Auth::user()->user_id)->update( array('nume'=>Input::get('Nume'), 'prenume'=>Input::get('Prenume'), 'adresa'=>Input::get('Adresa'), 'ziua'=>Input::get('date_day'), 'luna'=>Input::get('date_month'), 'anul'=>Input::get('date_year'), 'localitate'=>Input::get('oras'), 'sexul'=>Input::get('sexul') ) );
+				DB::table('users_data')->where('users_data_id',Auth::user()->user_id)->update( array('nume'=>Input::get('Nume'), 'prenume'=>Input::get('Prenume'), 'adresa'=>Input::get('Adresa'), 'ziua'=>Input::get('date_day'), 'luna'=>Input::get('date_month'), 'anul'=>Input::get('date_year'), 'localitate'=>Input::get('oras'), 'sexul'=>Input::get('sexul'), 'nume_conf'=>Input::get('nume_public'), 'prenume_conf'=>Input::get('prenume_public'), 'adresa_conf'=>Input::get('adresa_public'), 'localitate_conf'=>Input::get('localitate_public') ) );
 				return Redirect::to('http://localhost/profil/'.Auth::user()->username.'/datepersonale');
 			}
 			else
 			{
-				DB::table('users_data')->insert( array('users_data_id'=>Auth::user()->user_id, 'nume'=>Input::get('Nume'), 'prenume'=>Input::get('Prenume'), 'adresa'=>Input::get('Adresa'), 'data_nasterii'=>Input::get('date_day'). ' - '.Input::get('date_month').' - '.Input::get('date_year'), 'localitate'=>Input::get('oras'), 'sexul'=>Input::get('sexul') ) );
+				DB::table('users_data')->insert( array('users_data_id'=>Auth::user()->user_id, 'nume'=>Input::get('Nume'), 'prenume'=>Input::get('Prenume'), 'adresa'=>Input::get('Adresa'), 'data_nasterii'=>Input::get('date_day'). ' - '.Input::get('date_month').' - '.Input::get('date_year'), 'localitate'=>Input::get('oras'), 'sexul'=>Input::get('sexul'), 'nume_conf'=>Input::get('nume_public'), 'prenume_conf'=>Input::get('prenume_public'), 'adresa_conf'=>Input::get('adresa_public'), 'localitate_conf'=>Input::get('localitate_public') ) );
 				return Redirect::to('http://localhost/profil/'.Auth::user()->username.'/datepersonale');
 			}
 		}

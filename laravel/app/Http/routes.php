@@ -36,7 +36,7 @@ Route::post('EditParola','UserController@EditParola');
 
 Route::post('EditParola2/{email}','UserController@EditParola2');
 
-Route::post('TrimiteMesaj','MesajeController@TrimiteMesaj');
+Route::post('/TrimiteMesaj','MesajeController@TrimiteMesaj');
 
 Route::get('profil/{username}/setarilecontului','ProfilController@setarilecontului');
 
@@ -94,7 +94,9 @@ Route::get('/topicdelete/{topic_urlslug}','UserController@TopicDelete');
 
 Route::get('/replydelete/{reply_id}','UserController@ReplyDelete');
 
-Route::get('/cauta/{ceva}','UserController@Search');
+Route::get('/cauta/topicuri/{ceva}','UserController@SearchTopicuri');
+
+Route::get('/cauta/raspunsuri/{ceva}','UserController@SearchRaspunsuri');
 
 Route::post('raspunsacceptat','UserController@RaspunsAcceptat');
 
@@ -102,4 +104,7 @@ Route::get('/profil/{username}/topicuriproprii','UserController@topicuriproprii'
 
 Route::get('/profil/{username}/raspunsuriproprii','UserController@raspunsuriproprii');
 
+Route::get('/cautaresite','UserController@CautareSite');
+
+Route::get('/cautare/{altceva}/{altcevaa}','UserController@CautareSiteForm');
 
