@@ -2,40 +2,15 @@
 
 @section('Mesaje')
 <div class = "Mesaje">
-<div class = "MesajeWrapper">
-<div class = "Compune">Compune un mesaj</div>
-		<form id = "MesajeForm" action = "/TrimiteMesaj" method = "post">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-	
-			<div class="form-group">
-				
-		 	<div class = "col">
-		 		<label class = "col" for = "catre" >Catre:</label>
-				<input type = "text" name = "catre" id="catre"></input>
-			<div id = "eCatre"></div>
-			</div>
-			</div>
 
-			<div class="form-group">
-				
-		 	<div class = "col">
-		 		<label class = "col" for = "subiect" >Subiect:</label>
-				<input type = "textarea" name = "subiect" id="subiect"></input>
-			<div id = "eSubiect"></div>
-			</div>
-			</div>
 
-			<div class="form-group">
-				
-		 	<div class = "col">
-		 		<label class = "col" for = "mesaj" >Mesaj:</label>
-				<textarea id="mesaj" name = "mesaj" rows="10" cols="70"></textarea>
-			</div>
-			</div>
-<input style = "margin-left:0px;"class = "btn" id= "MesajSubmit" type = "submit" value = "Trimite mesaj"></input>
-		</form>
 
-</div>
+
+
+
+
+
+
 <div class = "DisplayMessages">
 
 	<div class = "upperIndex">

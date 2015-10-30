@@ -20,21 +20,10 @@ label { display: inline-block; width: 140px; text-align: right; }​
 
 		</div>
 		<div id = "radio-demo"style = "font-weight:normal;">
-<div >Doresc ca numele meu sa fie afisat public:</div>
-		<label style = "margin-right: 0;">
-			@if($conf->nume_conf != 'N')
-			<input type = "radio" name = "nume_public" value = "N">Nu
-			@else 
-			<input checked type = "radio" name = "nume_public" value = "N">Nu
-			@endif
-		</label>
-		<label>
-			@if($conf->nume_conf != 'Y')
-			<input type = "radio" name = "nume_public" value = "Y">Da
-			@else 
-			<input checked type = "radio" name = "nume_public" value = "Y">Da
-			@endif
-		</label>
+
+		
+		
+		
 	</div>
 </div>
 
@@ -44,21 +33,7 @@ label { display: inline-block; width: 140px; text-align: right; }​
 			<input style = "font-size:15px;"type = "text" name = "Prenume" id="Prenume" value = "<?php if(DB::table('users_data')->where('users_data_id',Auth::user()->user_id)->first()){$date = DB::table('users_data')->where('users_data_id',Auth::user()->user_id)->first();echo $date->prenume; }?>"></input>
 		<div style = "vertical-align: top;"id = "ePrenume"> </div>
 		</div>
-<div>Doresc ca prenumele meu sa fie afisat public:</div>
-		<label>
-			@if($conf->prenume_conf != 'N')
-			<input type = "radio" name = "prenume_public" value = "N">Nu
-			@else 
-			<input checked type = "radio" name = "prenume_public" value = "N">Nu
-			@endif
-		</label>
-		<label>
-			@if($conf->prenume_conf != 'Y')
-			<input type = "radio" name = "prenume_public" value = "Y">Da
-			@else 
-			<input checked type = "radio" name = "prenume_public" value = "Y">Da
-			@endif
-		</label>
+
 	</div>
 
 	<div class="form-group">
@@ -67,21 +42,7 @@ label { display: inline-block; width: 140px; text-align: right; }​
 			<input style = "font-size:15px;"type = "text" name = "Adresa" id="Adresa" value = "<?php if(DB::table('users_data')->where('users_data_id',Auth::user()->user_id)->first()){$date = DB::table('users_data')->where('users_data_id',Auth::user()->user_id)->first();echo $date->adresa; }?>"></input>
 		<div style = "vertical-align: top;"id = "eAdresa"> </div>
 		</div>
-<div>Doresc ca numele meu sa fie afisat public:</div>
-		<label>
-			@if($conf->adresa_conf != 'N')
-			<input type = "radio" name = "adresa_public" value = "N">Nu
-			@else 
-			<input checked type = "radio" name = "adresa_public" value = "N">Nu
-			@endif
-		</label>
-		<label>
-			@if($conf->adresa_conf != 'Y')
-			<input type = "radio" name = "adresa_public" value = "Y">Da
-			@else 
-			<input checked type = "radio" name = "adresa_public" value = "Y">Da
-			@endif
-		</label>
+
 	</div>
 	
 	
@@ -160,21 +121,7 @@ echo date_dropdown();
         <input type = "textbox" name = "oras" value = "<?php if(DB::table('users_data')->where('users_data_id',Auth::user()->user_id)->first()){$date = DB::table('users_data')->where('users_data_id',Auth::user()->user_id)->first();echo $date->localitate; }?>">
  
 		</div>
-	<div>Doresc ca localitatea mea sa fie afisat public:</div>
-	<label>
-		@if($conf->localitate_conf != 'N')
-		<input type = "radio" name = "localitate_public" value = "N">Nu
-		@else 
-		<input checked type = "radio" name = "localitate_public" value = "N">Nu
-		@endif
-	</label>
-	<label>
-		@if($conf->localitate_conf != 'Y')
-		<input type = "radio" name = "localitate_public" value = "Y">Da
-		@else 
-		<input checked type = "radio" name = "localitate_public" value = "Y">Da
-		@endif
-	</label>
+	
 	</div>
 
 	<div class = "form-group">
@@ -193,7 +140,21 @@ if($ziua->sexul == 'Masculin')
 
 	</div>
 	</div>
-
+<div>Doresc ca datele personale sa fie afisate public:</div>
+	<label>
+		@if($conf->privacy != 'N')
+		<input type = "radio" name = "privacy" value = "N">Nu
+		@else 
+		<input checked type = "radio" name = "privacy" value = "N">Nu
+		@endif
+	</label>
+	<label>
+		@if($conf->privacy != 'Y')
+		<input type = "radio" name = "privacy" value = "Y">Da
+		@else 
+		<input checked type = "radio" name = "privacy" value = "Y">Da
+		@endif
+	</label>
 
 <br><br>
 <input style = "margin-left:250px;"class = "btnNou" id= "DateSubmit" type = "submit" value = "Modifica"></input>

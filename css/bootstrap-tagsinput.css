@@ -43,6 +43,18 @@
   background-color: deepskyblue;
   padding: 5px;
 }
+.tag {
+  margin-right: 2px;
+  color: white;
+  background-color: deepskyblue;
+  padding: 7px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.tag:hover {
+  background-color: #1ebda8;
+}
 .bootstrap-tagsinput .tag [data-role="remove"] {
   margin-left: 8px;
   cursor: pointer;

@@ -249,9 +249,11 @@ class UserController extends Controller {
 			//die(var_dump($replies));
 			$topic = DB::table('topics')->join('users','topic_author_id','=','user_id')->where('topic_urlslug',Request::segment(3))->get();
 			
+			$tag = DB::table ('tags_topics')->join('topics','topic_id','=','topics_id')->join('tags','tag_id','=','tags_id')->where('topic_urlslug',Request::segment(3))->get();
+
 			$repliesReply = DB::table('repliesreply')->join('users','reply_author_id','=','user_id')->get();
 
-			return view('Topic')->with('topic',$topic)->with('replies',$replies)->with('repliesReply',$repliesReply);
+			return view('Topic')->with('topic',$topic)->with('replies',$replies)->with('repliesReply',$repliesReply)->with('tag',$tag);
 		}
 
 		public function PostReply() {
@@ -403,6 +405,17 @@ class UserController extends Controller {
 			$topics = DB::table('topics')->join('replies','topic','=','topic_urlslug')->join('categories','categorie','=','denumire')->join('users','user_id','=','topic_author_id')->where('content','like',"%$search_term%")->orderBy('date_added', 'DESC')->get();
 		
 				return view('TopicSearchRaspunsuri')->with('topics',$topics);
+		}
+
+		public function SearchTags() {
+
+			$search_term = Request::segment(3);
+
+		
+
+			$topics = DB::table('tags_topics')->join('topics','topics_id','=','topic_id')->join('categories','categorie','=','denumire')->join('tags','tags_id','=','tag_id')->join('users','user_id','=','topic_author_id')->where('nume_tag','like',"%$search_term%")->orderBy('date_added', 'DESC')->get();
+		
+				return view('TopicSearchTags')->with('topics',$topics);
 		}
 
 		public function RaspunsAcceptat() {

@@ -1,7 +1,7 @@
 @extends('layouts.PrimaPaginaLayout')
 
-
 @section('RezultateCautare')
+
 <script type="text/javascript" src="/js/chosen.jquery.js"></script>
 <script type="text/javascript" src="/js/prism.js"></script>
 <style type="text/css">
@@ -11,11 +11,15 @@
   border-width:0px 0px 1px 0px;
   width: 200px;
 }
+.CSSTableGenerator tr td {
+   text-align: center;
 
+
+}
 .CSSTableGenerator td{
   vertical-align:middle;
   
-  
+
   border:2px solid #cccccc;
   border-width:0px 0px 1px 0px;
   text-align:left;
@@ -32,7 +36,7 @@
   width:700px;
   height: auto;
   border:1px solid #000000;
-  float: right;
+ 
   position: absolute;
   margin-left: 20%;
   margin-top:50px;
@@ -57,7 +61,8 @@
 		$(".chosen-select").chosen()
 	});
 	</script>
-<select  tabindex="2" data-placeholder="Alege un filtru..." style="width:350px;" class="chosen-select">
+<select  data-placeholder="Cauta utilizator dupa..."  style="width:170px;" class="chosen-select">
+    <option value=""></option>
     <option value="1">Username</option>
     <option value="2">Localitate</option>
     <option value="3">NrTelefon</option>

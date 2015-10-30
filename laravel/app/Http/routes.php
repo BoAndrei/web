@@ -50,6 +50,8 @@ Route::post('/stergemesajd','ProfilController@stergemesajd');
 
 Route::get('profil/{username}/mesaje/sterge-mesaje/{mesaj_id}','ProfilController@stergemesaje');
 
+Route::get('profil/{username}/trimite-mesaj','ProfilController@TrimiteMesaj');
+
 Route::get('profil/{username}/modificareimagine','ProfilController@modificareimagine');
 
 Route::post('/EditImagine','ProfilController@EditImagine');
@@ -98,6 +100,8 @@ Route::get('/cauta/topicuri/{ceva}','UserController@SearchTopicuri');
 
 Route::get('/cauta/raspunsuri/{ceva}','UserController@SearchRaspunsuri');
 
+Route::get('/cauta/tags/{ceva}','UserController@SearchTags');
+
 Route::post('raspunsacceptat','UserController@RaspunsAcceptat');
 
 Route::get('/profil/{username}/topicuriproprii','UserController@topicuriproprii');
@@ -107,4 +111,6 @@ Route::get('/profil/{username}/raspunsuriproprii','UserController@raspunsuriprop
 Route::get('/cautaresite','UserController@CautareSite');
 
 Route::get('/cautare/{altceva}/{altcevaa}','UserController@CautareSiteForm');
+
+
 

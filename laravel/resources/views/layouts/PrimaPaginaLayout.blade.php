@@ -806,10 +806,11 @@ background-color:white;position:relative;left:40px;"width= "278" height = "230" 
 	?>
 		<li><a class = "nav-link" href = "/profil/{{Auth::user()->username}}/setarilecontului"><span class = "icon">&#128295;</span><span class = "separator"></span>Setarile contului</a></li>
 		<li><a class = "nav-link2" href = "/profil/{{Auth::user()->username}}/mesaje"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Mesaje <?php if(count($snail) != 0)echo '('.count($snail).' noi)'; ?></a></li>
-		<li><a class = "nav-link3" href = "/profil/{{Auth::user()->username}}/modificareimagine"><span class = "icon"><i class="fa fa-picture-o"></i></span><span class = "separator"></span>Modificare imagine</a></li>
-		<li><a class = "nav-link4" href = "/profil/{{Auth::user()->username}}/datepersonale"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Datele Personale</a></li>
-		<li><a class = "nav-link5" href = "/profil/{{Auth::user()->username}}/topicuriproprii"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Topicurile Mele</a></li>
-		<li><a class = "nav-link6" href = "/profil/{{Auth::user()->username}}/raspunsuriproprii"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Raspunsurile Mele</a></li>
+		<li><a class = "nav-link3" href = "/profil/{{Auth::user()->username}}/trimite-mesaj"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Trimite Mesaj</a></li>
+		<li><a class = "nav-link4" href = "/profil/{{Auth::user()->username}}/modificareimagine"><span class = "icon"><i class="fa fa-picture-o"></i></span><span class = "separator"></span>Modificare imagine</a></li>
+		<li><a class = "nav-link5" href = "/profil/{{Auth::user()->username}}/datepersonale"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Datele Personale</a></li>
+		<li><a class = "nav-link6" href = "/profil/{{Auth::user()->username}}/topicuriproprii"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Topicurile Mele</a></li>
+		<li><a class = "nav-link7" href = "/profil/{{Auth::user()->username}}/raspunsuriproprii"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Raspunsurile Mele</a></li>
 	
 	<div class = "arrow-right"></div>
 		<div class = "arrow-right2"></div>
@@ -902,9 +903,15 @@ background-color:white;position:relative;left:40px;"width= "278" height = "230" 
 
 @endif
 
-@if(Auth::user() && Request::segment(1) == 'cautare')
+@if(Auth::check() && Request::segment(1) == 'cautare')
 
 @yield('RezultateCautare')
+
+@endif
+
+@if(Auth::check() && Request::segment(3) == 'trimite-mesaj')
+
+@yield('TrimiteMesaj')
 
 @endif
 </body>

@@ -139,6 +139,10 @@ if(count($dislikes) != 0)
 					<br><br><br>
 						<span ><?php echo wordwrap($parsedown->text($topics->contents), 65, "<br />", true); ?></span><br><br>
 						
+						@foreach($tag as $tags)
+						<span class = "tag label label-info"><a style = "color:black;"href = "/cauta/tags/{{ $tags->nume_tag }}">{{ $tags->nume_tag }}</a></span>
+						@endforeach
+						<br><br>
 					
 					
 					

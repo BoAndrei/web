@@ -1,6 +1,7 @@
 @extends('layouts.PrimaPaginaLayout')
 
-@section('ToateTopicurile')
+@section('TopicSearch')
+<script src = "/js/Search.js"></script>
 <?php 
 function schimba_data_format($data){
   $luni=array("ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie",
@@ -52,7 +53,6 @@ label { display: inline-block; width: 140px; text-align: right; }​
     <option value=""></option>
     <option value="topicuri">Cauta Topicuri</option>
     <option value="raspunsuri">Cauta Raspunsuri</option>
-     <option value="tags">Cauta Tags</option>
 </select>
 
 
@@ -74,8 +74,8 @@ label { display: inline-block; width: 140px; text-align: right; }​
 
 </form>
 
-
     
+		
 		<form id = "TopicForm" method = "POST" action = "/EditTopic">
 			 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<div class="form-group" style = " font-weight: normal;">
@@ -108,7 +108,6 @@ if (strlen($string) > 250) {
 			@endforeach
 
 		
-<div class = "pagination" style = "display:inline-block;">{!! $topics->render() !!}</div>
 	</div>
 
 

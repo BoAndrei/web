@@ -1,6 +1,7 @@
 @extends('layouts.PrimaPaginaLayout')
 
 @section('CautareSite')
+
 <script src = "/js/SiteSearch.js"></script>
 <script type="text/javascript" src="/js/chosen.jquery.js"></script>
 <script type="text/javascript" src="/js/prism.js"></script>
