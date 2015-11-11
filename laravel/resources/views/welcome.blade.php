@@ -3,30 +3,42 @@
     <head>
         <title>Laravel</title>
 
-        <link href="//fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-@include ('js')
+        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
+        <style>
+            html, body {
+                height: 100%;
+            }
 
+            body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                display: table;
+                font-weight: 100;
+                font-family: 'Lato';
+            }
 
+            .container {
+                text-align: center;
+                display: table-cell;
+                vertical-align: middle;
+            }
 
-       <script src = "/js/Search.js"></script>
+            .content {
+                text-align: center;
+                display: inline-block;
+            }
+
+            .title {
+                font-size: 96px;
+            }
+        </style>
     </head>
-
     <body>
         <div class="container">
             <div class="content">
-              <form id = "TopicForm" class = "SearchForm"action = "/search" role="search" method = "POST">
-        <div class="search-group">
-          
-          <input style = "outline:none;border-radius:10px;width:600px;height:60px;font-size:30px;"name = "search" type="text" list = "datalist" class="form-control" id = "search"  autocomplete = "off" placeholder="Cautati topic">
-    
-        </div>
-</form>
-              @foreach($topics as $topic)
-
-              <span id = "topicz">{{ $topic->topic_urlslug }}</span><br>
-
-               @endforeach
+                <div class="title">Laravel 5</div>
             </div>
         </div>
     </body>
