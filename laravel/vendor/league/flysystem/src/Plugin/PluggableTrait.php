@@ -29,7 +29,7 @@ trait PluggableTrait
     }
 
     /**
-     * Find a specific plugin.
+     * Register a plugin.
      *
      * @param string $method
      *

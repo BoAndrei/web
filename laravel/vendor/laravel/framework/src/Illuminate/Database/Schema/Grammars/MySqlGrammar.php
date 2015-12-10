@@ -54,9 +54,7 @@ class MySqlGrammar extends Grammar
     {
         $columns = implode(', ', $this->getColumns($blueprint));
 
-        $sql = $blueprint->temporary ? 'create temporary' : 'create';
-
-        $sql .= ' table '.$this->wrapTable($blueprint)." ($columns)";
+        $sql = 'create table '.$this->wrapTable($blueprint)." ($columns)";
 
         // Once we have the primary SQL, we can add the encoding option to the SQL for
         // the table.  Then, we can check if a storage engine has been supplied for
@@ -82,13 +80,13 @@ class MySqlGrammar extends Grammar
     {
         if (isset($blueprint->charset)) {
             $sql .= ' default character set '.$blueprint->charset;
-        } elseif (! is_null($charset = $connection->getConfig('charset'))) {
+        } elseif (!is_null($charset = $connection->getConfig('charset'))) {
             $sql .= ' default character set '.$charset;
         }
 
         if (isset($blueprint->collation)) {
             $sql .= ' collate '.$blueprint->collation;
-        } elseif (! is_null($collation = $connection->getConfig('collation'))) {
+        } elseif (!is_null($collation = $connection->getConfig('collation'))) {
             $sql .= ' collate '.$collation;
         }
 
@@ -528,7 +526,7 @@ class MySqlGrammar extends Grammar
      */
     protected function typeTimestamp(Fluent $column)
     {
-        if (! $column->nullable && $column->default === null) {
+        if (!$column->nullable) {
             return 'timestamp default 0';
         }
 
@@ -543,7 +541,7 @@ class MySqlGrammar extends Grammar
      */
     protected function typeTimestampTz(Fluent $column)
     {
-        if (! $column->nullable && $column->default === null) {
+        if (!$column->nullable) {
             return 'timestamp default 0';
         }
 
@@ -559,17 +557,6 @@ class MySqlGrammar extends Grammar
     protected function typeBinary(Fluent $column)
     {
         return 'blob';
-    }
-
-    /**
-     * Create the column definition for a uuid type.
-     *
-     * @param  \Illuminate\Support\Fluent  $column
-     * @return string
-     */
-    protected function typeUuid(Fluent $column)
-    {
-        return 'char(36)';
     }
 
     /**
@@ -595,7 +582,7 @@ class MySqlGrammar extends Grammar
      */
     protected function modifyCharset(Blueprint $blueprint, Fluent $column)
     {
-        if (! is_null($column->charset)) {
+        if (!is_null($column->charset)) {
             return ' character set '.$column->charset;
         }
     }
@@ -609,7 +596,7 @@ class MySqlGrammar extends Grammar
      */
     protected function modifyCollate(Blueprint $blueprint, Fluent $column)
     {
-        if (! is_null($column->collation)) {
+        if (!is_null($column->collation)) {
             return ' collate '.$column->collation;
         }
     }
@@ -635,7 +622,7 @@ class MySqlGrammar extends Grammar
      */
     protected function modifyDefault(Blueprint $blueprint, Fluent $column)
     {
-        if (! is_null($column->default)) {
+        if (!is_null($column->default)) {
             return ' default '.$this->getDefaultValue($column->default);
         }
     }
@@ -663,7 +650,7 @@ class MySqlGrammar extends Grammar
      */
     protected function modifyFirst(Blueprint $blueprint, Fluent $column)
     {
-        if (! is_null($column->first)) {
+        if (!is_null($column->first)) {
             return ' first';
         }
     }
@@ -677,7 +664,7 @@ class MySqlGrammar extends Grammar
      */
     protected function modifyAfter(Blueprint $blueprint, Fluent $column)
     {
-        if (! is_null($column->after)) {
+        if (!is_null($column->after)) {
             return ' after '.$this->wrap($column->after);
         }
     }
@@ -691,7 +678,7 @@ class MySqlGrammar extends Grammar
      */
     protected function modifyComment(Blueprint $blueprint, Fluent $column)
     {
-        if (! is_null($column->comment)) {
+        if (!is_null($column->comment)) {
             return ' comment "'.$column->comment.'"';
         }
     }

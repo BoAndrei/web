@@ -17,9 +17,7 @@ class Util
     public static function pathinfo($path)
     {
         $pathinfo = pathinfo($path) + compact('path');
-        $pathinfo['dirname'] = array_key_exists('dirname', $pathinfo)
-            ? static::normalizeDirname($pathinfo['dirname'])
-            : '';
+        $pathinfo['dirname'] = static::normalizeDirname($pathinfo['dirname']);
 
         return $pathinfo;
     }
@@ -91,9 +89,7 @@ class Util
         $normalized = static::normalizeRelativePath($normalized);
 
         if (preg_match('#/\.{2}|^\.{2}/|^\.{2}$#', $normalized)) {
-            throw new LogicException(
-                'Path is outside of the defined root, path: [' . $path . '], resolved: [' . $normalized . ']'
-            );
+            throw new LogicException('Path is outside of the defined root, path: ['.$path.'], resolved: ['.$normalized.']');
         }
 
         $normalized = preg_replace('#\\\{2,}#', '\\', trim($normalized, '\\'));
@@ -134,7 +130,7 @@ class Util
      */
     public static function normalizePrefix($prefix, $separator)
     {
-        return rtrim($prefix, $separator) . $separator;
+        return rtrim($prefix, $separator).$separator;
     }
 
     /**
@@ -185,11 +181,7 @@ class Util
         $listedDirectories = [];
 
         foreach ($listing as $object) {
-            list($directories, $listedDirectories) = static::emulateObjectDirectories(
-                $object,
-                $directories,
-                $listedDirectories
-            );
+            list($directories, $listedDirectories) = static::emulateObjectDirectories($object, $directories, $listedDirectories);
         }
 
         $directories = array_diff(array_unique($directories), array_unique($listedDirectories));
@@ -271,17 +263,13 @@ class Util
      */
     protected static function emulateObjectDirectories(array $object, array $directories, array $listedDirectories)
     {
-        if ($object['type'] === 'dir') {
-            $listedDirectories[] = $object['path'];
-        }
-
         if (empty($object['dirname'])) {
             return [$directories, $listedDirectories];
         }
 
         $parent = $object['dirname'];
 
-        while (! empty($parent) && ! in_array($parent, $directories)) {
+        while (!empty($parent) && !in_array($parent, $directories)) {
             $directories[] = $parent;
             $parent = static::dirname($parent);
         }

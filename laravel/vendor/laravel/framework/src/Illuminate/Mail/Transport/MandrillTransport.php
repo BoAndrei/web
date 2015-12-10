@@ -2,10 +2,13 @@
 
 namespace Illuminate\Mail\Transport;
 
+use Swift_Transport;
 use Swift_Mime_Message;
+use Swift_Events_SendEvent;
+use Swift_Events_EventListener;
 use GuzzleHttp\ClientInterface;
 
-class MandrillTransport extends Transport
+class MandrillTransport extends Transport implements Swift_Transport
 {
     /**
      * Guzzle client instance.
@@ -32,6 +35,30 @@ class MandrillTransport extends Transport
     {
         $this->client = $client;
         $this->key = $key;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isStarted()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function start()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function stop()
+    {
+        return true;
     }
 
     /**
@@ -98,7 +125,7 @@ class MandrillTransport extends Transport
      * Set the API key being used by the transport.
      *
      * @param  string  $key
-     * @return string
+     * @return void
      */
     public function setKey($key)
     {

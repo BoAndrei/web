@@ -42,8 +42,8 @@ class TagProcessorTest extends TestCase
         $record = $processor($this->getRecord());
         $this->assertEquals(array('a', 'b'), $record['extra']['tags']);
 
-        $processor->addTags(array('a', 'c', 'foo' => 'bar'));
+        $processor->addTags(array('a', 'c'));
         $record = $processor($this->getRecord());
-        $this->assertEquals(array('a', 'b', 'a', 'c', 'foo' => 'bar'), $record['extra']['tags']);
+        $this->assertEquals(array('a', 'b', 'c'), $record['extra']['tags']);
     }
 }

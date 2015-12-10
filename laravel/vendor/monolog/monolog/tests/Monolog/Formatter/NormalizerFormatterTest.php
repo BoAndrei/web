@@ -43,7 +43,7 @@ class NormalizerFormatterTest extends \PHPUnit_Framework_TestCase
                 'foo' => '[object] (Monolog\\Formatter\\TestFooNorm: {"foo":"foo"})',
                 'bar' => '[object] (Monolog\\Formatter\\TestBarNorm: bar)',
                 'baz' => array(),
-                'res' => '[resource] (stream)',
+                'res' => '[resource]',
             ),
             'context' => array(
                 'foo' => 'bar',
@@ -219,7 +219,7 @@ class NormalizerFormatterTest extends \PHPUnit_Framework_TestCase
         $result = $formatter->format($record);
 
         $this->assertRegExp(
-            '%"resource":"\[resource\] \(stream\)"%',
+            '%"resource":"\[resource\]"%',
             $result['context']['exception']['trace'][0]
         );
 

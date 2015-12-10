@@ -4,6 +4,7 @@ namespace Illuminate\Foundation\Http;
 
 use Exception;
 use Throwable;
+use RuntimeException;
 use Illuminate\Routing\Router;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Facade;
@@ -157,8 +158,8 @@ class Kernel implements KernelContract
      */
     protected function gatherRouteMiddlewares($request)
     {
-        if ($route = $request->route()) {
-            return $this->router->gatherRouteMiddlewares($route);
+        if ($request->route()) {
+            return $this->router->gatherRouteMiddlewares($request->route());
         }
 
         return [];
@@ -218,7 +219,7 @@ class Kernel implements KernelContract
      */
     public function bootstrap()
     {
-        if (! $this->app->hasBeenBootstrapped()) {
+        if (!$this->app->hasBeenBootstrapped()) {
             $this->app->bootstrapWith($this->bootstrappers());
         }
     }

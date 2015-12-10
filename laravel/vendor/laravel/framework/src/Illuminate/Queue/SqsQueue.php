@@ -23,13 +23,6 @@ class SqsQueue extends Queue implements QueueContract
     protected $default;
 
     /**
-     * The job creator callback.
-     *
-     * @var callable|null
-     */
-    protected $jobCreator;
-
-    /**
      * Create a new Amazon SQS queue instance.
      *
      * @param  \Aws\Sqs\SqsClient  $sqs
@@ -107,25 +100,8 @@ class SqsQueue extends Queue implements QueueContract
         );
 
         if (count($response['Messages']) > 0) {
-            if ($this->jobCreator) {
-                return call_user_func($this->jobCreator, $this->container, $this->sqs, $queue, $response);
-            } else {
-                return new SqsJob($this->container, $this->sqs, $queue, $response['Messages'][0]);
-            }
+            return new SqsJob($this->container, $this->sqs, $queue, $response['Messages'][0]);
         }
-    }
-
-    /**
-     * Define the job creator callback for the connection.
-     *
-     * @param  callable  $callback
-     * @return $this
-     */
-    public function createJobsUsing(callable $callback)
-    {
-        $this->jobCreator = $callback;
-
-        return $this;
     }
 
     /**

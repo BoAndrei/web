@@ -28,10 +28,6 @@ class RouteServiceProvider extends ServiceProvider
             $this->loadCachedRoutes();
         } else {
             $this->loadRoutes();
-
-            $this->app->booted(function () use ($router) {
-                $router->getRoutes()->refreshNameLookups();
-            });
         }
     }
 
@@ -76,7 +72,7 @@ class RouteServiceProvider extends ServiceProvider
      * Load the standard routes file for the application.
      *
      * @param  string  $path
-     * @return mixed
+     * @return void
      */
     protected function loadRoutesFrom($path)
     {
