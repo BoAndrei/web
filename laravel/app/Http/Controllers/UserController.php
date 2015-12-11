@@ -497,10 +497,16 @@ $rezultate = DB::table('users')->join('users_data','users_data_id','=','user_id'
 		}
 
 		public function contactnou() {
-			$data = date("Y-m-d H:i:s", strtotime('+3 hours'));
+			$data = date("Y-m-d H:i:s", strtotime('+2 hours'));
 			DB::table('mesaje_contact')->insert(array( 'mesaj_c_expeditor'=>Auth::user()->user_id, 'mesaj_c_titlu'=>Input::get('subiect'), 'mesaj_c_subiect'=>Input::get('mesaj'), 'mesaj_c_data'=>$data ));
 
 			
+		}
+
+		public function contactraspuns() {
+
+			$data = date("Y-m-d H:i:s", strtotime('+2 hours'));
+			DB::table('mesaje_contact')->where('mesaj_c_id',Input::get('mesaj_c_id'))->update(array('mesaj_c_raspuns'=>Input::get('raspuns'), 'mesaj_c_raspuns_expeditor'=>Auth::user()->user_id, 'mesaj_c_raspuns_data'=>$data, 'mesaj_c_status'=>'1'));
 		}
 
 

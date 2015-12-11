@@ -1525,8 +1525,8 @@ transition: margin-left .30s ease-in-out;
 }
 
 .first-color {
-   background: rgba(204, 204, 204, 0.4);
-    
+   background-color: rgba(220,220,220,0.3);
+
     color: rgba(0,173,236,1);
     text-align: center;
     line-height: 120px;
@@ -1555,6 +1555,27 @@ transition: margin-left .30s ease-in-out;
 }
 
 .client-msg-header span {
+   
+    font-size:14px;
+    font-size:100%;
+    position: relative;
+}
+
+.staff-msg-header {
+   background-color: #e6e6e6;
+    min-height: 170px;
+    height: auto;
+    width: 1100px;
+    margin-left: 120px;
+    padding: 20px;
+    padding-bottom: 5px;
+    font-size: 13px;
+    font-weight: 600 !important;
+    
+
+}
+
+.staff-msg-header span {
    
     font-size:14px;
     font-size:100%;

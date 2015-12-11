@@ -115,6 +115,8 @@ Route::get('/contact','UserController@contact');
 
 Route::post('/contactnou','UserController@contactnou');
 
+Route::post('/contactraspuns','UserController@contactraspuns');
+
 Route::get('/tichete','TichetController@tichete');
 
 Route::get('/tichet/{id}','TichetController@tichet');
