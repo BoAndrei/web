@@ -26,6 +26,9 @@
 
 			
 	</div>
+
+@if($msj->mesaj_c_raspuns != '')
+
 <div class = "staff-msg">
 	
 	<div class = "staff-msg-header">
@@ -63,7 +66,7 @@
 
 
 
-
+@endif
 @endforeach
 </div>
 @stop

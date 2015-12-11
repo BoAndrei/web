@@ -41,26 +41,39 @@
   </script>
 
   
-  <?php /*
-<nav class = "drop">
-	<ul>
-		<li class = "option">Cauta<div id="down-triangle"></div>
-			<ul class = "cautadown">
-				<li><a>Email<div class="circle"></div></a></li>
-				<li><a>Username<div class="circle"></div></a></li>
-				<li><a>Nume<div class="circle"></div></a></li>
-				<li><a>Localitate<div class="circle"></div></a></li>
-				<li><a>NrTelefon<div class="circle"></div></a></li>
-				
-			</ul>
-		</li>
-	</ul>
-</nav>
- */?>
 
 </form>
+<br><br><br><br>
+<table class="table table-striped table-bordered">
 
 
+            <thead>
+                <tr>
+                    <th><a href="supporttickets.php?orderby=date">User</a></th>
+                    <th><a href="supporttickets.php?orderby=dept">Data inscrierii</a></th>
+                    <th><a href="supporttickets.php?orderby=subject">Reputatie</a></th>
+                    <th><a href="supporttickets.php?orderby=status">Status</a></th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach($users as $user)    
+            
+            <tr>
+                    <td>{{ $user->username }}</td>
+                    <td>{{ $user->date_registered }}</td>
+                    <td><div align="left"></div></td>
+                 @if($user->user_status == 0)
+                    <td><span style="color:gray">Offline</span></td>
+                 @else
+                    <td><span style="color:green">Online</span></td>
+                  @endif
+                    <td class="textcenter"><a class = "tableBtn"href="/tichet/">Trimite un mesaj</a></td>
+                </tr>
+          </tbody>
+
+        @endforeach
+</table>
 
 
 

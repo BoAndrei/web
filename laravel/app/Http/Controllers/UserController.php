@@ -476,7 +476,9 @@ $topics = DB::table('topics')->join('replies','topic','=','topic_urlslug')->join
 		}
 
 		public function CautareSite() {
-			return view('CautareSite');
+
+			$users = DB::table('users')->get();
+			return view('CautareSite')->with('users',$users);
 		}
 
 		public function CautareSiteForm() {

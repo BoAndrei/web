@@ -17,11 +17,11 @@
 
 Route::get('register','SessionController@register');
 
-Route::post('register_process','SessionController@StoreRegister');
+Route::post('inregistrare','SessionController@StoreRegister');
 
 Route::get('login','SessionController@login');
 
-Route::post('login_process','SessionController@StoreLogin');
+Route::post('autentificare','SessionController@StoreLogin');
 
 Route::get('logout','SessionController@destroy');
 

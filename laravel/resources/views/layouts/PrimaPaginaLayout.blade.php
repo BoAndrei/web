@@ -115,8 +115,8 @@ window.onload  = progress;
   <a class = "log" href = "/logout" id = "logout" name = "logout">LogOut</a>
                         
 @else
-  <a class = "aut" value = "Autentificare" id = "modal-open-button-a">Autentificare</a>
-  <a class = "reg" value = "Inregistrare" id = "modal-open-button-i">Inregistrare</a>
+  <a class = "aut autentificare" value = "Autentificare"   id = "modal-open-button-a">Autentificare</a>
+  <a class = "reg inregistrare" value = "Inregistrare"   id = "modal-open-button-i">Inregistrare</a>
  
 @endif
 </div>
@@ -163,6 +163,44 @@ window.onload  = progress;
 
 
 
+
+<div class = "autentificareForm">
+<div class = "form-header"><h3>Autentificare</h3></div>
+	<form class = "autform" method = "POST">
+		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+		<div style = "position:absolute"id = "formerror"></div>
+		<br><br>
+		<div class="formgroup">
+				<label class = "coloana" for = "username" >Username:</label>
+			 <div class = "coloana">
+				<input  id = "usernamea" type = "username" name = "username" value="{{ Input::old('username') }}" autocomplete = "off"></input>
+				<div id="eausername"></div>
+			 </div>
+		</div>
+<br>
+		
+		<div class="formgroup">
+				<label class = "coloana" for = "password" >Parola:</label>
+			 <div class = "coloana">
+				<input  id = "passworda" type = "password" name = "password" value="{{ Input::old('password') }}" autocomplete = "off"></input>
+				<div id="eapassword"></div>
+			 </div>
+		</div>
+
+<div class = "checkbox">	
+
+		<input type = "checkbox" name = "remember" id = "remember">
+		<label style = "float:right;"class="label_radio" for = "remember" ><span></span>Tine-ma minte</label>
+
+</div>
+
+<div class = "form-inputs">
+		<input id = "LoginSubmit"type = "submit" class = "btnNou" style = "float:left;margin-left:10px;"value = "Autentifica-ma">
+		<span style = "float:right;margin-right: 10px;">Am uitat parola</span>
+</div>
+	</form>
+</div>
+<!--
 <form style = "outline:0;"  id = "LoginForm" class="form-horizontal" action = "login_process" method = "POST">
 		 
 		 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -196,7 +234,7 @@ window.onload  = progress;
 	<a class = "btnNou" href="recuperareparola">Ti-ai uitat parola ?</a>
 	</form>
 
-
+-->
 
 
 
@@ -433,6 +471,7 @@ background-color:white;position:relative;left:40px;"width= "278" height = "230" 
 		<li><a class = "nav-link5" href = "/profil/{{Auth::user()->username}}/datepersonale"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Datele Personale</a></li>
 		<li><a class = "nav-link6" href = "/profil/{{Auth::user()->username}}/topicuriproprii"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Topicurile Mele</a></li>
 		<li><a class = "nav-link7" href = "/profil/{{Auth::user()->username}}/raspunsuriproprii"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Raspunsurile Mele</a></li>
+		<li><a class = "nav-link8" href = "/tichete"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Tichete</a></li>
 	
 	<div class = "arrow-right"></div>
 		<div class = "arrow-right2"></div>

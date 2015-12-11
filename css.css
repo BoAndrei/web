@@ -82,6 +82,167 @@ blockquote {
   border-color: black;
   padding: 25px 25px 25px 25px;
 }
+.autentificareForm,.inregistrareForm{
+  background-color: white;
+  padding: 50px;
+  width: 550px;
+  left: 400px;
+  position: fixed;
+  display: none;
+  z-index: 9999;
+  border-radius: 7px;
+  outline: none;
+    border: 2px solid #ffffb3;
+    box-shadow: 0 0 10px #ffffb3;
+}
+.autentificareForm label,.inregistrareForm label {
+    text-align: right;
+    clear: both;
+    float:left;
+    margin-right:15px;
+    width: 100px;
+    margin-bottom: 40px;
+
+}
+input {
+  vertical-align:middle;
+   display:inline-block;
+
+}
+label,input {
+   display: inline-block;
+
+}
+/* CHECKBOX */
+
+.checkbox{
+  
+  display: inline-block;
+  
+  
+  position: relative;
+  
+}
+
+.checkbox label {
+  width: 150px;
+  right:0px;
+
+  position: relative;
+  top:25px;
+  cursor: pointer;
+  padding: 10px; 
+  background-color: #f6f6f6;
+    border: 1px solid #ddd;
+    color: #333;
+    text-align: left;
+}
+
+.checkbox label:hover {
+  
+  background-color: #efefef;
+    
+}
+
+input[type="checkbox"] {
+    display:none;
+}
+input[type="checkbox"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    background:url(https://cdn.tutsplus.com/webdesign/uploads/legacy/tuts/391_checkboxes/check_radio_sheet.png) left top no-repeat;
+    cursor:pointer;
+}
+
+input[type="checkbox"]:checked + label span {
+    background:url(https://cdn.tutsplus.com/webdesign/uploads/legacy/tuts/391_checkboxes/check_radio_sheet.png) -19px top no-repeat;
+}
+
+
+
+
+.autform,.inregform {
+  z-index: 9999;
+}
+.formgroup input {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 170px;
+  height: 12px;
+  padding: 10px 20px;
+  overflow: hidden;
+  border: 2px solid #b7b7b7;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  font-family: 'Segoe UI', Frutiger, 'Frutiger Linotype', 'Dejavu Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: bolder;
+  color: rgba(54,55,56,1);
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: rgba(255,255,255,1);
+  -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2) inset;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2) inset;
+ 
+  -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  outline: none;
+
+
+}
+
+.formgroup input:focus{
+  box-shadow: 0 0px 1px 0 rgba(81, 203, 238, 1);
+    border: 2px solid rgba(81, 203, 238, 1);
+}
+
+.form-header h3 {
+  margin: 0;
+    line-height: 30px;
+    color:#ffff33;
+}
+
+.form-header{
+  text-align: center;
+  top:-45px;
+  right:42px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c9de96+0,8ab66b+44,398235+100;Green+3D+%233 */
+background: rgb(201,222,150); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(201,222,150,1) 0%, rgba(138,182,107,1) 44%, rgba(57,130,53,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=0 ); /* IE6-9 */
+
+  border-radius: 7px 7px 0 0;
+    padding: 9px 15px 12px 10px;
+    position: relative;
+    zoom: 1;
+    width: 607px;
+    color:black;
+}
+
+.form-inputs{
+  text-align: center;
+
+
+  margin-top: 70px;
+  margin-bottom: -40px;
+
+    position: relative;
+  right:42px;
+    height: 50px;
+    width: 632px;
+    background: #eee;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    border-radius: 0 0 7px 7px;
+}
 
 .haserror{
 
@@ -117,9 +278,7 @@ blockquote {
 }
 
 .btnNou {
-  -moz-box-shadow: 0px 0px 13px 0px #fff6af;
-  -webkit-box-shadow: 0px 0px 13px 0px #fff6af;
-  box-shadow: 0px 0px 13px 0px #fff6af;
+  
   background-color:#eba823;
   display:inline-block;
   cursor:pointer;
@@ -129,8 +288,8 @@ blockquote {
   font-weight:bold;
   padding:8px 17px;
   text-decoration:none;
-  text-shadow:0px 1px 2px #ffee66;
-  border-radius: 7px;
+  border: 1px solid #993d00;
+  border-radius: 5px;
 }
 .btnNou:hover {
   background-color:#ffd500;
@@ -1525,9 +1684,18 @@ transition: margin-left .30s ease-in-out;
 }
 
 .first-color {
-   background-color: rgba(220,220,220,0.3);
 
-    color: rgba(0,173,236,1);
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cccccc+1,d3d3d3+100&0.59+0,0.13+100 */
+background: -moz-linear-gradient(top,  rgba(204,204,204,0.59) 0%, rgba(204,204,204,0.59) 1%, rgba(211,211,211,0.13) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(204,204,204,0.59) 0%,rgba(204,204,204,0.59) 1%,rgba(211,211,211,0.13) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(204,204,204,0.59) 0%,rgba(204,204,204,0.59) 1%,rgba(211,211,211,0.13) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#96cccccc', endColorstr='#21d3d3d3',GradientType=0 ); /* IE6-9 */
+
+
+
+
+
+  color: rgba(0,173,236,1);
     text-align: center;
     line-height: 120px;
     margin: 0;
@@ -1541,11 +1709,15 @@ transition: margin-left .30s ease-in-out;
   font-weight: 300px;
 }
 
+.client-msg {
+  margin-top:-20px;
+}
+
 .client-msg-header {
    background-color: #f8f8f8;
     min-height: 170px;
     height: auto;
-    width: 1100px;
+    width: 1075px;
     margin-left: 120px;
     padding: 20px;
     padding-bottom: 5px;
@@ -1562,16 +1734,17 @@ transition: margin-left .30s ease-in-out;
 }
 
 .staff-msg-header {
-   background-color: #e6e6e6;
+   background-color: #d1e0e0;
     min-height: 170px;
     height: auto;
-    width: 1100px;
+    width: 1075px;
     margin-left: 120px;
     padding: 20px;
     padding-bottom: 5px;
     font-size: 13px;
     font-weight: 600 !important;
-    
+    color:black;
+
 
 }
 
