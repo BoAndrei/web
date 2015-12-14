@@ -81,7 +81,7 @@ label { display: inline-block;  }​
 
 
 	<tr style = "position:relative;">
-	<td><input class = "questionCheckBox citite" tabindex="1" name = "check[]"type = "checkbox" value = "{{$mesaj->mesaj_id}}">	</td>
+	<td ><input class = "questionCheckBox citite" tabindex="1" name = "check[]"type = "checkbox" value = "{{$mesaj->mesaj_id}}">	</td>
 	<td><a style = "padding:10px;font-weight:normal;color:#5C5C5C;"class = "regular" id = "{{$mesaj->mesaj_id}}" name = "username" value = "{{$mesaj->mesaj_id}}"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}">{{$mesaj->username}}</a></td>
 	<td><a style = "padding:10px;font-weight:normal;color:#5C5C5C;"class = "regular" id = "{{$mesaj->mesaj_id}}" name = "subiect"value = "{{$mesaj->mesaj_id}}"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}"> {{$mesaj->subiect}}</a></td>
 	<td><a style = "padding:10px;font-weight:normal;color:#5C5C5C;"class = "regular" id = "{{$mesaj->mesaj_id}}" name = "data_mesajului"value = "{{$mesaj->mesaj_id}}"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}"><?php $date = new DateTime($mesaj->data_mesajului);$dataa = $date->format('Y-m-d H:i');?>{{ schimba_data_format($dataa) }}<a></td>

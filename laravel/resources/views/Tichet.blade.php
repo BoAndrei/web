@@ -41,7 +41,8 @@
 	</div>
 
 </div>
-	@if(Auth::user()->user_type == 'admin')
+@endif
+	@if(Auth::user()->user_type == 'admin' && $msj->mesaj_c_raspuns == '')
 	<div class = "ContactNou">
 		<form id = "TopicForm" method = "POST" action = "/contactraspuns">
 			 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -52,7 +53,7 @@
 				<textarea class = "message"name = "raspuns" WRAP=HARD cols = "80" rows = "13" ></textarea>
 			
 
-			<input style = "margin-left:20px;position:relative;"type = "submit" class = "btnNou2" value = "Trimite Tichet">
+			<input style = "margin-left:20px;position:relative;"type = "submit" class = "btnNou2" value = "Trimite mesaj">
 		
 
 		</form>
@@ -66,7 +67,7 @@
 
 
 
-@endif
+
 @endforeach
 </div>
 @stop

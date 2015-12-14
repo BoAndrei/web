@@ -464,22 +464,23 @@ background-color:white;position:relative;left:40px;"width= "278" height = "230" 
 		//$huser = DB::table('users')
 		$snail = DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->where('citit','0')->get();
 	?>
-		<li><a class = "nav-link" href = "/profil/{{Auth::user()->username}}/setarilecontului"><span class = "icon">&#128295;</span><span class = "separator"></span>Setarile contului</a></li>
-		<li><a class = "nav-link2" href = "/profil/{{Auth::user()->username}}/mesaje"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Mesaje <?php if(count($snail) != 0)echo '('.count($snail).' noi)'; ?></a></li>
-		<li><a class = "nav-link3" href = "/profil/{{Auth::user()->username}}/trimite-mesaj"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Trimite Mesaj</a></li>
-		<li><a class = "nav-link4" href = "/profil/{{Auth::user()->username}}/modificareimagine"><span class = "icon"><i class="fa fa-picture-o"></i></span><span class = "separator"></span>Modificare imagine</a></li>
-		<li><a class = "nav-link5" href = "/profil/{{Auth::user()->username}}/datepersonale"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Datele Personale</a></li>
-		<li><a class = "nav-link6" href = "/profil/{{Auth::user()->username}}/topicuriproprii"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Topicurile Mele</a></li>
-		<li><a class = "nav-link7" href = "/profil/{{Auth::user()->username}}/raspunsuriproprii"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Raspunsurile Mele</a></li>
-		<li><a class = "nav-link8" href = "/tichete"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Tichete</a></li>
+		<li><a class = "nav-link" href = "/profil/{{Auth::user()->username}}/setarilecontului"><span class = "icon">&#128295;</span><span class = "separator"></span>Setarile contului</a><div class = "arrow-right"></div></li>
+		<li><a class = "nav-link2" href = "/profil/{{Auth::user()->username}}/mesaje"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Mesaje <?php if(count($snail) != 0)echo '('.count($snail).' noi)'; ?></a><div class = "arrow-right2"></div></li>
+		<li><a class = "nav-link3" href = "/profil/{{Auth::user()->username}}/trimite-mesaj"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Trimite Mesaj</a><div class = "arrow-right3"></div></li>
+		<li><a class = "nav-link4" href = "/profil/{{Auth::user()->username}}/modificareimagine"><span class = "icon"><i class="fa fa-picture-o"></i></span><span class = "separator"></span>Modificare imagine</a><div class = "arrow-right4"></div></li>
+		<li><a class = "nav-link5" href = "/profil/{{Auth::user()->username}}/datepersonale"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Datele Personale</a><div class = "arrow-right5"></div></li>
+		<li><a class = "nav-link6" href = "/profil/{{Auth::user()->username}}/topicuriproprii"><span class = "icon"><i class="fa fa-list-alt"></i></span><span class = "separator"></span>Topicurile Mele</a><div class = "arrow-right6"></div></li>
+		<li><a class = "nav-link7" href = "/profil/{{Auth::user()->username}}/raspunsuriproprii"><span class = "icon"><i  class="fa fa-list-alt"></i></span><span class = "separator"></span>Raspunsurile Mele</a><div class = "arrow-right7"></div></li>
+		<li><a class = "nav-link8" href = "/tichete"><span class = "icon"><i class="fa fa-ticket"></i></span><span class = "separator"></span>Tichete</a><div class = "arrow-right8"></div></li>
 	
-	<div class = "arrow-right"></div>
-		<div class = "arrow-right2"></div>
-		<div class = "arrow-right3"></div>
-		<div class = "arrow-right4"></div>
-		<div class = "arrow-right5"></div>
-		<div class = "arrow-right6"></div>
-		<div class = "arrow-right7"></div>
+
+		
+		
+		
+		
+		
+		
+		
 	</ul>
 </div>
 

@@ -1,13 +1,11 @@
 $(document).ready(function(){
 
-
+/*
 $('.nav-link').hover(function () {
 		$('.arrow-right').fadeIn(50);
 
 	});
-		/* $('.nav-link2').hover(function () {
-			$('.arrow-right').animate({'marginTop' : "+=44px"});
-		});*/
+		
 		$('.nav-link').mouseleave(function () {
 		$('.arrow-right').hide(1);
 	});
@@ -53,6 +51,6 @@ $('.nav-link').hover(function () {
 		$('.nav-link7').mouseleave(function () {
 		$('.arrow-right7').hide(1);
 	});
-
+*/
 	
 });
