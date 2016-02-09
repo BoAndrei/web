@@ -2,8 +2,8 @@ $(document).ready(function(){
 
 
 
-
-
+/*
+if(screen.width > 600) { 
 					var slider = $('#slider');
 
 			$('nav').on('mouseenter','a',function(){
@@ -27,7 +27,7 @@ $(document).ready(function(){
 			    left: 0,
 			  },250);
 			});
-
+}*/
 			$('.dropdown').click(function(e){
 				e.preventDefault();
 				$('.dropdown-menu').show();
@@ -130,6 +130,8 @@ $(document).ready(function(){
                             $('#email').css('border-color','green','border-style','solid;');
                             $('#eremail').html('');
                         }
+
+                       
  
                 },
                 statusCode:{

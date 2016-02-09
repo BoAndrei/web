@@ -88,7 +88,7 @@ label { display: inline-block;  }​
 	
 	
 	</tr>
-	  @elseif($mesaj->citit != 1&& $mesaj->destinatar_id == Auth::user()->user_id )
+	  @elseif($mesaj->citit != 1 && $mesaj->destinatar_id == Auth::user()->user_id )
 	
 <tr style = "position:relative;">
 	<td><input class = "questionCheckBox necitite" tabindex="1" name = "check[]"type = "checkbox" value = "{{$mesaj->mesaj_id}}">	</td>

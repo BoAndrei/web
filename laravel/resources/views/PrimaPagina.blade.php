@@ -40,10 +40,12 @@ label { display: inline-block; width: 140px; text-align: right; }​
 
      <script type="text/javascript" src="/js/chosen.jquery.js"></script>
 <script type="text/javascript" src="/js/prism.js"></script>
-<div class = "contain">
+
+
+<div class = "container" >
 <form class="SearchForm form-wrapper cf"name = "searchform"id = "TopicForm" action = "/cauta/" role="search" method = "GET">
 	   <input type="hidden" name="_token" value="{{ csrf_token() }}">
-	
+<?php /*	
 	<input name = "search" type="text" list = "datalist" class="form-control" id = "search"  autocomplete = "off" placeholder="Cautati topic" required>
 	
 	<button  id= "DateSubmit" type = "submit" value = "&#128269;">Search</button>
@@ -71,15 +73,15 @@ label { display: inline-block; width: 140px; text-align: right; }​
       $(selector).chosen(config[selector]);
     }
   </script>
-
+*/?>
 
 </form>
 
 
     
-		<form id = "TopicForm" method = "POST" action = "/EditTopic">
-			 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-	<div class="form-group" style = "">
+		
+			 
+	<div class="col-sm-8">
 		
 	
 			@foreach($topics as $topic)
@@ -94,6 +96,12 @@ if (strlen($string) > 250) {
     $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'...(mai mult)'; 
 }
 			?>
+
+
+
+
+
+
 <div class = "Topicss">
 	<div >
 	<img  style = "float:left;width:50px;height:50px;margin-top:0px;margin-left:0px;position:relative;" src="/{{ $topic->image }}">
@@ -103,9 +111,15 @@ if (strlen($string) > 250) {
 				</div><br>
 				
 				<?php  $var = count(DB::table('replies')->where('topic',$topic->topic_urlslug)->get()); ?>
-					<a style = "color:black;display: inline;font-size:14px;font-weight: 700;" class = "new"id = "" name = "topic"href = "/topic/{{ $topic->categ_urlslug }}/{{ $topic->topic_urlslug }}"><?php echo $string; ?></a>
+				
+				<a style = "color:black;font-size:14px;font-weight: 700;" class = "new"id = "" name = "topic"href = "/topic/{{ $topic->categ_urlslug }}/{{ $topic->topic_urlslug }}">{{ $string }}</a>
+		
+
 				<br><br><a  id = "{{ $topic->topic_id }}"class = "raspunde" href = "/topic/{{ $topic->categ_urlslug }}/{{ $topic->topic_urlslug }}"  style = "text-decoration: none;float:right;">Raspunde<i class="fa fa-arrow-right arrow_{{ $topic->topic_id }} "></i></a>
-				<div style = "font-weight:bold;font-size:13px;float:left"><?php if($var) echo 'Status: <span style = "color:green"> '.$var.' rapunsuri </span>'; else echo 'Status: <span style = "color:red"> Nici un raspuns </span>';?> </div>
+				<div style = "font-weight:bold;font-size:13px;float:left"><?php if($var) echo 'Status: <span style = "color:green"> '.$var.' rapunsuri </span>'; else echo 'Status: <span style = "color:red"> Nici un raspuns </span>'; ?>
+</div>
+				
+
 			
 </div>
 			<br>
@@ -114,18 +128,16 @@ if (strlen($string) > 250) {
 			@endforeach
 
 		
-<div class = "pagination" style = "display:inline-block;">{!! $topics->render() !!}</div>
-	</div>
-
+	<div class = "pagination" style = "display:inline-block;">{!! $topics->render() !!}</div>
+</div>
 
 <br><br>
 
-</form>
+
 
 
 
 </div>
-
 @stop
 
 

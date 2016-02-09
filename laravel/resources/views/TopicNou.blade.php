@@ -19,13 +19,7 @@ function schimba_data_format($data){
 
 <style type="text/css">
 #TopicForm{
-  display: inline-block;
-
-  right: 250px;
-  width: 800px;
-
   padding: 10px;
-  
 }
 
 
@@ -40,14 +34,15 @@ label { display: inline-block; width: 140px; text-align: right; }​
 
 
 
-<div class = "TopicNou">
+<div class = "TopicNou container">
 		
 		<form id = "TopicForm" method = "POST" action = "/EditTopic">
 			 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 
 
-
+<div class="form-group">
+        <div class="col-sm-10"> 
 
 <select  name = "categorie" data-placeholder="Alege categorie..." style="width:170px;" class="categorie chosen-select">
     <option value = ""></option>
@@ -72,32 +67,38 @@ var config = {
     }
 
 </script>
-
+</div>
+</div>
 
 	
 
 
-	<div style = "margin-top:70px;"class="form-group">
-		<div class = "col">
+	<div style = "margin-top:50px;"class="form-group">
+
 			
 
 
-				<div  style="display: inline-block; position: relative;" id = "resizable">						
-					<textarea id = "styled" class = "content-box effect7"name = "Topic" WRAP=HARD cols = "72" rows = "10" placeholder = "Pune o intrebare"></textarea>
+			<div class="form-group">
+        <div class="col-sm-10">					
+					<textarea id = "styled" class = "form-control content-box effect7"name = "Topic" WRAP=HARD cols = "72" rows = "10" placeholder = "Pune o intrebare"></textarea>
 				</div>
+      </div>
 
+<div class="form-group">
+        <div class="col-sm-10"> 
 <select id = "select"name = "tags[]" multiple ></select>
-
+</div>
+</div>
 
 
 <br><br>
+<div class="form-group">
+        <div class="col-sm-10"> 
 <!--
 <input id="finalcount" value="0" disabled />
                <div style = "color:orange" id = "countWords"></div>  -->
-  
-            <h3 style = "text-align:center;color:green;">
-Preview
-          </h3>
+
+            <h3 style = "color:green;">Preview</h3>
   	<div class = "prev">
 			<img  style = "float:left;width:60px;height:60xp;" src="/<?php echo Auth::user()->image; ?>">
 			<span style = "margin-left:5px;">{{ Auth::user()->username }} intreaba:</span><br>
@@ -107,18 +108,26 @@ Preview
 
 		<div class="preview"></div>
 	
+   
+	</div>
+      
+
+
 
 	</div>
+
+</div>
 </div>
 
-		
-	</div>
-
-
-
 <br><br>
-<input style = "margin-left:250px;"class = "btnNou" id= "DateSubmit" type = "submit" value = "Trimite topicul"></input>
-		
+<div class="form-group">
+        <div class="col-sm-10"> 
+<div style = "text-align:center;">
+<input class = "btnNou" id= "DateSubmit" type = "submit" value = "Trimite topicul"></input>
+		</div>
+
+    </div>
+  </div>
 </form>
 
 </div>

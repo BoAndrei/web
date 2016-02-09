@@ -9,6 +9,7 @@ use Session;
 use Illuminate\Contracts\Auth\Guard;
 use Validator;
 use App\Register;
+use App\User;
 use DB;
 use Response;
 use Cookie;
@@ -34,31 +35,32 @@ class SessionController extends Controller {
 	public function StoreRegister()
 {
 	
-	 $user = DB::table('users')->where('username',Input::get('username'))->first();
-	 $email = DB::table('users')->where('email',Input::get('email'))->first();
+	$date = date("d-m-Y H:i:s", strtotime('+3 hours'));
+		$user = User::where('username',Input::get('username'))->first();
+	 	$email = User::where('email',Input::get('email'))->first();
 
-	 if (count($user) == 0 && count($email) == 0)
+		 if (count($user) == 0 && count($email) == 0)
     	{
-    		$data = date("d-m-Y H:i:s", strtotime('+3 hours'));
-        	DB::table('users')->insert(array('username'=>Input::get('username'), 'password'=>Hash::make(Input::get('password')),'email'=>Input::get('email'),'date_registered'=>$data));
-   			
-   			$last_id = DB::table('users')->orderBy('user_id', 'desc')->first();
-   			//die(var_dump($last_id->user_id));
-   			DB::table('users_data')->insert(array('users_data_id'=>$last_id->user_id));
-   			return Response::json(['success' => 'request succeeded'], 200);
-   		}
-   			if(count($user) != 0 && count($email) != 0)
-   				return Response::json(['success' => 'request succeeded'], 406);
+			if(Input::get('username') && Input::get('email') && Input::get('password') && filter_var(Input::get('email'), FILTER_VALIDATE_EMAIL))
+			{
+				User::insert(array( 'username'=>Input::get('username'), 'email'=>Input::get('email'), 'password'=>Hash::make(Input::get('password')), 'date_registered'=>$date ));
+				return Response::json(['success' => 'request succeeded'], 200);
+			}
+
+		}
+		if(count($user) != 0 && count($email) != 0)
+   				return Response::json(['success' => 'request failed'], 406);
    			
    			if (count($user) != 0)
-   			 	return Response::json(['success' => 'request succeeded'], 404);
+   			 	return Response::json(['success' => 'request failed'], 404);
 				
    			
    			if (count($email) != 0)
-   				return Response::json(['success' => 'request succeeded'], 405);
+   				return Response::json(['success' => 'request failed'], 405);
 
-   			
-   
+   			if(!filter_var(Input::get('email'), FILTER_VALIDATE_EMAIL))
+   				return Response::json(['success' => 'request failed'], 400);
+
 }
 
 	public function StoreLogin()

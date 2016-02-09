@@ -1,6 +1,8 @@
 @extends('layouts.PrimaPaginaLayout')
 
 @section('SetarileContului')
+<script type="text/javascript" src="/js/SchimbareParola.js"></script>
+<div class = "container">
 <div class = "SetarileContului">
 <div class = "SchimbareEmail">
 	<div class = "SchimbareEmailWrapper">
@@ -12,28 +14,29 @@
 	
 	<div class="form-group">
 			<label class = "col" for = "EmailActual" >Email Actual:</label>
-	 	<div class = "col">
-			<input style = "font-size:15px;"type = "text" name = "EmailActual" id="EmailActual"value = "<?php $user=Auth::user();echo $user->email; ?>" readonly></input>
-		</div>
+	 	
+			<input class="form-control" style = "font-size:15px;"type = "text" name = "EmailActual" id="EmailActual"value = "<?php $user=Auth::user();echo $user->email; ?>" readonly></input>
+		
 	</div>
 
 	<div class="form-group">
 			<label class = "col" for = "NoulEmail" >Noul Email:</label>
-	 	<div class = "col">
-			<input style = "font-size:15px;"type = "text" name = "NoulEmail" id="NoulEmail"></input>
+	 	
+			<input class="form-control" style = "font-size:15px;"type = "text" name = "NoulEmail" id="NoulEmail"></input>
 		<div style = "vertical-align: top;"id = "eNoulEmail"> </div>
-		</div>
+		
 
 	</div>
 
 	<div class="form-group">
 			<label class = "col" for = "ParolaActuala" >Parola Actuala:</label>
-	 	<div class = "col">
-			<input style = "font-size:15px;"type = "text" name = "ParolaActuala" id="ParolalActuala"></input>
+	 	
+			<input class="form-control" style = "font-size:15px;"type = "text" name = "ParolaActuala" id="ParolalActuala"></input>
 		<div id = "eParolaActuala"></div>
-		</div><br>
-		<input style = "margin-left:0px;"class = "btnNou" id= "EmailSubmit" type = "submit" value = "Modifica"></input>
-
+		<br>
+		<div style = "text-align:center;">
+			<input style = "margin-left:0px;"class = "btnNou" id= "EmailSubmit" type = "submit" value = "Modifica"></input>
+		</div>
 	</div>
 	</form>
 
@@ -52,33 +55,35 @@
 	
 	<div class="form-group">
 			<label class = "col" for = "ParolaActuala2" >Parola Actuala:</label>
-	 	<div class = "col">
-			<input type = "text" name = "ParolaActuala2" id="ParolaActuala2"></input>
+	 	
+			<input class="form-control" type = "text" name = "ParolaActuala2" id="ParolaActuala2"></input>
 		<div id = "eParolaActuala2"></div>
-		</div>
+		
 	</div>
 
 	<div class="form-group">
 			<label class = "col" for = "NouaParola" >Noua Parola:</label>
-	 	<div class = "col">
-			<input type = "text" name = "NouaParola" id="NouaParola"></input>
+	 	
+			<input class="form-control" type = "text" name = "NouaParola" id="NouaParola"></input>
 		<div id = "eNouaParola"></div>
-		</div>
+		
 	</div>
 
 	
 	<div class="form-group">
 			<label class = "col" for = "NouaParola2" >Noua Parola:</label>
-	 	<div class = "col">
-			<input type = "text" name = "NouaParola2" id="NouaParola2"></input>
+	 	
+			<input class="form-control" type = "text" name = "NouaParola2" id="NouaParola2"></input>
 		<div id = "eNouaParola2"></div>
-		</div><br>
-	<input style = "margin-left:0px;"class = "btnNou" id= "ParolaSubmit" type = "submit" value = "Modifica"></input>
+		<br>
+		<div style = "text-align:center;">
+			<input style = "margin-left:0px;"class = "btnNou" id= "ParolaSubmit" type = "submit" value = "Modifica"></input>
+		</div>
 	</div>
 
 </form>
 </div>
 </div>
 </div>
-
+</div>
 @stop

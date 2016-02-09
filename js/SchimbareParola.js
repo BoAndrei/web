@@ -1,6 +1,6 @@
 	$(document).ready(function(){
 		$('#SchimbareParola').click(function () {
-			$('.SchimbareParolaInputs').slideToggle(200);
+			$('#ParolaForm').slideToggle(200);
 	});
 
 		$('#ParolaSubmit').click(function (p){

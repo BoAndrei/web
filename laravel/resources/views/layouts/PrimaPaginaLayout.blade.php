@@ -12,11 +12,24 @@ $parsedown = new Parsedown();
 
 //echo $parsedown->text($text);
  ?>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
 <!-- Bootstrap styles -->
-<?php //<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> ?>
-<!-- Generic page styles -->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+
+
+
 
 <!-- blueimp Gallery styles -->
 <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
@@ -82,7 +95,7 @@ window.onload  = progress;
 
 	<script type="text/javascript" src="/js/jqueryqtip.js"></script>
 	<script type="text/javascript" src="/js/js.js"></script>
-	<script type="text/javascript" src="/js/register.js"></script>
+
 	<script type="text/javascript" src="/js/login.js"></script>
 	<script type="text/javascript" src="/js/arrow.js"></script>
 	<script type="text/javascript" src="/js/jquery.upvote.js"></script>
@@ -90,17 +103,20 @@ window.onload  = progress;
 
 
 	<link href='/css/jqueryqtip.css' rel='stylesheet' />
-<nav>	
+<?php /*
+<nav class="navbar navbar-default">	
 	<div id="slider"></div>
-	<div class = "stanga">
+	<ul class = "navbar">
+		
 
- <a href = "/" value = "Acasa">Acasa</a>
- <a href = "/topicnou/" value = "TopicNou">Topic nou</a>
-  <a href = "/cautaresite/" value = "ToateTopicurile">Cauta User</a>
-  <a href = "/contact" value = "Contact">Contact</a>
-   <a href = "/faq" value = "FAQ">FAQ</a>
-	</div>
-	<div class = "autreg">
+			<li><a href = "/" value = "Acasa">Acasa</a></li>
+			<li><a href = "/topicnou/" value = "TopicNou">Topic nou</a></li>
+			<li><a href = "/cautaresite/" value = "ToateTopicurile">Cauta User</a></li>
+			<li><a href = "/contact" value = "Contact">Contact</a></li>
+			<li><a href = "/faq" value = "FAQ">FAQ</a></li>
+
+		
+
 
 @if (Auth::check())
 
@@ -108,134 +124,183 @@ window.onload  = progress;
 
 
 @if(Auth::user()->user_type == 'admin')
- <a  href = "/admin" id = "logout" name = "admin">Admin Page</a>
+ 			<li><a  href = "/admin" id = "logout" name = "admin">Admin Page</a></li>
 @endif
-<?php echo '<a href="/profil/'.Auth::user()->username.'">Profil</a>'; ?>
+			<li><a href="/profil/{{ Auth::user()->username }}">Profil</a></li>
 
-  <a class = "log" href = "/logout" id = "logout" name = "logout">LogOut</a>
+  			<li><a class = "log" href = "/logout" id = "logout" name = "logout">LogOut</a></li>
                         
 @else
-  <a class = "aut autentificare" value = "Autentificare"   id = "modal-open-button-a">Autentificare</a>
-  <a class = "reg inregistrare" value = "Inregistrare"   id = "modal-open-button-i">Inregistrare</a>
+			<li><a class = "aut autentificare" value = "Autentificare"   id = "modal-open-button-a">Autentificare</a></li>
+			<li><a class = "reg inregistrare" value = "Inregistrare"   id = "modal-open-button-i">Inregistrare</a></li>
  
 @endif
-</div>
+
+ 			<a href="#" id="pull">Menu</a>
+	
+	</ul>
+</nav> */?>
+
+<nav class="navbar navbar-default">
+	<div id="slider"></div>
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <?php //<a class="navbar-brand" href="#">Brand</a> ?>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        	<li><a href = "/" value = "Acasa">Acasa</a></li>
+			<li><a href = "/topicnou/" value = "TopicNou">Topic nou</a></li>
+			<li><a href = "/cautaresite/" value = "ToateTopicurile">Cauta User</a></li>
+			<li><a href = "/contact" value = "Contact">Contact</a></li>
+			<li><a href = "/faq" value = "FAQ">FAQ</a></li>
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        @if (Auth::check())
+
+<?php DB::table('users')->where('user_id',Auth::user()->user_id)->update(array('user_status'=>'1')); ?>
+
+
+@if(Auth::user()->user_type == 'admin')
+ 			<li><a  href = "/admin" id = "logout" name = "admin">Admin Page</a></li>
+@endif
+			<li><a href="/profil/{{ Auth::user()->username }}">Profil</a></li>
+
+  			<li><a class = "log" href = "/logout" id = "logout" name = "logout">LogOut</a></li>
+                        
+@else
+			<li><a class = "aut autentificare" value = "Autentificare"   id = "modal-open-button-a">Autentificare</a></li>
+			<li><a class = "reg inregistrare" value = "Inregistrare"   id = "modal-open-button-i">Inregistrare</a></li>
+ 
+@endif
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
 
-<form style = "outline:0;"  id = "RegisterForm" class="form-horizontal" action = "register_process" method = "POST">
-		 
-		 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-	
-	<input class = "btn-x" id = "modal-close-button-i" type="button" value = "&#10006;">
-
-	<div class="form-group">
-		<label class = "coloana" for = "username" >Username:</label>
-	 <div class = "coloana">
-		<input  id = "username" type = "username" name = "username" value="{{ Input::old('username') }}" autocomplete = "off"></input>
-		
-		<div id="eusername"></div>
-		
-		
-	 </div>
-	</div>
-
-	<div class="form-group">
-		<label class = "coloana" for = "password">Password:</label>
-	 <div class = "coloana">
-		<input id = "password" class="{{ $errors->has('password') ? 'has-error' : '' }}" type = "password" name = "password"value="{{ Input::old('password') }}"></input><br>
-		
-	<div id="epassword"></div>
-	 </div>
-	</div>
-
-	<div class="form-group">
-		<label class = "coloana" for = "email">Email:</label>
-	 <div class = "coloana">
-		<input id = "email" class="{{ $errors->has('email') ? 'has-error' : '' }}" type = "email" name = "email"value="{{ Input::old('email') }}"></input><br>
-		
-		<div id="eemail"></div>
-	 </div>
-	</div>
-		
-		<input class = "btnNou" id= "RegisterSubmit" type = "submit" value = "Inregistrare"></input>
-	</form>
-<div id = "overlay-bg"></div>
 
 
 
 
-<div class = "autentificareForm">
-<div class = "form-header"><h3>Autentificare</h3></div>
-	<form class = "autform" method = "POST">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class = "inregistrareForm container">
+<div class="jumbotron form-header">
+    <p>Inregistrare</p> 
+  </div>
+
+	<form class = "inregform form-horizontal" method = "POST">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
-		<div style = "position:absolute"id = "formerror"></div>
-		<br><br>
-		<div class="formgroup">
-				<label class = "coloana" for = "username" >Username:</label>
-			 <div class = "coloana">
-				<input  id = "usernamea" type = "username" name = "username" value="{{ Input::old('username') }}" autocomplete = "off"></input>
-				<div id="eausername"></div>
+		<div class="form-group">
+				<label for="username" class="col-sm-2 control-label">Username:</label>
+			    <div class="col-sm-10">
+			      <input name = "username"type="username" class="form-control" id="username" placeholder="">
+			    <div id="erusername"></div>
+			    </div>
+		</div>
+
+		<div class="form-group">
+				<label class="col-sm-2 control-label" for = "email" >Parola:</label>
+			 <div class="col-sm-10">
+				<input  class="form-control" id = "email" type = "email" name = "email" value="{{ Input::old('email') }}" autocomplete = "off"></input>
+				<div id="eremail"></div>
 			 </div>
 		</div>
-<br>
+
+		<div class="form-group">
+				<label class="col-sm-2 control-label" for = "passworda" >Parola:</label>
+			 <div class="col-sm-10">
+				<input  class="form-control" id = "passworda" type = "password" name = "password" value="{{ Input::old('password') }}" autocomplete = "off"></input>
+				<div id="erpassword"></div>
+			 </div>
+		</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+       <div class = "form-inputs jumbotron">
+		<input id = "RegisterSubmit"type = "submit" class = "btnNou" value = "Inregistreaza-ma">
 		
-		<div class="formgroup">
-				<label class = "coloana" for = "password" >Parola:</label>
-			 <div class = "coloana">
-				<input  id = "passworda" type = "password" name = "password" value="{{ Input::old('password') }}" autocomplete = "off"></input>
+</div>
+</div>
+</div>
+	</form>
+</div>
+<div id = "overlay-bg"></div> 
+
+
+
+
+<div class = "autentificareForm container">
+
+<div class="jumbotron form-header">
+    <p>Autentificare</p> 
+  </div>
+
+
+	<form class = "autform form-horizontal" method = "POST">
+		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+		<div style = "position:absolute"id = "formerror"></div>
+		
+		<div class="form-group">
+				<label for="inputEmail3" class="col-sm-2 control-label">Username:</label>
+			    <div class="col-sm-10">
+			      <input name = "username"type="username" class="form-control" id="inputEmail3" placeholder="Email">
+			    <div id="eusername"></div>
+			    </div>
+		</div>
+
+		
+		<div class="form-group">
+				<label class="col-sm-2 control-label" for = "password" >Parola:</label>
+			 <div class="col-sm-10">
+				<input  class="form-control" id = "passworda" type = "password" name = "password" value="{{ Input::old('password') }}" autocomplete = "off"></input>
 				<div id="eapassword"></div>
 			 </div>
 		</div>
 
-<div class = "checkbox">	
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+		<div class = "checkbox">	
 
-		<input type = "checkbox" name = "remember" id = "remember">
-		<label style = "float:right;"class="label_radio" for = "remember" ><span></span>Tine-ma minte</label>
+			<input type = "checkbox" name = "remember" id = "remember">
+			<label style = "float:right;"class="label_radio" for = "remember" ><span></span>Tine-ma minte</label>
 
+		</div>
+	</div>
 </div>
 
-<div class = "form-inputs">
-		<input id = "LoginSubmit"type = "submit" class = "btnNou" style = "float:left;margin-left:10px;"value = "Autentifica-ma">
-		<span style = "float:right;margin-right: 10px;">Am uitat parola</span>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+       <div class = "form-inputs jumbotron">
+		<input id = "LoginSubmit"type = "submit" class = "btnNou" style = ""value = "Autentifica-ma">
+		<span style = "">Am uitat parola</span>
+	   </div>
+	</div>
 </div>
+
 	</form>
 </div>
-<!--
-<form style = "outline:0;"  id = "LoginForm" class="form-horizontal" action = "login_process" method = "POST">
-		 
-		 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-	
-	<input class = "btn-x" id = "modal-close-button-a" type="button" value = "&#10006;">
-<div id = "formerror" class = "lol"></div>
-	<div class="form-group">
-		<label class = "coloana" for = "username" >Username:</label>
-	 <div class = "coloana">
-		<input id = "usernamel" type = "username" name = "username" value="{{ Input::old('username') }}" autocomplete = "off"></input>
-		
-		<div id="erusername"></div>
-		
-		
-	 </div>
-	</div>
-
-	<div class="form-group">
-		<label class = "coloana" for = "password">Password:</label>
-	 <div class = "coloana">
-		<input id = "passwordl" class="{{ $errors->has('password') ? 'has-error' : '' }}" type = "password" name = "password"value="{{ Input::old('password') }}"></input><br>
-		
-	<div id="erpassword"></div>
-	 </div><br>
-	 <input style = "cursor:pointer"name = "remember" id = "remember" type = "Checkbox">
-<label style = "cursor:pointer" for = "remember">Remeber me</label><br>
-	</div>
-
-		<br>
-		<input style = "margin-left:200px;"class = "btnNou" id= "LoginSubmit" type = "submit" value = "Autentificare"></input>
-	<a class = "btnNou" href="recuperareparola">Ti-ai uitat parola ?</a>
-	</form>
-
--->
-
 
 
 
@@ -441,47 +506,28 @@ if(Request::segment(5))
 <div class = "PanouControl">
 	
 	
-<?php if(Auth::user()){?>
-<?php if(Auth::user()->image ){?>
-<script src='/js/lightbox.js'></script>
-	<a  data-lightbox="image-1" href = "/<?php echo Auth::user()->image; ?>"><img  style = "padding:8px;
-border:solid;
-border-color: #dddddd #aaaaaa #aaaaaa #dddddd;
-border-width: 1px 2px 2px 1px;
-background-color:white;position:relative;left:40px;"width= "278" height = "230" src="/<?php echo Auth::user()->image; ?>"></a>
-
-
-<?php } else {?>
-
-
-<img width = "300px" height = "300px" id = "thumb" src="/images/noimage.jpg">
-
-<?php }?>
-<?php } else {header('location:/');die();}?>
-	<ul>
+	<ul class="list-inline">
 
 		<?php 
 		//$huser = DB::table('users')
 		$snail = DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->where('citit','0')->get();
 	?>
-		<li><a class = "nav-link" href = "/profil/{{Auth::user()->username}}/setarilecontului"><span class = "icon">&#128295;</span><span class = "separator"></span>Setarile contului</a><div class = "arrow-right"></div></li>
-		<li><a class = "nav-link2" href = "/profil/{{Auth::user()->username}}/mesaje"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Mesaje <?php if(count($snail) != 0)echo '('.count($snail).' noi)'; ?></a><div class = "arrow-right2"></div></li>
-		<li><a class = "nav-link3" href = "/profil/{{Auth::user()->username}}/trimite-mesaj"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Trimite Mesaj</a><div class = "arrow-right3"></div></li>
-		<li><a class = "nav-link4" href = "/profil/{{Auth::user()->username}}/modificareimagine"><span class = "icon"><i class="fa fa-picture-o"></i></span><span class = "separator"></span>Modificare imagine</a><div class = "arrow-right4"></div></li>
-		<li><a class = "nav-link5" href = "/profil/{{Auth::user()->username}}/datepersonale"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span>Datele Personale</a><div class = "arrow-right5"></div></li>
-		<li><a class = "nav-link6" href = "/profil/{{Auth::user()->username}}/topicuriproprii"><span class = "icon"><i class="fa fa-list-alt"></i></span><span class = "separator"></span>Topicurile Mele</a><div class = "arrow-right6"></div></li>
-		<li><a class = "nav-link7" href = "/profil/{{Auth::user()->username}}/raspunsuriproprii"><span class = "icon"><i  class="fa fa-list-alt"></i></span><span class = "separator"></span>Raspunsurile Mele</a><div class = "arrow-right7"></div></li>
-		<li><a class = "nav-link8" href = "/tichete"><span class = "icon"><i class="fa fa-ticket"></i></span><span class = "separator"></span>Tichete</a><div class = "arrow-right8"></div></li>
-	
-
+		<li><a href = "/profil/{{Auth::user()->username}}/setarilecontului"><span class = "icon">&#128295;</span><span class = "separator"></span> Setarile contului</a></li>
 		
-		
-		
-		
-		
+		<li><a href = "/profil/{{Auth::user()->username}}/mesaje"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Mesaje <?php if(count($snail) != 0)echo '('.count($snail).' noi)'; ?></a></li>
+		<li><a href = "/profil/{{Auth::user()->username}}/trimite-mesaj"><span style = "display:inline; "class = "icon">&#128194;</span> <span class = "separator"></span>Trimite Mesaj</a></li>
+		<li><a href = "/profil/{{Auth::user()->username}}/modificareimagine"><span class = "icon"><i class="fa fa-picture-o"></i></span><span class = "separator"></span> Modificare imagine</a></li>
+		<li><a href = "/profil/{{Auth::user()->username}}/datepersonale"><span class = "icon"><i class="fa fa-pencil-square-o"></i></i></span><span class = "separator"></span> Datele Personale</a></li>
+		<li><a href = "/profil/{{Auth::user()->username}}/topicuriproprii"><span class = "icon"><i class="fa fa-list-alt"></i></span><span class = "separator"></span> Topicurile Mele</a></li>
+		<li><a href = "/profil/{{Auth::user()->username}}/raspunsuriproprii"><span class = "icon"><i  class="fa fa-list-alt"></i></span><span class = "separator"></span> Raspunsurile Mele</a></li>
+		<li><a href = "/tichete"><span class = "icon"><i class="fa fa-ticket"></i></span><span class = "separator"></span>Tichete</a><div class = "arrow-right8"></div></li>
 		
 		
 	</ul>
+
+
+
+
 </div>
 
 @yield('SetarileContului')
@@ -503,6 +549,7 @@ background-color:white;position:relative;left:40px;"width= "278" height = "230" 
 @if(Auth::user() && Auth::user()->user_type == 'admin' && Request::segment(1) == 'admin')
 
 <div class = "PanouControl">
+	
 	<ul>
 
 		<?php //else if( Request::segment(1) != 'admin') {header('location: /');die();}
@@ -521,7 +568,7 @@ background-color:white;position:relative;left:40px;"width= "278" height = "230" 
 
 @yield('IntroducereCategorii')
 @endif
-   
+
 @if(Request::path() == 'contact')
 
 @yield('Contact')
@@ -539,12 +586,7 @@ background-color:white;position:relative;left:40px;"width= "278" height = "230" 
 @yield('TopicNou')
 
 @endif
-
-@if(Request::segment(1) == 'toatetopicurile')
-
-@yield('ToateTopicurile')
-
-@endif
+   <?php /*
 
 @if(Auth::user() && Request::segment(1) == 'cauta')
 
@@ -599,5 +641,8 @@ background-color:white;position:relative;left:40px;"width= "278" height = "230" 
 @yield('Tichet')
 
 @endif
+
+
+*/?>
 </body>
 </html>
