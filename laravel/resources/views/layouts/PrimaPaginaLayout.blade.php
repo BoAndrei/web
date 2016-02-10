@@ -532,13 +532,11 @@ if(Request::segment(5))
 
 @yield('SetarileContului')
 
-@yield('Mesaje')
 
-@yield('Mesaj')
 
 @yield('SchimbareImagine')
 
-@yield('DatePersonale')
+
 
 
 
@@ -586,7 +584,7 @@ if(Request::segment(5))
 @yield('TopicNou')
 
 @endif
-   <?php /*
+   
 
 @if(Auth::user() && Request::segment(1) == 'cauta')
 
@@ -624,12 +622,27 @@ if(Request::segment(5))
 
 @endif
 
+
+
 @if(Auth::check() && Request::segment(3) == 'trimite-mesaj')
 
 @yield('TrimiteMesaj')
 
 @endif
 
+@if(Auth::check() && Request::segment(3) == 'datepersonale')
+
+@yield('DatePersonale')
+
+@endif
+
+@if(Auth::check() && Request::segment(3) == 'mesaje')
+
+@yield('Mesaje')
+
+@endif
+
+<?php /*
 @if(Auth::check() && Request::path() == 'tichete')
 
 @yield('Tichete')
@@ -644,5 +657,7 @@ if(Request::segment(5))
 
 
 */?>
+
+
 </body>
 </html>

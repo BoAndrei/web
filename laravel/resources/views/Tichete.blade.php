@@ -36,8 +36,9 @@
 				            @endif
 				            <td class="textcenter"><a class = "tableBtn"href="/tichet/{{ $msj->mesaj_c_id }}">Vezi Tichet</a></td>
 				        </tr>
-					</tbody>
+					
 	@endforeach
+	</tbody>
 </table>
 </div>
 @stop

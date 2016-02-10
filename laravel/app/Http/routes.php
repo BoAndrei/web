@@ -39,7 +39,7 @@ Route::get('profil/{username}/setarilecontului','ProfilController@setarilecontul
 
 Route::get('profil/{username}/mesaje','ProfilController@mesaje');
 
-Route::get('profil/{username}/mesaje/citeste-mesaj/{mesaj_id}','ProfilController@mesaj');
+Route::post('profil/mesaj/{mesaj_id}','ProfilController@mesaj');
 
 Route::get('profil/{username}/mesaje/mesaje-trimise','ProfilController@mesajetrimise');
 

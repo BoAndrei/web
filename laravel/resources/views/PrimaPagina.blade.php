@@ -116,7 +116,7 @@ if (strlen($string) > 250) {
 		
 
 				<br><br><a  id = "{{ $topic->topic_id }}"class = "raspunde" href = "/topic/{{ $topic->categ_urlslug }}/{{ $topic->topic_urlslug }}"  style = "text-decoration: none;float:right;">Raspunde<i class="fa fa-arrow-right arrow_{{ $topic->topic_id }} "></i></a>
-				<div style = "font-weight:bold;font-size:13px;float:left"><?php if($var) echo 'Status: <span style = "color:green"> '.$var.' rapunsuri </span>'; else echo 'Status: <span style = "color:red"> Nici un raspuns </span>'; ?>
+				<div style = "font-weight:bold;font-size:13px;"><?php if($var) echo 'Status: <span style = "color:green"> '.$var.' rapunsuri </span>'; else echo 'Status: <span style = "color:red"> Nici un raspuns </span>'; ?>
 </div>
 				
 

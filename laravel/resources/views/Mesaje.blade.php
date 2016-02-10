@@ -1,25 +1,5 @@
 @extends('layouts.PrimaPaginaLayout')
 
-<style type="text/css">
-
-.regular{
-	color:black;
-	font-weight: bold;
-}
-
-.marker {
-	
-	color:black;
-}
-
-.new {
-	font-weight: normal;
-}
-
-
-
-</style>
-
 
 @section('Mesaje')
 <script type="text/javascript" src = "/js/SiteSearch.js"></script>
@@ -43,48 +23,75 @@ function schimba_data_format($data){
 
 
 ?>
-<style type="text/css">
-#MesajeForm{
-	right: 10px;
+
+<div class = "container">
+
+<table class="table table-hover table-striped">
+	<thead>
+      <tr>
+      	<th></th>
+        <th>Expeditor</th>
+        <th>Subiect</th>
+        <th>Data primirii</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach ($mesaje as $mesaj)
+@if($mesaj->viz_exp != 1)
+               @if($mesaj->citit == 1 && $mesaj->destinatar_id == Auth::user()->user_id )
+
+
+	<tr class = "citite"id = "{{$mesaj->mesaj_id}}"onclick="showMessage({{$mesaj->mesaj_id}});">
+	<td ><input class = "questionCheckBox citite" tabindex="1" name = "check[]"type = "checkbox" value = "{{$mesaj->mesaj_id}}">	</td>
+	<td><a class = "regular" id = "{{$mesaj->mesaj_id}}" name = "username" value = "{{$mesaj->mesaj_id}}">{{$mesaj->username}}</a></td>
+	<td><a class = "regular" id = "{{$mesaj->mesaj_id}}" name = "subiect"value = "{{$mesaj->mesaj_id}}"> {{$mesaj->subiect}}</a></td>
+	<td class = "date"><a class = "date" id = "{{$mesaj->mesaj_id}}" name = "data_mesajului"value = "{{$mesaj->mesaj_id}}"><?php $date = new DateTime($mesaj->data_mesajului);$dataa = $date->format('Y-m-d H:i');?>{{ schimba_data_format($dataa) }}<a></td>
 	
-	position: relative;
 	
-}
-label { display: inline-block;  }​
-</style>
+	</tr>
 
+	<tr class='panel panel-default {{$mesaj->mesaj_id}}' style = "display:none;" >
+        <td colspan='7'>
+            <div class="panel-body">{{ $mesaj->mesaj }}</div>
+        </td>
+    </tr>
 
-
-<div style = "margin-top:-739px"class = "Mesaje">
-
-
-<div style = "width:900px;"class="CSSTableGenerator" >
-<table class="table">
-
-<tbody>
-	<td><i style = "cursor:pointer;"class="fa fa-square-o"></i></td>
+	  @elseif($mesaj->citit != 1 && $mesaj->destinatar_id == Auth::user()->user_id )
 	
-	<div class = "CheckList">
-		<div style = "cursor:pointer;" class = "dropp all">Toate</div>
-		<div style = "cursor:pointer;" class = "dropp necitit">Necitite</div>
-		<div style = "cursor:pointer;" class = "dropp citit">Citite</div>
-	</div>
+<tr class = "necitite" id = "{{$mesaj->mesaj_id}}" onclick="showMessage({{$mesaj->mesaj_id}});">
+	<td><input class = "questionCheckBox necitite" tabindex="1" name = "check[]"type = "checkbox" value = "{{$mesaj->mesaj_id}}">	</td>
+	<td><a style = "font-weight:bold"class = "regular" id = "{{$mesaj->mesaj_id}}" name = "username" value = "{{$mesaj->mesaj_id}}">{{$mesaj->username}}</a></td>
+	<td><a style = "font-weight:bold"class = "regular" id = "{{$mesaj->mesaj_id}}" name = "subiect"value = "{{$mesaj->mesaj_id}}"> {{$mesaj->subiect}}</a></td>
+	<td class = "date"><a style = "font-weight:bold"class = "regular" id = "{{$mesaj->mesaj_id}}" name = "data_mesajului"value = "{{$mesaj->mesaj_id}}"><?php $date = new DateTime($mesaj->data_mesajului);$dataa = $date->format('Y-m-d H:i');?>{{ schimba_data_format($dataa) }}<a></td>
+	
+	</tr>
 
-	<td>Expeditor</td>
-	<td>Subiect</td>
-	<td>Data primirii</td>
-	<form id = "DeleteForm" method = "POST" action = "/stergemesajd">
-			 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    @foreach ($mesaje as $mesaj)
+	<tr class='panel panel-default {{$mesaj->mesaj_id}}' style = "display:none;" >
+        <td colspan='7'>
+            <div class="panel-body">{{ $mesaj->mesaj }}</div>
+        </td>
+    </tr>
+  @endif
+@endif     
+    @endforeach
+    </tbody>
+
+</table>
+</div>
+@stop
+
+<?php /*
+
+ @foreach ($mesaje as $mesaj)
 @if($mesaj->viz_exp != 1)
                @if($mesaj->citit == 1 && $mesaj->destinatar_id == Auth::user()->user_id )
 
 
 	<tr style = "position:relative;">
 	<td ><input class = "questionCheckBox citite" tabindex="1" name = "check[]"type = "checkbox" value = "{{$mesaj->mesaj_id}}">	</td>
-	<td><a style = "padding:10px;font-weight:normal;color:#5C5C5C;"class = "regular" id = "{{$mesaj->mesaj_id}}" name = "username" value = "{{$mesaj->mesaj_id}}"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}">{{$mesaj->username}}</a></td>
-	<td><a style = "padding:10px;font-weight:normal;color:#5C5C5C;"class = "regular" id = "{{$mesaj->mesaj_id}}" name = "subiect"value = "{{$mesaj->mesaj_id}}"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}"> {{$mesaj->subiect}}</a></td>
-	<td><a style = "padding:10px;font-weight:normal;color:#5C5C5C;"class = "regular" id = "{{$mesaj->mesaj_id}}" name = "data_mesajului"value = "{{$mesaj->mesaj_id}}"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}"><?php $date = new DateTime($mesaj->data_mesajului);$dataa = $date->format('Y-m-d H:i');?>{{ schimba_data_format($dataa) }}<a></td>
+	<td><a class = "regular" id = "{{$mesaj->mesaj_id}}" name = "username" value = "{{$mesaj->mesaj_id}}"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}">{{$mesaj->username}}</a></td>
+	<td><a class = "regular" id = "{{$mesaj->mesaj_id}}" name = "subiect"value = "{{$mesaj->mesaj_id}}"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}"> {{$mesaj->subiect}}</a></td>
+	<td><a class = "regular" id = "{{$mesaj->mesaj_id}}" name = "data_mesajului"value = "{{$mesaj->mesaj_id}}"href = "/profil/{{Auth::user()->username}}/mesaje/citeste-mesaj/{{ $mesaj->mesaj_id }}"><?php $date = new DateTime($mesaj->data_mesajului);$dataa = $date->format('Y-m-d H:i');?>{{ schimba_data_format($dataa) }}<a></td>
 	
 	
 	</tr>
@@ -99,15 +106,8 @@ label { display: inline-block;  }​
 	</tr>
   @endif
 @endif     
-    @endforeach<br>
-<input style = "background-color:#EAEAEA;outline:none;position:relative;margin-bottom:20px;"type = "submit" class = "btn" value = "Sterge mesaje">
-</form>
-
-	</div>
-
-	</div>
+    @endforeach
 
 
 
-</div>
-@stop
+*/?>

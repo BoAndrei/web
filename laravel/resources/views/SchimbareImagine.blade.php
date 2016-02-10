@@ -1,6 +1,6 @@
 @extends('layouts.PrimaPaginaLayout')
 @section('SchimbareImagine')
-
+<div class = "container">
 <div class = "SchimbareImagine">
 <?php if(Auth::user()){?>
 <?php if(Auth::user()->image ){?>
@@ -195,4 +195,7 @@
 
 
 </form> */?>
+
+</div>
+</div>
 @stop

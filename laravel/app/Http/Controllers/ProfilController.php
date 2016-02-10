@@ -42,11 +42,14 @@ class ProfilController extends Controller {
 
 		public function mesaj ()
 		{
+
+
 			if(Auth::check())
 						{
-							DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->where('mesaj_id',Request::segment(5))->update(array('citit' => '1'  ));
+							DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->where('mesaj_id',Input::get('id'))->update(array('citit' => '1'  ));
 
-						$mesaj_id = Request::segment(5); $salut = DB::table('mesaje')->where('mesaj_id',$mesaj_id)->first();
+						$mesaj_id = Input::get('id'); 
+						$salut = DB::table('mesaje')->where('mesaj_id',$mesaj_id)->first();
 			$lol = Auth::user()->user_id;
 			if(!$salut)
 			{
@@ -58,8 +61,7 @@ class ProfilController extends Controller {
 			 die();}
 
 
-			 $mesaje = DB::table('mesaje')->where('expeditor_id',Auth::user()->user_id)->orWhere('destinatar_id',Auth::user()->user_id)->join('users','user_id','=','mesaje.expeditor_id')->orderBy('data_mesajului', 'desc')->get();
-				return view('Mesaj')->with('mesaje',$mesaje)->withUsers(User::all());
+			
 			
 						}
 
@@ -108,8 +110,12 @@ class ProfilController extends Controller {
 
 		public function TrimiteMesaj()
 		{
+			if(!Auth::check())
+			{
+				return Redirect::to('/');
+			}
+
 			$users = DB::table('users')->where('user_id','!=',Auth::user()->user_id)->get();
-				
 			return view('TrimiteMesaj')->with('users',$users);
 		}
 

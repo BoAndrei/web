@@ -16,6 +16,8 @@ function schimba_data_format($data){
 
 
 ?>
+<div class = "container">
+
 <div class = "topicurilemele">
 	
 			 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -62,5 +64,5 @@ if (strlen($string) > 250) {
 
 
 </div>
-
+</div>
 @stop

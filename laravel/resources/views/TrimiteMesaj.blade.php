@@ -1,14 +1,8 @@
 @extends('layouts.PrimaPaginaLayout')
 
 @section('TrimiteMesaj')
-<style type="text/css">
-.Mesaje {
-	margin-top:-550px;
-}
 
 
-</style>
-<div class = "Mesaje">
 <script type="text/javascript" src = "/js/SiteSearch.js"></script>
 <script type="text/javascript" src="/js/chosen.jquery.js"></script>
 <script type="text/javascript" src="/js/prism.js"></script>
@@ -31,33 +25,29 @@ function schimba_data_format($data){
 
 ?>
 <style type="text/css">
-#MesajeForm{
-	right: 10px;
-	
-	position: relative;
-	
-}
 
 .MesajeWrapper {
 	background-color: #F8F8F8;	
 }
 
-
 .chosen-container {
-	left:15px;
+	max-width: 290px;
 }
+
+
+
 label { display: inline-block;  }​
 </style>
 
+<div class = "container">
 
-
-<div style = "margin-top:-550px"class = "Mesaje">
+<div class = "Mesaje">
 <div class = "MesajeWrapper">
 <div class = "Compune">Compune un mesaj</div>
 		<form  id = "MesajForm"action = "/TrimiteMesaj" method = "post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	
-			<div class="form-group">
+			
 				
 		 	<div class = "col">
 		<label class = "col" for = "subiect" >Catre:</label><br>
@@ -69,7 +59,7 @@ $('select').chosen({plugins: ['option-adding']});
 </script>
 
 
-<select  name="ids[]" id = "my-select"size="3" data-placeholder="Alege destinatarul..." style="right:50px;width:350px;" multiple class="chosen-select">
+<select  class = "form-control"name="ids[]" id = "my-select"size="3" data-placeholder="Alege destinatarul..." style="right:50px;width:350px;" multiple class="chosen-select">
    @foreach ($users as $usernames)
  
     <option class = "s" value = "{{ $usernames->user_id }}">{{ $usernames->username }}</option>
@@ -95,13 +85,13 @@ $('select').chosen({plugins: ['option-adding']});
 			<div id = "eCatre"></div>
 			</div>
 
-</div><br><br>
+<br><br>
 
 
 			<div class="form-group">
 		 	<div class = "col">
 		 		<label class = "col" for = "subiect" >Subiect:</label><br>
-				<input type = "textarea" name = "subiect" id="subiect"></input>
+				<input class = "form-control"type = "textarea" name = "subiect" id="subiect"></input>
 			<div id = "eSubiect"></div>
 			</div>
 			</div>
@@ -110,14 +100,15 @@ $('select').chosen({plugins: ['option-adding']});
 				
 		 	<div class = "col">
 		 		<label class = "col" for = "mesaj" >Mesaj:</label><br>
-				<textarea style = "resize:none;"id="mesaj" name = "mesaj" rows="10" cols="70"></textarea>
+				<textarea class = "form-control" style = "resize:none;"id="mesaj" name = "mesaj" rows="10" cols="70"></textarea>
 			</div>
 			</div>
-<input style = "margin-left:200px;"class = "btnNou" id= "MesajSubmitt" type = "submit" value = "Trimite mesaj"></input>
-	
+			<div style ="text-align:center;">
+<input class = "btnNou" id= "MesajSubmitt" type = "submit" value = "Trimite mesaj"></input>
+	</div>
 		</form>
 
 </div>
 </div>
-
+</div>
 @stop

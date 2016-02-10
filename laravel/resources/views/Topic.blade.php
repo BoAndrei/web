@@ -125,13 +125,8 @@ if(count($dislikes) != 0)
 
 
 
+	<div class = "container" >
 	
-	<div  id = "TopicForm">
-		
-			
-	
-
-	<div class="form-group">
 		
 				<div class = "topic">
 
@@ -156,7 +151,7 @@ if(count($dislikes) != 0)
 						<span style = "margin-left:5px;">{{ $topics->username }} intreaba:</span><br>
 						<span style = "margin-left:5px;"><?php $date = new DateTime($topics->date_added);$dataa = $date->format('Y-m-d H:i');?>{{ schimba_data_format($dataa) }}</span>
 					<br><br><br>
-						<span style = " line-height: 25px;" ><?php echo wordwrap($parsedown->text($topics->contents), 65, "<br />", true); ?></span><br><br>
+						<span style = " line-height: 25px;" >{{$topics->contents}}</span><br><br>
 						
 						@foreach($tag as $tags)
 						<span class = "tag label label-info"><a style = "color:black;"href = "/cauta/tags/{{ $tags->nume_tag }}">{{ $tags->nume_tag }}</a></span>
@@ -179,17 +174,17 @@ if(count($dislikes) != 0)
 						<form id = "form"class = "" action = "/PostReply" method = "POST">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								
-								<div class = "form-group">
-									<div class = "arrow"></div>
+								
+									
 								
 								<div style="display: inline-block; position: relative;" id = "resizable">
-								<textarea class = "content-box"id = "reply"name = "reply" cols = "40" rows = "10" placeholder = "Raspunde la aceasta intrebare"></textarea>
+								<textarea class = "content-box form-control"id = "reply"name = "reply" cols = "100" rows = "10" placeholder = "Raspunde la aceasta intrebare"></textarea>
 						
 							</div>
 
 							<div class="ui-resizable-handle ui-resizable-s"></div>
 						<input style = "margin-left:20px;position:relative;"type = "submit" class = "btnNou" value = "Raspunde">
-						</div>
+						
 							
 								<input name = "topic_id" type = "hidden" value = "<?php echo Request::segment(3); ?>">
 								
@@ -200,14 +195,14 @@ if(count($dislikes) != 0)
 
 			<br>
 			<?php $topict = DB::table('replies')->where('topic',Request::segment(3))->get();$date = DB::table('replies')->where('topic',Request::segment(3))->orderBy('reply_date_added','DESC')->first(); ?>
-		<div style = "width:625px;padding:20px;background-color:#BDFF7D;border-radius:2px;"class = "raspunsuri">
+		<div class = "raspunsuri">
 
 			<span> Raspunsuri: <?php echo count($topict); ?></span><br>
 			
  
 
 		</div>
-				<br><br><br>
+				<br>
 
 
 				@foreach($replies as $reply)
@@ -224,8 +219,17 @@ if(count($dislikes) != 0)
 
 }
 
+@media screen and (max-width: 768px){
+
+	      #check_{{$reply->reply_id}} {
+			position: relative;
+			margin-left: 0px; 
+		}
+}
+
+
 			</style>
-				
+				<div class = "topic">
 				<?php $vari = 0; if (DB::table('replies')->where('topic',Request::segment(3))->where('acceptat','1')->first()) $vari = DB::table('replies')->where('topic',Request::segment(3))->where('acceptat','1')->first();?>
 		@if(Auth::check() && Auth::user()->user_type == 'admin' || $vari && $reply->reply_id == $vari->reply_id)
 		@if($vari && $reply->reply_id == $vari->reply_id)
@@ -235,7 +239,7 @@ if(count($dislikes) != 0)
 			<a onClick="raspuns_acceptat({{$reply->reply_id}})"name = "check"href = "javascript:void(0);"id = "check_{{$reply->reply_id}}" style = "cursor:pointer;"class="fa fa-check fa-3x acceptat2"></a>
 		@endif
 @endif 
-			<div class = "topic">
+			
 				
 				<div>
 				
@@ -283,8 +287,10 @@ if(count($dislikes) != 0)
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<input name = "topic_id" type = "hidden" value = "<?php echo Request::segment(3); ?>">
 								
-							<textarea class = "content-boxR" name = "reply" cols = "10" rows = "2" placeholder = ""></textarea>
-							<br><input style = "margin-left:250px;position:relative;font-size:13px;padding:6px 13px;"type = "submit" class = "btnNou" value = "Adauga Raspuns">
+							<textarea class = "content-boxR form-control" name = "reply" cols = "10" rows = "2" placeholder = "Raspuns..."></textarea>
+							<div style = "text-align:center;">
+								<br><input style = "position:relative;font-size:13px;padding:6px 13px;"type = "submit" class = "btnNou" value = "Adauga Raspuns">
+							</div>
 							<input name = "reply_id" type = "hidden" value = "{{ $reply->reply_id }}">
 								
 						</form>
@@ -297,7 +303,7 @@ if(count($dislikes) != 0)
 				@endforeach
 			
 
-	</div>
+
 
 
 <br><br>

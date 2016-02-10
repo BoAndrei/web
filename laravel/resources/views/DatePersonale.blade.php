@@ -2,14 +2,14 @@
 
 @section('DatePersonale')
 <style type="text/css">
-#DateForm{
-	margin-top:-70px;
-	display: inline-block;
-	
-}
+
 label { display: inline-block; width: 140px; text-align: right; }​
 </style>
-<div style = "margin-top:-480px;"class = "SetarileContului">
+
+<div class = "container">
+
+<div class = "SetarileContului">
+
 		<form id = "DateForm" method = "POST" action = "/EditDate">
 			 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<div class="form-group">
@@ -166,6 +166,6 @@ if($ziua->sexul == 'Masculin')
 </form>
 </div>
 
-
+</div>
 
 @stop
