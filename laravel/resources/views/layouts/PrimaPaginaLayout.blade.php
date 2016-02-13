@@ -4,7 +4,7 @@
 
 <head>
 
-
+@include('js')
 
 
 <?php require_once '/php/Parsedown.php';
@@ -17,13 +17,13 @@ $parsedown = new Parsedown();
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 
 <!-- Bootstrap styles -->
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 
 
@@ -75,7 +75,7 @@ window.onload  = progress;
 
 	<meta charset="UTF-8">
 
-@include ('js')
+
 <script type="text/javascript">
 
 
@@ -414,65 +414,7 @@ if(Request::segment(2) == Auth::user()->username ){?>
 
 </script>
 
-<script type="text/javascript">
-		
-		$(document).ready(function() {
 
-			$('.Compune').click(function() {
-				$('#MesajeForm').slideToggle(300);
-			});
-
-			$('#MesajSubmit').click(function (a) {
-				a.preventDefault();
-				var form = $('#MesajeForm');
-				var catre = $('#catre').val();
-				var subiect = $('#subiect').val();
-				var user = '<?php echo Auth::user()->username  ?>';
-
-
-			$.ajax({
-				type: 'POST',
-				url: '/TrimiteMesaj',
-				data: form.serialize(),
-				dataType: 'json',
-				timeout: 9000,
-				error:function(data) {
-
-					
-					if(user == catre)
-					{
-						$('#catre').css('border-color','red','border-style','solid;');
-						$('#eCatre').html('<span style="font-size:15px;color:red;">Nu iti poti trimite mesaj tie insuti</span>');
-					}
-
-					else if (catre == '')
-					{
-						$('#catre').css('border-color','red','border-style','solid;');
-						$('#eCatre').html('<span style="font-size:15px;color:red;">Trebuie sa introduci un destinatar</span>');
-					}
-
-
-					if(subiect == '')
-					{
-						$('#subiect').css('border-color','red','border-style','solid;');
-						$('#eSubiect').html('<span style="font-size:15px;color:red;">Trebuie sa intrduci un subiect</span>');
-					
-					}
-				},
-				success:function(data) {
-					window.location.href=window.location.href;
-				}
-
-			});
-
-
-			});
-});
-
-
-
-
-</script>
 <script type="text/javascript">
 
 $(document).ready(function() {

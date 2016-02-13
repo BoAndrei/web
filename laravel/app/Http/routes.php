@@ -39,7 +39,9 @@ Route::get('profil/{username}/setarilecontului','ProfilController@setarilecontul
 
 Route::get('profil/{username}/mesaje','ProfilController@mesaje');
 
-Route::post('profil/mesaj/{mesaj_id}','ProfilController@mesaj');
+Route::get('profil/{username}/mesaje/{room_id}','MesajeController@room');
+
+
 
 Route::get('profil/{username}/mesaje/mesaje-trimise','ProfilController@mesajetrimise');
 

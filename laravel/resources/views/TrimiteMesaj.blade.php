@@ -59,7 +59,7 @@ $('select').chosen({plugins: ['option-adding']});
 </script>
 
 
-<select  class = "form-control"name="ids[]" id = "my-select"size="3" data-placeholder="Alege destinatarul..." style="right:50px;width:350px;" multiple class="chosen-select">
+<select  class = "form-control"name="ids" id = "my-select"size="3" data-placeholder="Alege destinatarul..." style="right:50px;width:350px;" multiple class="chosen-select">
    @foreach ($users as $usernames)
  
     <option class = "s" value = "{{ $usernames->user_id }}">{{ $usernames->username }}</option>

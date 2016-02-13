@@ -33,7 +33,7 @@ class ProfilController extends Controller {
 			if(Auth::check())
 			{
 				$users = DB::table('users')->where('user_id','!=',Auth::user()->user_id)->get();
-				$mesaje = DB::table('mesaje')->where('expeditor_id',Auth::user()->user_id)->orWhere('destinatar_id',Auth::user()->user_id)->join('users','user_id','=','mesaje.expeditor_id')->orderBy('data_mesajului', 'desc')->get();
+				$mesaje = DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->orWhere('expeditor_id',Auth::user()->user_id)->join('users','user_id','=','mesaje.expeditor_id')->orderBy('data_mesajului', 'desc')->get();
 				return view('Mesaje')->with('mesaje',$mesaje)->with('users',$users);
 			
 			}
