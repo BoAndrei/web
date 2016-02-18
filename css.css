@@ -959,7 +959,8 @@ td, th {
 
 .mesaje {
   float: left;
-  min-width:350px;
+ width: 100%;
+  max-width:355px;
 }
 
 .mesaje-panel .chat-messages{

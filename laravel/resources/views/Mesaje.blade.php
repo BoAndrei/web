@@ -88,12 +88,17 @@ function schimba_data_format($data){
 		<div class="panel-body mesaje-panel">
 			<ul class="list-group mesaje">
 			  @foreach ($mesaje as $mesaj)
-			  <input type = "hidden" id = "user" value = "{{Auth::user()->username}}">
-				<input type = "hidden" id = "room_id" value = "{{ $mesaj->room_id }}">
-			  	@if($mesaj->viz_exp != 1)
+				  <input type = "hidden" id = "user" value = "{{Auth::user()->username}}">
+					<input type = "hidden" id = "room_id" value = "{{ $mesaj->room_id }}">
+			 	@if($mesaj->citit != 1)	
 			  		<a onclick = "urlFunction({{$mesaj->room_id}})" class="list-group-item"><span class = "exped">{{ $mesaj->username }}</span><span class="badge"><?php $date = new DateTime($mesaj->data_mesajului);$dataa = $date->format('Y-m-d H:i');?>{{ schimba_data_format($dataa) }}</span></a>
-			  	@endif
+			   	@else
+			   		<a style = "font-weight:normal;"onclick = "urlFunction({{$mesaj->room_id}})" class="list-group-item"><span style = "font-weight:normal;"class = "exped">{{ $mesaj->username }}</span><span style = "font-weight:normal;" class="badge"><?php $date = new DateTime($mesaj->data_mesajului);$dataa = $date->format('Y-m-d H:i');?>{{ schimba_data_format($dataa) }}</span></a>
+			 	@endif
+
 			  @endforeach
+
+			 
 			</ul>
 
 			 <div class="form-control chat-messages"  id="comment"></div>

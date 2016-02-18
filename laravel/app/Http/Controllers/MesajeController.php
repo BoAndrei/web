@@ -11,6 +11,7 @@ use Validator;
 use App\Mesaje;
 use DB;
 use Response;
+use Request;
 
 
 
@@ -48,6 +49,8 @@ class MesajeController extends Controller {
 			//$mesaje = Mesaje::all();
 			if(Auth::check())
 			{
+
+				DB::table('mesaje')->where('room_id',Request::segment(4))->update(array('citit'=>1));
 				$users = DB::table('users')->where('user_id','!=',Auth::user()->user_id)->get();
 				$mesaje = DB::table('mesaje')->where('destinatar_id',Auth::user()->user_id)->orWhere('expeditor_id',Auth::user()->user_id)->join('users','user_id','=','mesaje.expeditor_id')->orderBy('data_mesajului', 'desc')->get();
 				return view('Mesaje')->with('mesaje',$mesaje)->with('users',$users);
