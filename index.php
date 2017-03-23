@@ -38,7 +38,6 @@ if(isset($_GET['reset']))
         <title>Page Title</title>
         <link rel="stylesheet" href="css.css">
 
-
     </head>
     <body>
 
@@ -89,67 +88,67 @@ if(isset($_GET['reset']))
             $count = mysqli_num_rows($result2);
             $a = $count / $perpage;
             $a = ceil($a);
-            
+
             ?>
 
 
             <?php if(isset($_SESSION['cart'])): ?>
                 <?php while($row = mysqli_fetch_assoc($result)): ?>
-                 <?php if(!in_array($row['id_produs'],$_SESSION['cart'])): ?>
-            
+                    <?php if(!in_array($row['id_produs'],$_SESSION['cart'])): ?>
+
                         <tr>
-                        <td><?php echo $row['id_produs'] ?></td>
-                        <td><?php echo $row['nume_produs'] ?></td>
-                        <td><?php echo $row['descriere_produs'] ?></td>
-                        <td><?php echo $row['pret_produs'] ?></td>
-                        <td><img src = "<?php echo $row['imagine_produs']; ?>"</td><td>
+                            <td><?php echo $row['id_produs'] ?></td>
+                            <td><?php echo $row['nume_produs'] ?></td>
+                            <td><?php echo $row['descriere_produs'] ?></td>
+                            <td><?php echo $row['pret_produs'] ?></td>
+                            <td><img src = "<?php echo $row['imagine_produs']; ?>"</td><td>
 
-                        <?php if(isset($_SESSION['user'])): ?>
-                            
+                                <?php if(isset($_SESSION['user'])): ?>
 
 
-                            <a href = "edit.php?id_produs=<?php echo $row['id_produs']; ?>" name = "edit" />Edit information</a><br>
-                            <a class = "confirmation" href = "edit.php?id_produs=<?php echo $row['id_produs']; ?> &delete=1" name = "delete"> Delete product</a><br>
-                          </td>
+
+                                    <a href = "edit.php?id_produs=<?php echo $row['id_produs']; ?>" name = "edit">Edit information</a><br>
+                                    <a class = "confirmation" href = "edit.php?id_produs=<?php echo $row['id_produs']; ?> &delete=1" name = "delete"> Delete product</a><br>
+                                </td>
 
 
                             </tr>
-                            
-                       <?php else: ?>
-                            <a href = "index.php?id_produs=<?php echo $row['id_produs']; ?>" name = "addCart" />Add to cart</a></td>
-                    <?php endif; ?>
-                 <?php endif; ?>
-            <?php endwhile; ?>
-         
-            
-            <?php else: ?>
-                <?php if(!isset( $_SESSION['cart'])): ?>
-                    <?php while($row = mysqli_fetch_assoc($result)): ?>
-                    
-                       
-                        <tr>
 
-                        <td><?php echo $row['id_produs']; ?></td>
-                        <td><?php echo $row['nume_produs'] ?></td>
-                        <td><?php echo $row['descriere_produs'] ?></td>
-                        <td><?php echo $row['pret_produs'] ?></td>
-                        <td><img src ="<?php echo $row['imagine_produs'] ?>"</td>
-                        
-
-                        <?php if(isset($_SESSION['user'])): ?>
-                        <td>
-                            <a href = "edit.php?id_produs=<?php echo $row['id_produs'] ?>" name = "edit" />Edit information</a><br>
-                            <a class = "confirmation" href = "edit.php?id_produs=<?php echo $row['id_produs']; ?> &delete=1" name = "delete" >Delete product</a><br>
-                            </td>
-
-                            </tr>
-                           
-                        <?php else: ?>
-                           <td><a href = "index.php?id_produs=<?php echo $row['id_produs']; ?>" name = "addCart" />Add to cart</a> </td>
+                            <?php else: ?>
+                            <a href = "index.php?id_produs=<?php echo $row['id_produs']; ?>" name = "addCart">Add to cart</a></td>
+                            <?php endif; ?>
                         <?php endif; ?>
                     <?php endwhile; ?>
-                <?php endif; ?>
-           <?php endif; ?>
+
+
+                <?php else: ?>
+                <?php if(!isset( $_SESSION['cart'])): ?>
+                    <?php while($row = mysqli_fetch_assoc($result)): ?>
+
+
+                        <tr>
+
+                            <td><?php echo $row['id_produs']; ?></td>
+                            <td><?php echo $row['nume_produs'] ?></td>
+                            <td><?php echo $row['descriere_produs'] ?></td>
+                            <td><?php echo $row['pret_produs'] ?></td>
+                            <td><img src ="<?php echo $row['imagine_produs'] ?>"</td>
+
+
+                            <?php if(isset($_SESSION['user'])): ?>
+                                <td>
+                                    <a href = "edit.php?id_produs=<?php echo $row['id_produs'] ?>" name = "edit">Edit information</a><br>
+                                    <a class = "confirmation" href = "edit.php?id_produs=<?php echo $row['id_produs']; ?> &delete=1" name = "delete" >Delete product</a><br>
+                                </td>
+
+                            </tr>
+
+                            <?php else: ?>
+                            <td><a href = "index.php?id_produs=<?php echo $row['id_produs']; ?>" name = "addCart">Add to cart</a> </td>
+                            <?php endif; ?>
+                        <?php endwhile; ?>
+                    <?php endif; ?>
+            <?php endif; ?>
 
             <?php
             for($b =1;$b <= $a; $b++)
@@ -160,8 +159,14 @@ if(isset($_GET['reset']))
             ?>
 
         </table>
-        <a style = "float:right;" href= "edit.php">Add a product</a>
+
+        <?php if(isset($_SESSION['user'])): ?>
+
+            <a style = "float:right;" href= "edit.php">Add a product</a>
+
+            <?php endif; ?>
         <br><br><br>
+
 
         <?php if(isset( $_SESSION['cart'])): ?>
 

@@ -1,13 +1,7 @@
 <?php
 session_start();
 include "connect.php";
-
-function sanitize($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+include "checkInputData.php";
 
 $errLogin = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
@@ -15,25 +9,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $username = sanitize($_POST['username']);
     $password = sanitize($_POST['password']);
 
-    //echo $username;
+
 
     $sql = "SELECT * FROM users";
     $result = mysqli_query($con,$sql);
     $row = mysqli_fetch_assoc($result);
 
-    //if($row['username'] === $username && $row['password'] == md5($password)) 
     if($username == ADMIN_USERNAME && $password == ADMIN_PASSWORD)
     {  
         $_SESSION['user'] = $row['username'];
+        unset($_SESSION['cart']);
         header('Location: /');
     }
     else
         $errLogin = "Username or Password are wrong!";
-
-
-
-
-
 }
 ?>
 <!DOCTYPE html>
