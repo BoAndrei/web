@@ -5,26 +5,24 @@ session_start();
 include "connect.php";
 include "checkInputData.php";
 
-function checkInput($data){
-    $data = mysqli_real_escape_string($data);
-    return $data;
-}
-
-
 if(isset($_GET['id_produs']) && !isset($_GET['removeCart']))
 {
-    $_SESSION['cart'][] = $_GET['id_produs'];
+    $_SESSION['cart'][] = sanitizeNumber($_GET['id_produs']);
     header('Location: /');
 
 }
 
 if(isset($_GET['removeCart']))
-{
+{   
     foreach ($_SESSION['cart'] as $key => $value){
-        if ($value == $_GET['id_produs']) {
+        if ($value == sanitizeNumber($_GET['id_produs'])) {
             unset($_SESSION['cart'][$key]);
         }
     }
+
+    if(count($_SESSION['cart']) == 0)
+        unset($_SESSION['cart']);
+
     header('Location: /');
 }
 
@@ -47,14 +45,14 @@ if(isset($_GET['reset']))
         <ul>
 
             <?php if(!isset($_SESSION['user'])): ?>
-            
+
                 <li style="float:right"><a href="login.php">Login</a></li>
-                
-            <?php else: ?>
-            
+
+                <?php else: ?>
+
                 <li style="float:right"><a href="logout.php">Logout</a></li>
-                
-            <?php endif; ?>
+
+                <?php endif; ?>
 
         </ul>
 
@@ -91,64 +89,67 @@ if(isset($_GET['reset']))
             $count = mysqli_num_rows($result2);
             $a = $count / $perpage;
             $a = ceil($a);
-
-
-            if(isset($_SESSION['cart'])) 
-                while($row = mysqli_fetch_assoc($result))
-                {
-                    if(!in_array($row['id_produs'],$_SESSION['cart']))
-                    {
-                        echo '
-                        <tr>
-
-                        <td>'.$row['id_produs'].'</td>
-                        <td>'.$row['nume_produs'].'</td>
-                        <td>'.$row['descriere_produs'].'</td>
-                        <td>'.$row['pret_produs'].'</td>
-                        <td><img src ="'.$row['imagine_produs'].'"</td><td>';
-
-                        if(isset($_SESSION['user']))
-                            echo '
-
-
-                            <a href = "edit.php?id_produs='.$row['id_produs'].'" name = "edit" />Edit information<?a><br>
-                            <a class = "confirmation" href = "edit.php?id_produs='.$row['id_produs'].'&delete=1" name = "delete" />Delete product<?a><br>
-                            <a href = "index.php?id_produs='.$row['id_produs'].'" name = "addCart" />Add to cart<?a></td>
-
-
-                            </tr>
-                            ';
-                        else
-                            echo '<a href = "index.php?id_produs='.$row['id_produs'].'" name = "addCart" />Add to cart<?a></td>';
-                    }
-            }
-            else
-                if(!isset( $_SESSION['cart']))
-                    while($row = mysqli_fetch_assoc($result))
-                    {
-                        echo '
-                        <tr>
-
-                        <td>'.$row['id_produs'].'</td>
-                        <td>'.$row['nume_produs'].'</td>
-                        <td>'.$row['descriere_produs'].'</td>
-                        <td>'.$row['pret_produs'].'</td>
-                        <td><img src ="'.$row['imagine_produs'].'"</td>
-                        ';
-
-                        if(isset($_SESSION['user']))
-                        {echo ' <td>
-                            <a href = "edit.php?id_produs='.$row['id_produs'].'" name = "edit" />Edit information<?a><br>
-                            <a class = "confirmation" href = "edit.php?id_produs='.$row['id_produs'].'&delete=1" name = "delete" />Delete product<?a><br>
-                            <a href = "index.php?id_produs='.$row['id_produs'].'" name = "addCart" />Add to cart<?a></td>
-
-                            </tr>
-                            ';
-                        }else
-                            echo '<a href = "index.php?id_produs='.$row['id_produs'].'" name = "addCart" />Add to cart<?a> </td>';
-
-                }
+            
             ?>
+
+
+            <?php if(isset($_SESSION['cart'])): ?>
+                <?php while($row = mysqli_fetch_assoc($result)): ?>
+                 <?php if(!in_array($row['id_produs'],$_SESSION['cart'])): ?>
+            
+                        <tr>
+                        <td><?php echo $row['id_produs'] ?></td>
+                        <td><?php echo $row['nume_produs'] ?></td>
+                        <td><?php echo $row['descriere_produs'] ?></td>
+                        <td><?php echo $row['pret_produs'] ?></td>
+                        <td><img src = "<?php echo $row['imagine_produs']; ?>"</td><td>
+
+                        <?php if(isset($_SESSION['user'])): ?>
+                            
+
+
+                            <a href = "edit.php?id_produs=<?php echo $row['id_produs']; ?>" name = "edit" />Edit information</a><br>
+                            <a class = "confirmation" href = "edit.php?id_produs=<?php echo $row['id_produs']; ?> &delete=1" name = "delete"> Delete product</a><br>
+                          </td>
+
+
+                            </tr>
+                            
+                       <?php else: ?>
+                            <a href = "index.php?id_produs=<?php echo $row['id_produs']; ?>" name = "addCart" />Add to cart</a></td>
+                    <?php endif; ?>
+                 <?php endif; ?>
+            <?php endwhile; ?>
+         
+            
+            <?php else: ?>
+                <?php if(!isset( $_SESSION['cart'])): ?>
+                    <?php while($row = mysqli_fetch_assoc($result)): ?>
+                    
+                       
+                        <tr>
+
+                        <td><?php echo $row['id_produs']; ?></td>
+                        <td><?php echo $row['nume_produs'] ?></td>
+                        <td><?php echo $row['descriere_produs'] ?></td>
+                        <td><?php echo $row['pret_produs'] ?></td>
+                        <td><img src ="<?php echo $row['imagine_produs'] ?>"</td>
+                        
+
+                        <?php if(isset($_SESSION['user'])): ?>
+                        <td>
+                            <a href = "edit.php?id_produs=<?php echo $row['id_produs'] ?>" name = "edit" />Edit information</a><br>
+                            <a class = "confirmation" href = "edit.php?id_produs=<?php echo $row['id_produs']; ?> &delete=1" name = "delete" >Delete product</a><br>
+                            </td>
+
+                            </tr>
+                           
+                        <?php else: ?>
+                           <td><a href = "index.php?id_produs=<?php echo $row['id_produs']; ?>" name = "addCart" />Add to cart</a> </td>
+                        <?php endif; ?>
+                    <?php endwhile; ?>
+                <?php endif; ?>
+           <?php endif; ?>
 
             <?php
             for($b =1;$b <= $a; $b++)
@@ -157,54 +158,59 @@ if(isset($_GET['reset']))
             }
 
             ?>
-           
+
         </table>
-         <a style = "float:right;" href= "edit.php">Add a product</a>
+        <a style = "float:right;" href= "edit.php">Add a product</a>
         <br><br><br>
 
-        <table style="width:100%">
-            <caption>Cart products</caption>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Image</th>
-                <th>Operation</th>
-            </tr>
-            <?php  
+        <?php if(isset( $_SESSION['cart'])): ?>
 
-            $sql = "SELECT * FROM produse";
-            $result = mysqli_query($con,$sql);
-            
-            while($row = mysqli_fetch_assoc($result))                
-                if(isset( $_SESSION['cart']))
-                    foreach($_SESSION['cart'] as $name)
-                    {if($row['id_produs'] == $name)
-                        echo '
-                        <tr>
+            <table style="width:100%">
+                <caption>Cart products</caption>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th>Operation</th>
+                </tr>
+                <?php  
 
-                        <td>'.$row['id_produs'].'</td>
-                        <td>'.$row['nume_produs'].'</td>
-                        <td>'.$row['descriere_produs'].'</td>
-                        <td>'.$row['pret_produs'].'</td>
-                        <td><img src ="'.$row['imagine_produs'].'"</td>
-                        <td>
+                $sql = "SELECT * FROM produse";
+                $result = mysqli_query($con,$sql);
 
-                        <a href = "index.php?id_produs='.$row['id_produs'].'&removeCart=1" name = "removeCart" />Remove from cart</a>
+                while($row = mysqli_fetch_assoc($result))                
+                    if(isset( $_SESSION['cart']))
+                        foreach($_SESSION['cart'] as $name)
+                        {if($row['id_produs'] == $name)
+                            echo '
+                            <tr>
 
-                        </td>
-                        </tr>
-                        ';
-                }
+                            <td>'.$row['id_produs'].'</td>
+                            <td>'.$row['nume_produs'].'</td>
+                            <td>'.$row['descriere_produs'].'</td>
+                            <td>'.$row['pret_produs'].'</td>
+                            <td><img src ="'.$row['imagine_produs'].'"</td>
+                            <td>
+
+                            <a href = "index.php?id_produs='.$row['id_produs'].'&removeCart=1" name = "removeCart" />Remove from cart</a>
+
+                            </td>
+                            </tr>
+                            ';
+                    }
 
 
 
 
-            ?>
-        </table><br>
-        <a href = "?reset" name = "reset">Reset</a>
-        <a href = "order.php" name = "reset">Order</a><br><br><br><br>
+                ?>
+            </table><br>
+
+
+            <a href = "?reset" name = "reset">Reset</a>
+            <a href = "order.php" name = "reset">Order</a><br><br><br><br>
+            <?php endif; ?>
 
 
 

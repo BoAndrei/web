@@ -1,6 +1,13 @@
 <link rel="stylesheet" href="/css.css">
 <?php 
 session_start();
+
+if(!isset($_SESSION['cart']))
+{
+    header('Location: /');
+    die();
+}
+
 include "connect.php";
 require 'PHPMailer-master/PHPMailerAutoload.php';
 ?>
