@@ -3,101 +3,13 @@
 <?php
 session_start();
 include "connect.php";
+include "checkInputData.php";
 
-
-
-function sanitize($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
+function checkInput($data){
+    $data = mysqli_real_escape_string($data);
     return $data;
 }
 
-if (isset($_FILES["fileToUpload"]["name"])) {
-
-    $target_dir = "uploads/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-
-    $name = $_FILES["fileToUpload"]["name"];
-    $tmp_name = $_FILES['fileToUpload']['tmp_name'];
-
-    $location = 'uploads/';
-
-    if (move_uploaded_file($tmp_name, $location.$name)){
-        echo 'Uploaded';
-    }
-
-
-}
-
-$nameErr = $descriptionErr = $priceErr = $fileErr = "";
-if ($_SERVER["REQUEST_METHOD"] == "POST") 
-{
-    $ok = 1;
-
-
-    if (empty($_POST["name"])) {
-        $nameErr = "Name is required";$ok = 0;
-    } else 
-        $product_name = sanitize($_POST["name"]);
-
-    if (empty($_POST["description"])) {
-        $descriptionErr = "Description is required";$ok = 0;
-    } else 
-        $product_description = sanitize($_POST["description"]);
-
-    if (empty($_POST["price"])) {
-        $priceErr = "Price is required";$ok = 0;
-    } else 
-        {
-            $product_price = sanitize($_POST["price"]);
-             if (preg_match("/^[a-zA-Z ]*$/",$_POST["price"])) {
-             $priceErr = "Only numbers required";$ok = 0;
-        }
-            
-        }
-
-
-    if (isset($_FILES["fileToUpload"]["name"])) {
-
-
-
-        $target_dir = "uploads/";
-        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-        $uploadOk = 1;
-        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-
-
-        $name = $_FILES["fileToUpload"]["name"];
-        $tmp_name = $_FILES['fileToUpload']['tmp_name'];
-
-        $location = 'uploads/';
-
-        if (move_uploaded_file($tmp_name, $location.$name)){
-            echo 'Uploaded';
-        }
-
-    }
-        if (!$_FILES["fileToUpload"]["name"])
-        {
-            $ok = 0;
-            $fileErr = "You must introduce an image";
-        }
-        
-
-
-
-
-
-    if($ok)
-    {  
-        $sql = mysqli_query($con,"INSERT INTO produse (nume_produs, descriere_produs, pret_produs, imagine_produs) VALUES ('$product_name','$product_description','$product_price', '$target_file')");
-        header('Location: /');
-    }
-
-}
 
 if(isset($_GET['id_produs']) && !isset($_GET['removeCart']))
 {
@@ -122,7 +34,6 @@ if(isset($_GET['reset']))
     header('Location: /');
 }
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -147,32 +58,6 @@ if(isset($_GET['reset']))
 
         </ul>
 
-
-        <?php if(isset($_SESSION['user'])):?>
-            <form action = "index.php" method = "POST" enctype="multipart/form-data" >
-                <label for = "name">Name: </label>
-                <input type = "text" name = "name" id = "name"/>
-                <span name = "nameErr"><?php echo $nameErr; ?></span>
-                <br><br>
-
-                <label for = "descriere">Descriprion: </label>
-                <input type = "text" name = "description" id = "descriere"/>
-                <span name = "descriptioneErr"><?php echo $descriptionErr; ?></span>
-                <br><br>
-
-                <label for = "pret">Price: </label>
-                <input type = "text" name = "price" id = "pret"/>
-                <span name = "priceErr"><?php echo $priceErr; ?></span>
-                <br><br>
-
-                <label for = "fileToUpload">Image to upload:</label>
-                <input type="file" name="fileToUpload" id="fileToUpload"><br><br>
-                <span name = "fileErr"><?php echo $fileErr; ?></span><br><br>
-
-
-                <input id = "insert" type = "submit" value = "Add item" />
-            </form>
-        <?php endif; ?>
         <br>
 
         <table style="width:100%">
@@ -226,9 +111,8 @@ if(isset($_GET['reset']))
                             echo '
 
 
-                            <a href = "op.php?id_produs='.$row['id_produs'].'" name = "edit" />Edit information<?a><br>
-                            <a class = "confirmation" href = "op.php?id_produs='.$row['id_produs'].'&delete=1" name = "delete" />Delete product<?a><br>
-                            <a href = "op.php?id_produs='.$row['id_produs'].'&editimg=1" name = "editimg" />Edit the image<?a><br><br>
+                            <a href = "edit.php?id_produs='.$row['id_produs'].'" name = "edit" />Edit information<?a><br>
+                            <a class = "confirmation" href = "edit.php?id_produs='.$row['id_produs'].'&delete=1" name = "delete" />Delete product<?a><br>
                             <a href = "index.php?id_produs='.$row['id_produs'].'" name = "addCart" />Add to cart<?a></td>
 
 
@@ -254,9 +138,8 @@ if(isset($_GET['reset']))
 
                         if(isset($_SESSION['user']))
                         {echo ' <td>
-                            <a href = "op.php?id_produs='.$row['id_produs'].'" name = "edit" />Edit information<?a><br>
-                            <a class = "confirmation" href = "op.php?id_produs='.$row['id_produs'].'&delete=1" name = "delete" />Delete product<?a><br>
-                            <a href = "op.php?id_produs='.$row['id_produs'].'&editimg=1" name = "editimg" />Edit the image<?a><br><br>
+                            <a href = "edit.php?id_produs='.$row['id_produs'].'" name = "edit" />Edit information<?a><br>
+                            <a class = "confirmation" href = "edit.php?id_produs='.$row['id_produs'].'&delete=1" name = "delete" />Delete product<?a><br>
                             <a href = "index.php?id_produs='.$row['id_produs'].'" name = "addCart" />Add to cart<?a></td>
 
                             </tr>
@@ -274,7 +157,9 @@ if(isset($_GET['reset']))
             }
 
             ?>
+           
         </table>
+         <a style = "float:right;" href= "edit.php">Add a product</a>
         <br><br><br>
 
         <table style="width:100%">
@@ -291,6 +176,7 @@ if(isset($_GET['reset']))
 
             $sql = "SELECT * FROM produse";
             $result = mysqli_query($con,$sql);
+            
             while($row = mysqli_fetch_assoc($result))                
                 if(isset( $_SESSION['cart']))
                     foreach($_SESSION['cart'] as $name)
