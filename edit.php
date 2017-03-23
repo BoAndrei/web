@@ -147,22 +147,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             <form action = "edit.php" method = "POST" enctype="multipart/form-data" >
                 <label for = "name">Name: </label>
                 <input type = "text" name = "name" id = "name"/>
-                <span name = "nameErr"><?php echo $nameErr; ?></span>
+                <span name = "nameErr"><?php echo htmlentities($nameErr); ?></span>
                 <br><br>
 
                 <label for = "descriere">Descriprion: </label>
                 <input type = "text" name = "description" id = "descriere"/>
-                <span name = "descriptioneErr"><?php echo $descriptionErr; ?></span>
+                <span name = "descriptioneErr"><?php echo htmlentities($descriptionErr); ?></span>
                 <br><br>
 
                 <label for = "pret">Price: </label>
                 <input type = "text" name = "price" id = "pret"/>
-                <span name = "priceErr"><?php echo $priceErr; ?></span>
+                <span name = "priceErr"><?php echo htmlentities($priceErr); ?></span>
                 <br><br>
 
                 <label for = "fileToUpload">Image to upload:</label>
                 <input type="file" name="fileToUpload" id="fileToUpload"><br><br>
-                <span name = "fileErr"><?php echo $fileErr; ?></span><br><br>
+                <span name = "fileErr"><?php echo htmlentities($fileErr); ?></span><br><br>
 
 
                 <input id = "insert" type = "submit" value = "Add item" />
@@ -185,25 +185,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
             <form id = "form" action = "edit.php?id_produs=<?php echo $id ?>" method = "POST" enctype="multipart/form-data" >
                 <label for = "name">Nume: </label>
-                <input type = "text" name = "nameUpdate" id = "name" value = "<?php echo $row['nume_produs']; ?>"/>
-                <span name = "nameErr"><?php echo $nameErr; ?></span>
+                <input type = "text" name = "nameUpdate" id = "name" value = "<?php echo htmlentities($row['nume_produs']); ?>"/>
+                <span name = "nameErr"><?php echo htmlentities($nameErr); ?></span>
                 <br>
 
                 <label for = "descriere">Descriere: </label>
-                <input type = "text" name = "descriptionUpdate" id = "descriere" value = "<?php echo $row['descriere_produs']; ?>"/>
-                <span name = "descriptioneErr"><?php echo $descriptionErr; ?></span>
+                <input type = "text" name = "descriptionUpdate" id = "descriere" value = "<?php echo htmlentities($row['descriere_produs']); ?>"/>
+                <span name = "descriptioneErr"><?php echo htmlentities($descriptionErr); ?></span>
                 <br>
 
                 <label for = "pret">Pret: </label>
-                <input type = "text" name = "priceUpdate" id = "pret" value = "<?php echo $row['pret_produs'];?>"/>
-                <span name = "priceErr"><?php echo $priceErr; ?></span>
+                <input type = "text" name = "priceUpdate" id = "pret" value = "<?php echo htmlentities($row['pret_produs']);?>"/>
+                <span name = "priceErr"><?php echo htmlentities($priceErr); ?></span>
                 <br>
 
                 <br><br>
 
                 <div>
                     <span>Current image:</span><br><br>
-                    <img src = <?php echo $row['imagine_produs']; ?> />    
+                    <img src = <?php echo htmlentities($row['imagine_produs']); ?> />    
                     <br><br>
 
                 </div>

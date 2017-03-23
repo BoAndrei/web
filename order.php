@@ -44,11 +44,11 @@ require 'PHPMailer-master/PHPMailerAutoload.php';
 
                             <tr>
 
-                                <td><?php echo $row['id_produs']; ?></td>
-                                <td><?php echo $row['nume_produs']; ?></td>
-                                <td><?php echo $row['descriere_produs']; ?></td>
-                                <td><?php echo $row['pret_produs']; ?>'</td>
-                                <td><img src ="<?php echo $row['imagine_produs']; ?> " /></td>
+                                <td><?php echo htmlentities($row['id_produs']); ?></td>
+                                <td><?php echo htmlentities($row['nume_produs']); ?></td>
+                                <td><?php echo htmlentities($row['descriere_produs']); ?></td>
+                                <td><?php echo htmlentities($row['pret_produs']); ?> </td>
+                                <td><img src ="<?php echo htmlentities($row['imagine_produs']); ?>" /></td>
 
                             </tr>
 
@@ -109,15 +109,15 @@ require 'PHPMailer-master/PHPMailerAutoload.php';
 
             <label for = "name">Name:</label>
             <input type = "text" id = "name" name = "name"/>
-            <span class="error"><?php echo $nameErr;?></span><br><br>
+            <span class="error"><?php echo htmlentities($nameErr);?></span><br><br>
 
             <label for = "email">Street information:</label>
             <input type = "text" id = "email" name = "street" />
-            <span class="error"><?php echo $streetErr;?></span><br><br>
+            <span class="error"><?php echo htmlentities($streetErr);?></span><br><br>
 
             <label for = "pnumber">Phone number:</label>
             <input type = "text" id = "pnumber" name = "pnumber"/><br>
-            <span class="error"><?php echo $pnumberErr;?></span><br><br>
+            <span class="error"><?php echo htmlentities($pnumberErr);?></span><br><br>
 
             <input type = "submit" value = "Order" />
 

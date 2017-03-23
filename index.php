@@ -97,18 +97,18 @@ if(isset($_GET['reset']))
                     <?php if(!in_array($row['id_produs'],$_SESSION['cart'])): ?>
 
                         <tr>
-                            <td><?php echo $row['id_produs'] ?></td>
-                            <td><?php echo $row['nume_produs'] ?></td>
-                            <td><?php echo $row['descriere_produs'] ?></td>
-                            <td><?php echo $row['pret_produs'] ?></td>
-                            <td><img src = "<?php echo $row['imagine_produs']; ?>"</td><td>
+                            <td><?php echo htmlentities($row['id_produs']); ?></td>
+                            <td><?php echo htmlentities($row['nume_produs']); ?></td>
+                            <td><?php echo htmlentities($row['descriere_produs']); ?></td>
+                            <td><?php echo htmlentities($row['pret_produs']); ?></td>
+                            <td><img src = "<?php echo htmlentities($row['imagine_produs']); ?>"</td><td>
 
                                 <?php if(isset($_SESSION['user'])): ?>
 
 
 
-                                    <a href = "edit.php?id_produs=<?php echo $row['id_produs']; ?>" name = "edit">Edit information</a><br>
-                                    <a class = "confirmation" href = "edit.php?id_produs=<?php echo $row['id_produs']; ?> &delete=1" name = "delete"> Delete product</a><br>
+                                    <a href = "edit.php?id_produs=<?php echo htmlentities($row['id_produs']); ?>" name = "edit">Edit information</a><br>
+                                    <a class = "confirmation" href = "edit.php?id_produs=<?php echo htmlentities($row['id_produs']); ?> &delete=1" name = "delete"> Delete product</a><br>
                                 </td>
 
 
@@ -128,17 +128,17 @@ if(isset($_GET['reset']))
 
                         <tr>
 
-                            <td><?php echo $row['id_produs']; ?></td>
-                            <td><?php echo $row['nume_produs'] ?></td>
-                            <td><?php echo $row['descriere_produs'] ?></td>
-                            <td><?php echo $row['pret_produs'] ?></td>
-                            <td><img src ="<?php echo $row['imagine_produs'] ?>"</td>
+                            <td><?php echo htmlentities($row['id_produs']); ?></td>
+                            <td><?php echo htmlentities($row['nume_produs']); ?></td>
+                            <td><?php echo htmlentities($row['descriere_produs']); ?></td>
+                            <td><?php echo htmlentities($row['pret_produs']); ?></td>
+                            <td><img src ="<?php echo htmlentities($row['imagine_produs']); ?>"</td>
 
 
                             <?php if(isset($_SESSION['user'])): ?>
                                 <td>
-                                    <a href = "edit.php?id_produs=<?php echo $row['id_produs'] ?>" name = "edit">Edit information</a><br>
-                                    <a class = "confirmation" href = "edit.php?id_produs=<?php echo $row['id_produs']; ?> &delete=1" name = "delete" >Delete product</a><br>
+                                    <a href = "edit.php?id_produs=<?php echo htmlentities($row['id_produs']); ?>" name = "edit">Edit information</a><br>
+                                    <a class = "confirmation" href = "edit.php?id_produs=<?php echo htmlentities($row['id_produs']); ?> &delete=1" name = "delete" >Delete product</a><br>
                                 </td>
 
                             </tr>
@@ -185,31 +185,36 @@ if(isset($_GET['reset']))
                 $sql = "SELECT * FROM produse";
                 $result = mysqli_query($con,$sql);
 
-                while($row = mysqli_fetch_assoc($result))                
-                    if(isset( $_SESSION['cart']))
-                        foreach($_SESSION['cart'] as $name)
-                        {if($row['id_produs'] == $name)
-                            echo '
-                            <tr>
-
-                            <td>'.$row['id_produs'].'</td>
-                            <td>'.$row['nume_produs'].'</td>
-                            <td>'.$row['descriere_produs'].'</td>
-                            <td>'.$row['pret_produs'].'</td>
-                            <td><img src ="'.$row['imagine_produs'].'"</td>
-                            <td>
-
-                            <a href = "index.php?id_produs='.$row['id_produs'].'&removeCart=1" name = "removeCart" />Remove from cart</a>
-
-                            </td>
-                            </tr>
-                            ';
-                    }
-
-
-
-
                 ?>
+
+                <?php while($row = mysqli_fetch_assoc($result)): ?>            
+                    <?php if(isset( $_SESSION['cart'])): ?>
+                        <?php foreach($_SESSION['cart'] as $name): ?>
+                            <?php if($row['id_produs'] == $name): ?>
+
+                                <tr>
+
+                                    <td><?php echo htmlentities($row['id_produs']); ?></td>
+                                    <td><?php echo htmlentities($row['nume_produs']); ?></td>
+                                    <td><?php echo htmlentities($row['descriere_produs']); ?></td>
+                                    <td><?php echo htmlentities($row['pret_produs']); ?></td>
+                                    <td><img src ="<?php echo htmlentities($row['imagine_produs']); ?>"</td>
+                                    <td>
+
+                                        <a href = "index.php?id_produs=<?php echo htmlentities($row['id_produs']); ?>&removeCart=1" name = "removeCart" >Remove from cart</a>
+
+                                    </td>
+                                </tr>
+
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    <?php endwhile; ?>
+
+
+
+
+
             </table><br>
 
 
