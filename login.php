@@ -9,15 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $username = sanitize($_POST['username']);
     $password = sanitize($_POST['password']);
 
-
-
-    $sql = "SELECT * FROM users";
-    $result = mysqli_query($con,$sql);
-    $row = mysqli_fetch_assoc($result);
-
     if($username == ADMIN_USERNAME && $password == ADMIN_PASSWORD)
     {  
-        $_SESSION['user'] = $row['username'];
+        $_SESSION['user'] =  $username;
         unset($_SESSION['cart']);
         header('Location: /');
     }
