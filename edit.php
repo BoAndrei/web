@@ -2,25 +2,31 @@
 include "checkLogin.php";
 include "connect.php";
 include "checkInputData.php";
+include "DRYfunctions.php";
+
 
 $id = "";
 if(isset($_GET['product_id']))
     $id = sanitizeNumber($_GET['product_id']);
+    
+    
+
+ 
+$_SESSION['last_page'][] = $_SERVER['HTTP_REFERER'];
 
 if(isset($_GET['delete']))
 {
-    $sql = $con->prepare("DELETE FROM produse WHERE product_id = ?");
+    $sql = $con->prepare("DELETE FROM products WHERE product_id = ?");
     $sql->bind_param("i",$id);
-    $sql->execute();
+    
+    SqlFinish($con,$sql);
 
-    $sql->close();
-    $con->close();
-
-    header('Location: /');die();
+    header('Location: '.$_SESSION['last_page'][0]);
+    die();
 }
 
 
-    $sql = $con->prepare("SELECT * FROM produse WHERE product_id = ?");
+    $sql = $con->prepare("SELECT * FROM products WHERE product_id = ?");
     $sql->bind_param('i', $id);
 
     $sql->execute();
@@ -51,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         } else 
         {
             $product_price = sanitize($_POST["price"]);
-            if (preg_match("/^[a-zA-Z ]*$/",$_POST["price"])) {
+            if (!is_numeric($_POST["price"])) {
                 $priceErr = "Only numbers required";$ok = 0;
             }
 
@@ -70,10 +76,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         $name = $_FILES["fileToUpload"]["name"];
         $tmp_name = $_FILES['fileToUpload']['tmp_name'];
+        
+        $i = 0;
+           while(file_exists($target_file))
+           {
+               $i++;
+               $target_file = $target_dir . $i . basename($_FILES["fileToUpload"]["name"]);
+               
+               
+           }
+        
+        
+        
+       
 
         $location = 'uploads/';
 
-        if (move_uploaded_file($tmp_name, $location.$name)){
+        if (move_uploaded_file($tmp_name, $location.$i.$name)){
             echo 'Uploaded';
         }
 
@@ -87,6 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 $ok = 0;
             }   
         }
+        
     }  
 
 
@@ -94,28 +114,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     if($ok && !$id)
     {  
-        $sql = $con->prepare("INSERT INTO produse (product_name, product_description, product_price, product_image) VALUES (?, ?, ?, ?)");
+        $sql = $con->prepare("INSERT INTO products (product_name, product_description, product_price, product_image) VALUES (?, ?, ?, ?)");
         $sql->bind_param('ssis',$product_name,$product_description,$product_price,$target_file);
 
-        $sql->execute();
-        $sql->close();
-        $con->close();
+        SqlFinish($con,$sql);
 
-        header('Location: /');die();
+        header('Location: '.$_SESSION['last_page'][0]);
+        die();
     }
 
 
     
         if($ok)
         {   
-            $sql = $con->prepare("UPDATE produse SET product_name=?,product_description=?,product_price=?,product_image=? WHERE product_id=?");
+            $sql = $con->prepare("UPDATE products SET product_name=?,product_description=?,product_price=?,product_image=? WHERE product_id=?");
             $sql->bind_param('ssisi',$product_name,$product_description,$product_price,$target_file,$id);
 
-            $sql->execute();
-            $sql->close();
-            $con->close();
+            SqlFinish($con,$sql);
 
-            header('Location: /');die();
+            header('Location: '.$_SESSION['last_page'][0]);
+            die();
         }
     }
 

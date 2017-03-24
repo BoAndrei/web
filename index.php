@@ -4,6 +4,10 @@
 session_start();
 include "connect.php";
 include "checkInputData.php";
+include "DRYfunctions.php";
+
+
+unset($_SESSION['last_page']);
 
 if(isset($_GET['product_id']) && !isset($_GET['removeCart']))
 {
@@ -20,12 +24,6 @@ if(isset($_GET['removeCart']))
         }
     }
 
-    if(count($_SESSION['cart']) == 1)
-        {
-            unset($_SESSION['cart'][0]);
-
-            unset($_SESSION['cart']);
-        }
 
     header('Location: /');die();
 }
@@ -45,14 +43,19 @@ $perpage = 3;
             else
                 $page1 = ($page*$perpage)-$perpage;
 
-            $sql = "SELECT * FROM produse LIMIT $page1,$perpage";
-            $sql2 = "SELECT * FROM produse";
+            $sql = "SELECT * FROM products LIMIT $page1,$perpage";
+            $sql2 = "SELECT * FROM products";
 
             $result = mysqli_query($con,$sql);
             $result2 = mysqli_query($con,$sql2);
             $count = mysqli_num_rows($result2);
             $a = $count / $perpage;
             $a = ceil($a);
+
+$sql = "SELECT * FROM products";
+$products_result = mysqli_query($con,$sql);
+            
+
 
 ?>
 <!DOCTYPE html>
@@ -70,15 +73,19 @@ $perpage = 3;
 
                 <li style="float:right"><a href="login.php">Login</a></li>
 
-                <?php else: ?>
+            <?php else: ?>
 
                 <li style="float:right"><a href="logout.php">Logout</a></li>
 
-                <?php endif; ?>
+            <?php endif; ?>
 
         </ul>
 
         <br>
+        
+        <?php
+            ob_start();
+        ?>
 
         <table style="width:100%">
             <caption>Cart products</caption>
@@ -89,27 +96,23 @@ $perpage = 3;
                 <th>Image</th>
                 <th>Operation</th>
             </tr>
-
-
+            
+        <?php echo $tableHeader = ob_get_clean(); ?>
+        
                 <?php while($row = mysqli_fetch_assoc($result)): ?>
                     <?php if(!in_array($row['product_id'],$_SESSION['cart'])): ?>
 
                         <tr>
-
-                            <td><?php echo htmlentities($row['product_name']); ?></td>
-                            <td><?php echo htmlentities($row['product_description']); ?></td>
-                            <td><?php echo htmlentities($row['product_price']); ?></td>
-                            <td><img width="150" height="150" src = "<?php echo htmlentities($row['product_image']); ?>"</td><td>
-
+                                 <?php TableBody($row); ?>
+                            <td>
+                            
                                 <?php if(isset($_SESSION['user'])): ?>
-
-
+                                
                                     <a href = "edit.php?product_id=<?php echo htmlentities($row['product_id']); ?>" name = "edit">Edit information</a><br>
-                                    <a class = "confirmation" href = "edit.php?product_id=<?php echo htmlentities($row['product_id']); ?>&delete=1" name = "delete"> Delete product</a><br>
-                                </td>
+                                    <a class = "confirmation" href = "edit.php?product_id=<?php echo htmlentities($row['product_id']); ?>&delete=1" name = "delete">Delete product</a><br>
+                            </td>
 
-
-                            </tr>
+                        </tr>
 
                             <?php else: ?>
                             <a href = "index.php?product_id=<?php echo $row['product_id']; ?>" name = "addCart">Add to cart</a></td>
@@ -122,7 +125,6 @@ $perpage = 3;
             {
                 echo '<a href = "?page='.$b.'"style = "text-decoration:none" href = '.$b.'>'.$b.' </a>';
             }
-
             ?>
 
         </table>
@@ -134,39 +136,19 @@ $perpage = 3;
         <?php endif; ?>
 
         <br><br><br>
+        
 
 
-        <?php if(count( $_SESSION['cart']) > 1): ?>
+        <?php if(count($_SESSION['cart']) > 1): ?>
 
-            <table style="width:100%">
-                <caption>Cart products</caption>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Image</th>
-                    <th>Operation</th>
-                </tr>
-                <?php  
-
-                $sql = "SELECT * FROM produse";
-                $result = mysqli_query($con,$sql);
-
-                ?>
-
-                <?php while($row = mysqli_fetch_assoc($result)): ?>            
-                    <?php if(isset( $_SESSION['cart'])): ?>
+            <?php echo $tableHeader; ?>
+            
+                <?php while($row = mysqli_fetch_assoc($products_result)): ?>            
                         <?php foreach($_SESSION['cart'] as $name): ?>
                             <?php if($row['product_id'] == $name): ?>
 
                                 <tr>
-
-                                    <td><?php echo htmlentities($row['product_id']); ?></td>
-                                    <td><?php echo htmlentities($row['product_name']); ?></td>
-                                    <td><?php echo htmlentities($row['product_description']); ?></td>
-                                    <td><?php echo htmlentities($row['product_price']); ?></td>
-                                    <td><img width="150" height="150" src ="<?php echo htmlentities($row['product_image']); ?>"</td>
+                                    <?php TableBody($row); ?>
                                     <td>
 
                                         <a href = "index.php?product_id=<?php echo htmlentities($row['product_id']); ?>&removeCart=1" name = "removeCart" >Remove from cart</a>
@@ -176,7 +158,6 @@ $perpage = 3;
 
                             <?php endif; ?>
                         <?php endforeach; ?>
-                    <?php endif; ?>
                 <?php endwhile; ?>
 
 

@@ -62,24 +62,24 @@ Phone number: ".$_SESSION['buyer_phonenumber']."<br><br>
 </tr>
 
 ";
-$sql = "SELECT * FROM produse";
+$sql = "SELECT * FROM products";
 $result = mysqli_query($con,$sql);
 
 while($row = mysqli_fetch_assoc($result)) 
 {  
     if(isset( $_SESSION['cart']))
     {foreach($_SESSION['cart'] as $name)
-        if($row['id_produs'] == $name)
+        if($row['product_id'] == $name)
         {
 
             $mail->Body .=  '<tr>';
-            $mail->AddEmbeddedImage($row['imagine_produs'], 'logoimg'.$row['imagine_produs'].'');
+            $mail->AddEmbeddedImage($row['product_image'], 'logoimg'.$row['product_image'].'');
             $mail->Body .= 
-            "<td>".$row['id_produs']."</td>
-            <td>".$row['nume_produs']."</td>
-            <td>".$row['descriere_produs']."</td>
-            <td>".$row['pret_produs']."</td>
-            <td><img src ='cid:logoimg".$row['imagine_produs']."'</td></tr>";
+            "<td>".$row['product_id']."</td>
+            <td>".$row['product_name']."</td>
+            <td>".$row['product_description']."</td>
+            <td>".$row['product_price']."</td>
+            <td><img src ='cid:logoimg".$row['product_image']."'</td></tr>";
 
 
         }
@@ -102,5 +102,6 @@ if(!$mail->send()) {
 }
 
 
-header('Location: /');die();
+header('Location: /');
 unset($_SESSION['cart']);
+die();
