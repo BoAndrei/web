@@ -5,17 +5,17 @@ session_start();
 include "connect.php";
 include "checkInputData.php";
 
-if(isset($_GET['id_produs']) && !isset($_GET['removeCart']))
+if(isset($_GET['product_id']) && !isset($_GET['removeCart']))
 {
-    $_SESSION['cart'][] = sanitizeNumber($_GET['id_produs']);
-    header('Location: /');
+    $_SESSION['cart'][] = sanitizeNumber($_GET['product_id']);
+    header('Location: /');die();
 
 }
-$_SESSION['cart'][0] = 'a'; 
+$_SESSION['cart'][0] = 'a';
 if(isset($_GET['removeCart']))
 {   
     foreach ($_SESSION['cart'] as $key => $value){
-        if ($value == sanitizeNumber($_GET['id_produs'])) {
+        if ($value == sanitizeNumber($_GET['product_id'])) {
             unset($_SESSION['cart'][$key]);
         }
     }
@@ -27,14 +27,33 @@ if(isset($_GET['removeCart']))
             unset($_SESSION['cart']);
         }
 
-    header('Location: /');
+    header('Location: /');die();
 }
 
 if(isset($_GET['reset']))
 {
     unset($_SESSION['cart']);
-    header('Location: /');
+    header('Location: /');die();
 }
+
+$perpage = 3;
+            if(isset($_GET['page']))
+                $page = $_GET['page'];
+
+            if(!isset($_GET['page']) || $page == 1 || $page == 0)
+                $page1 = 0;
+            else
+                $page1 = ($page*$perpage)-$perpage;
+
+            $sql = "SELECT * FROM produse LIMIT $page1,$perpage";
+            $sql2 = "SELECT * FROM produse";
+
+            $result = mysqli_query($con,$sql);
+            $result2 = mysqli_query($con,$sql2);
+            $count = mysqli_num_rows($result2);
+            $a = $count / $perpage;
+            $a = ceil($a);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,7 +83,6 @@ if(isset($_GET['reset']))
         <table style="width:100%">
             <caption>Cart products</caption>
             <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Descriprion</th>
                 <th>Price</th>
@@ -73,52 +91,28 @@ if(isset($_GET['reset']))
             </tr>
 
 
-            <?php
-
-            $perpage = 3;
-            if(isset($_GET['page']))
-                $page = $_GET['page'];
-
-            if(!isset($_GET['page']) || $page == 1 || $page == 0)
-                $page1 = 0;
-            else
-                $page1 = ($page*$perpage)-$perpage;
-
-            $sql = "SELECT * FROM produse LIMIT $page1,$perpage";
-            $sql2 = "SELECT * FROM produse";
-
-            $result = mysqli_query($con,$sql);
-            $result2 = mysqli_query($con,$sql2);
-            $count = mysqli_num_rows($result2);
-            $a = $count / $perpage;
-            $a = ceil($a);
-
-            ?>
-
-
-
                 <?php while($row = mysqli_fetch_assoc($result)): ?>
-                    <?php if(!in_array($row['id_produs'],$_SESSION['cart'])): ?>
+                    <?php if(!in_array($row['product_id'],$_SESSION['cart'])): ?>
 
                         <tr>
-                            <td><?php echo htmlentities($row['id_produs']); ?></td>
-                            <td><?php echo htmlentities($row['nume_produs']); ?></td>
-                            <td><?php echo htmlentities($row['descriere_produs']); ?></td>
-                            <td><?php echo htmlentities($row['pret_produs']); ?></td>
-                            <td><img width="150" height="150" src = "<?php echo htmlentities($row['imagine_produs']); ?>"</td><td>
+
+                            <td><?php echo htmlentities($row['product_name']); ?></td>
+                            <td><?php echo htmlentities($row['product_description']); ?></td>
+                            <td><?php echo htmlentities($row['product_price']); ?></td>
+                            <td><img width="150" height="150" src = "<?php echo htmlentities($row['product_image']); ?>"</td><td>
 
                                 <?php if(isset($_SESSION['user'])): ?>
 
 
-                                    <a href = "edit.php?id_produs=<?php echo htmlentities($row['id_produs']); ?>" name = "edit">Edit information</a><br>
-                                    <a class = "confirmation" href = "edit.php?id_produs=<?php echo htmlentities($row['id_produs']); ?>&delete=1" name = "delete"> Delete product</a><br>
+                                    <a href = "edit.php?product_id=<?php echo htmlentities($row['product_id']); ?>" name = "edit">Edit information</a><br>
+                                    <a class = "confirmation" href = "edit.php?product_id=<?php echo htmlentities($row['product_id']); ?>&delete=1" name = "delete"> Delete product</a><br>
                                 </td>
 
 
                             </tr>
 
                             <?php else: ?>
-                            <a href = "index.php?id_produs=<?php echo $row['id_produs']; ?>" name = "addCart">Add to cart</a></td>
+                            <a href = "index.php?product_id=<?php echo $row['product_id']; ?>" name = "addCart">Add to cart</a></td>
                             <?php endif; ?>
                         <?php endif; ?>
                     <?php endwhile; ?>
@@ -137,7 +131,8 @@ if(isset($_GET['reset']))
 
             <a style = "float:right;" href= "edit.php">Add a product</a>
 
-            <?php endif; ?>
+        <?php endif; ?>
+
         <br><br><br>
 
 
@@ -163,26 +158,26 @@ if(isset($_GET['reset']))
                 <?php while($row = mysqli_fetch_assoc($result)): ?>            
                     <?php if(isset( $_SESSION['cart'])): ?>
                         <?php foreach($_SESSION['cart'] as $name): ?>
-                            <?php if($row['id_produs'] == $name): ?>
+                            <?php if($row['product_id'] == $name): ?>
 
                                 <tr>
 
-                                    <td><?php echo htmlentities($row['id_produs']); ?></td>
-                                    <td><?php echo htmlentities($row['nume_produs']); ?></td>
-                                    <td><?php echo htmlentities($row['descriere_produs']); ?></td>
-                                    <td><?php echo htmlentities($row['pret_produs']); ?></td>
-                                    <td><img width="150" height="150" src ="<?php echo htmlentities($row['imagine_produs']); ?>"</td>
+                                    <td><?php echo htmlentities($row['product_id']); ?></td>
+                                    <td><?php echo htmlentities($row['product_name']); ?></td>
+                                    <td><?php echo htmlentities($row['product_description']); ?></td>
+                                    <td><?php echo htmlentities($row['product_price']); ?></td>
+                                    <td><img width="150" height="150" src ="<?php echo htmlentities($row['product_image']); ?>"</td>
                                     <td>
 
-                                        <a href = "index.php?id_produs=<?php echo htmlentities($row['id_produs']); ?>&removeCart=1" name = "removeCart" >Remove from cart</a>
+                                        <a href = "index.php?product_id=<?php echo htmlentities($row['product_id']); ?>&removeCart=1" name = "removeCart" >Remove from cart</a>
 
                                     </td>
                                 </tr>
 
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    <?php endwhile; ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                <?php endwhile; ?>
 
 
 

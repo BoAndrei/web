@@ -1,7 +1,0 @@
-!.gitignore
-.idea
-.DS_Store
-Thumbs.db
-.sass-cache
-node_modules
-*.log
