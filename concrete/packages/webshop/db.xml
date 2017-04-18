@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+        xmlns="http://www.concrete5.org/doctrine-xml/0.5"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.concrete5.org/doctrine-xml/0.5 http://concrete5.github.io/doctrine-xml/doctrine-xml-0.5.xsd">
+
+<table name="products">
+        <field name="id" type="integer" size="10">
+            <unsigned/>
+            <autoincrement/>
+            <key/>
+        </field>
+        <field name="name" type="string" size="64">
+            <notnull/>
+        </field>
+        <field name="description" type="string" size="254">
+            <notnull/>
+        </field>
+        <field name="price" type="integer" size="10">
+            <default value="0"/>
+            <notnull/>
+        </field>
+        <field name="fID" type="integer" size="10">
+            <unsigned/>
+        </field>
+
+    </table>
+</schema>
